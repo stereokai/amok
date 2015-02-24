@@ -2,7 +2,7 @@
 
 ## Synopsis
 ```
-  amok [options] <entry>
+  amok [options] <script>
 ```
 
 ## Description
