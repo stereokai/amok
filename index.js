@@ -5,7 +5,7 @@ var fs = require('fs');
 var path = require('path');
 var mime = require('mime');
 var chokidar = require('chokidar');
-var rdbg = require('./rdbg');
+var rdbg = require('rdbg');
 
 function serve(options, callback) {
   var server = http.createServer(function(request, response) {
