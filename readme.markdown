@@ -24,7 +24,7 @@ written in JavaScript targeting the browser, code without having to reload the c
     When set to a executable, will be opened after the server has been spun up.
     
   BUNDLER
-    When set to an executable, will be used to bundle and serve scripts.
+    When set to an executable, will be used to bundle scripts.
 ```
 
 ## Usage
