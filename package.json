@@ -9,7 +9,7 @@
     "rdbg.js"
   ],
   "bin": {
-    "veer": "cmd.js"
+    "amok": "cmd.js"
   },
   "dependencies": {
     "chokidar": "^1.0.0-rc3",
