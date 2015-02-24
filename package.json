@@ -1,5 +1,5 @@
 {
-  "name": "veer",
+  "name": "ankh",
   "version": "0.0.0",
   "description": "A development server with realtime live editing feedback",
   "main": "index.js",
