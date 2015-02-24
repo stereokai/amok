@@ -4,6 +4,7 @@ var child = require('child_process');
 var fs = require('fs');
 var path = require('path');
 var mime = require('mime');
+var chokidar = require('chokidar');
 
 function serve(options, callback) {
   var server = http.createServer(function(request, response) {
@@ -48,11 +49,24 @@ function bundle(options, callback) {
   return child.exec(cmd, callback);
 }
 
+function watch(options, callback) {
+  var watcher = chokidar.watch(options.cwd, {
+    ignored: /[\/\\]\./, persistent: true
+  });
+  
+  if (callback) {
+    watcher.once('ready', callback);
+  }
+  
+  return watcher;
+}
+
 function browse(options, callback) {
   var cmd = util.format('%s http://%s:%d', options.browser, options.host, options.port);
   return child.exec(cmd, callback);
 }
 
 module.exports.serve = serve;
+module.exports.watch = watch;
 module.exports.bundle = bundle;
 module.exports.browse = browse;

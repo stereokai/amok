@@ -32,6 +32,19 @@ if (cmd.bundler) {
   });
 }
 
+var watcher = veer.watch(cmd, function() {
+  for (var script in cmd.scripts) {
+    var filename = cmd.scripts[script];
+    watcher.add(filename);
+    console.log(filename);
+  }
+  
+  watcher.on('change', function(filename) {
+    console.log(filename, 'changed');
+  });
+});
+
+
 // serve scripts and resources
 var server = veer.serve(cmd, function() {
   if (cmd.browser) {
