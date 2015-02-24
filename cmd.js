@@ -1,5 +1,5 @@
 var cmd = require('commander');
-var ankh = require('./');
+var amok = require('./');
 var temp = require('temp');
 
 var pkg = require('./package.json');
@@ -27,12 +27,12 @@ if (cmd.bundler) {
   cmd.args.push('-o');
   cmd.args.push(cmd.scripts['bundle.js']);
 
-  ankh.bundle(cmd, function() {
+  amok.bundle(cmd, function() {
     console.log('bundler');
   });
 }
 
-var watcher = ankh.watch(cmd, function() {
+var watcher = amok.watch(cmd, function() {
   for (var script in cmd.scripts) {
     var filename = cmd.scripts[script];
     watcher.add(filename);
@@ -40,7 +40,7 @@ var watcher = ankh.watch(cmd, function() {
 });
 
 setTimeout(function() {
-  var bugger = ankh.debug(cmd, function() {
+  var bugger = amok.debug(cmd, function() {
     watcher.on('change', function(filename) {
       var script = Object.keys(cmd.scripts).filter(function(key) { return cmd.scripts[key] === filename})[0];
       if (script) {
@@ -54,9 +54,9 @@ setTimeout(function() {
 }, 500);
 
 // serve scripts and resources
-var server = ankh.serve(cmd, function() {
+var server = amok.serve(cmd, function() {
   if (cmd.browser) {
-    var browser = ankh.browse(cmd, function() {
+    var browser = amok.browse(cmd, function() {
     });
   }
 });
