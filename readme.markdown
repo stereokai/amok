@@ -3,4 +3,6 @@ Amok is a command line tool for rapid prototyping and development of application
 written in JavaScript targeting the browser, code without having to reload the client.
 
 ## Synopsis
-amok [options] <entry>
+```
+  amok [options] <entry>
+```
