@@ -36,14 +36,22 @@ var watcher = veer.watch(cmd, function() {
   for (var script in cmd.scripts) {
     var filename = cmd.scripts[script];
     watcher.add(filename);
-    console.log(filename);
   }
-  
-  watcher.on('change', function(filename) {
-    console.log(filename, 'changed');
-  });
 });
 
+setTimeout(function() {
+  var bugger = veer.debug(cmd, function() {
+    watcher.on('change', function(filename) {
+      var script = Object.keys(cmd.scripts).filter(function(key) { return cmd.scripts[key] === filename})[0];
+      if (script) {
+        console.log('re-compiling', script);
+        bugger.source(script, null, function() {
+          console.log('success');
+        });
+      }
+    });
+  });
+}, 500);
 
 // serve scripts and resources
 var server = veer.serve(cmd, function() {

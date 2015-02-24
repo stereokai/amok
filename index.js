@@ -5,6 +5,7 @@ var fs = require('fs');
 var path = require('path');
 var mime = require('mime');
 var chokidar = require('chokidar');
+var rdbg = require('./rdbg');
 
 function serve(options, callback) {
   var server = http.createServer(function(request, response) {
@@ -51,7 +52,7 @@ function bundle(options, callback) {
 
 function watch(options, callback) {
   var watcher = chokidar.watch(options.cwd, {
-    ignored: /[\/\\]\./, persistent: true
+    ignored: '/[\/\\]\./', persistent: true
   });
   
   if (callback) {
@@ -61,12 +62,27 @@ function watch(options, callback) {
   return watcher;
 }
 
+function debug(options, callback) {
+  var bugger = rdbg.connect(9222, 'localhost', function(targets) {
+    var target = targets.filter(function(target) {
+      return target.url.indexOf(options.host) > -1;
+    })[0];
+    
+    bugger.attach(target, callback);
+  });
+  
+  return bugger;
+}
+
 function browse(options, callback) {
   var cmd = util.format('%s http://%s:%d', options.browser, options.host, options.port);
+  
+  console.log(cmd);
   return child.exec(cmd, callback);
 }
 
 module.exports.serve = serve;
 module.exports.watch = watch;
 module.exports.bundle = bundle;
+module.exports.debug = debug;
 module.exports.browse = browse;
