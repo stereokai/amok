@@ -8,6 +8,13 @@
     "cmd.js",
     "rdbg.js"
   ],
+  "keywords": [
+    "realtime",
+    "live",
+    "editing",
+    "browserify",
+    "watchify"
+  ],
   "bin": {
     "amok": "cmd.js"
   },
