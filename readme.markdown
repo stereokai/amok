@@ -23,6 +23,9 @@ written in JavaScript targeting the browser, code without having to reload the c
     
   -p, --port
     Specify the http port
+
+
+    Any extra arguments will be passed along with the invocation of BUNDLER,
 ```
 
 ## Environment Variables
