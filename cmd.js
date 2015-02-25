@@ -6,8 +6,8 @@ var pkg = require('./package.json');
 
 cmd.usage('[options] <script>');
 
-cmd.option('-h, --host <HOST>', '', 'localhost');
-cmd.option('-p, --port <PORT>', '', 9966);
+cmd.option('-h, --host <HOST>', 'specify http host', 'localhost');
+cmd.option('-p, --port <PORT>', 'specify http port', 9966);
 
 cmd.version(pkg.version);
 cmd.parse(process.argv);
