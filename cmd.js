@@ -58,7 +58,7 @@ setTimeout(function() {
     });
      
     bugger.on('attach', function(target) {
-      console.info('debugger attatched to target %s', target.title);
+      console.info('Debugger attached to %s', target.title);
     });
 
     bugger.on('detatch', function() {
@@ -85,7 +85,7 @@ setTimeout(function() {
             return console.error(error);
           }
 
-          console.info('re-compilation succesful');
+          console.info('Re-compilation succesful');
         });
       }
     });
