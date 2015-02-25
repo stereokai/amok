@@ -13,7 +13,10 @@
     "live",
     "editing",
     "browserify",
-    "watchify"
+    "watchify",
+    "webpack",
+    "development",
+    "server"
   ],
   "bin": {
     "amok": "cmd.js"
