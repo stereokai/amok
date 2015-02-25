@@ -3,7 +3,7 @@
 
 ## Synopsis
 ```
-  amok [options] <script>
+amok [options] <script>
 ```
 
 ## Description
@@ -21,35 +21,35 @@ Code with realtime feedback, without having to reload the client.
 
 ## Options
 ```
-  -h, --host <HOST>
-    specify the http host, default HOST is localhost.
+-h, --host <HOST>
+  specify the http host, default HOST is localhost.
 
-  -p, --port <PORT>
-    specify the http port, default PORT is 9966.
+-p, --port <PORT>
+  specify the http port, default PORT is 9966.
 
-  -H, --debugger-host <HOST>
-    specify the remote debugger host, default HOST is localhost.
+-H, --debugger-host <HOST>
+  specify the remote debugger host, default HOST is localhost.
 
-  -P, --debugger-port <PORT>
-    specify the remote debugger port, default PORT is 9222.
+-P, --debugger-port <PORT>
+  specify the remote debugger port, default PORT is 9222.
     
-  --no-browser
-    disable remote debugger
+--no-browser
+  disable browser spawning
     
-  --no-bundler
-    disable remote debugger
+--no-bundler
+  disable bundling
 
-  --no-debugger
-    disable remote debugger
+--no-debugger
+  disable remote debugger
 ```
 
 Any extra arguments will be passed along with the invocation to BUNDLER.
 
 ## Environment Variables
 ```
-  BROWSER
-    When set to a executable, will be opened after the server has started.
+BROWSER
+  When set to a executable, will be opened after the server has started.
 
-  BUNDLER
-    When set to an executable, will be used to bundle scripts.
+BUNDLER
+  When set to an executable, will be used to bundle scripts.
 ```
