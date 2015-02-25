@@ -61,7 +61,7 @@ function watch(options, callback) {
 }
 
 function debug(options, callback) {
-  var bugger = rdbg.connect(9222, 'localhost', function(targets) {
+  var bugger = rdbg.connect(options.debuggerPort, options.debuggerHost, function(targets) {
     var target = targets.filter(function(target) {
       return target.url.indexOf(options.host) > -1;
     })[0];

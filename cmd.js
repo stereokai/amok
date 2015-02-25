@@ -9,6 +9,9 @@ cmd.usage('[options] <script>');
 cmd.option('-h, --host <HOST>', 'specify http host', 'localhost');
 cmd.option('-p, --port <PORT>', 'specify http port', 9966);
 
+cmd.option('-H, --debugger-host <HOST>', 'specify debugger host', 'localhost');
+cmd.option('-P, --debugger-port <PORT>', 'specify debugger port', 9222);
+
 cmd.version(pkg.version);
 cmd.parse(process.argv);
 
