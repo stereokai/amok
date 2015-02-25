@@ -21,10 +21,10 @@ Code with realtime feedback, without having to reload the client.
 ## Options
 ```
   -h, --host
-    Specify the http hostname
+    specify the http host
 
   -p, --port
-    Specify the http port
+    specify the http port
 ```
 
 Any extra arguments will be passed along with the invocation to BUNDLER.
