@@ -12,14 +12,21 @@ cmd.option('-p, --port <PORT>', 'specify http port', 9966);
 cmd.option('-H, --debugger-host <HOST>', 'specify debugger host', 'localhost');
 cmd.option('-P, --debugger-port <PORT>', 'specify debugger port', 9222);
 
-cmd.option('--no-debugger', 'disable remote debugger');
+cmd.option('--no-bundler', 'disable bundling');
+cmd.option('--no-browser', 'disable bundling');
+cmd.option('--no-debugger', 'disable debugging');
 
 cmd.version(pkg.version);
 cmd.parse(process.argv);
 
 cmd.cwd = process.cwd();
-cmd.browser = process.env['BROWSER'];
-cmd.bundler = process.env['BUNDLER'];
+if (cmd.browser !== false) {
+  cmd.browser = process.env['BROWSER'];
+}
+
+if (cmd.bundler !== false) {
+  cmd.bundler = process.env['BUNDLER'];
+}
 
 cmd.scripts = cmd.args.reduce(function(object, value, key) {
   object[key] = value;
