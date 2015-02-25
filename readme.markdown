@@ -13,10 +13,10 @@ written in JavaScript targeting the browser.
 Code with realtime feedback, without having to reload the client.
 
 ```
-  export BROWSER="google-chrome --remote-debugging-port=9222"
-  export BUNDLER="watchify"
+export BROWSER="google-chrome --remote-debugging-port=9222"
+export BUNDLER="watchify"
   
-  amok myapp.js
+amok myapp.js
 ```
 
 ## Options
