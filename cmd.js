@@ -29,7 +29,7 @@ if (cmd.bundler !== false) {
 }
 
 cmd.scripts = cmd.args.reduce(function(object, value, key) {
-  object[key] = value;
+  object[value] = value;
   return object;
 }, {});
 
