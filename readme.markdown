@@ -1,5 +1,5 @@
 # Amok(1)
-[![Dependency Status] (https://img.shields.io/gratipay/caspervonb.svg)](https://gratipay.com/caspervonb/)
+[![Dependency Status](https://img.shields.io/gratipay/caspervonb.svg)](https://gratipay.com/caspervonb/)
 
 ## Synopsis
 ```
