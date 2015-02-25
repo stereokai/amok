@@ -80,8 +80,7 @@ setTimeout(function() {
 
 var server = amok.serve(cmd, function() {
   var address = server.address();
-  
-  console.log('http server listening on http://%s:%d', address.address, address.port);
+  console.info('http server listening on http://%s:%d', address.address, address.port);
   
   if (cmd.browser) {
     var browser = amok.browse(cmd, function() {
