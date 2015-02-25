@@ -27,8 +27,7 @@ if (cmd.bundler) {
   cmd.args.push('-o');
   cmd.args.push(cmd.scripts['bundle.js']);
 
-  amok.bundle(cmd, function() {
-    console.log('bundler');
+  amok.bundle(cmd, function(error) {
   });
 }
 
@@ -45,8 +44,13 @@ setTimeout(function() {
       var script = Object.keys(cmd.scripts).filter(function(key) { return cmd.scripts[key] === filename})[0];
       if (script) {
         console.log('re-compiling', script);
-        bugger.source(script, null, function() {
-          console.log('success');
+
+        bugger.source(script, null, function(error) {
+          if (error) {
+            return console.error(error);
+          }
+          
+          console.log('recompilation succesful');
         });
       }
     });
@@ -55,6 +59,10 @@ setTimeout(function() {
 
 // serve scripts and resources
 var server = amok.serve(cmd, function() {
+  var address = server.address();
+  
+  console.log('http server listening on http://%s:%d', address.address, address.port);
+  
   if (cmd.browser) {
     var browser = amok.browse(cmd, function() {
     });

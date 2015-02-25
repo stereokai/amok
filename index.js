@@ -24,8 +24,6 @@ function serve(options, callback) {
         var filename = path.join(options.cwd, request.url);
       }
 
-      console.log(filename);
-
       fs.exists(filename, function(exists) {
         if (exists) {
           response.setHeader('content-type', mime.lookup(filename));
@@ -77,7 +75,7 @@ function debug(options, callback) {
 function browse(options, callback) {
   var cmd = util.format('%s http://%s:%d', options.browser, options.host, options.port);
   
-  console.log(cmd);
+
   return child.exec(cmd, callback);
 }
 

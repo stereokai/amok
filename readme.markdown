@@ -7,8 +7,21 @@
 
 ## Description
 Amok is a command line tool for rapid prototyping and development of applications
-written in JavaScript targeting the browser, code without having to reload the client.
+written in JavaScript targeting the browser.
 
+Code with realtime feedback, without having to reload the client.
+
+## Synopsis
+```
+  amok [options] <entry>
+```
+
+## Description
+```
+  -h, --host
+     
+  -p, --port
+```
 ```
   export BROWSER="google-chrome --remote-debugging-port=9222"
   export BUNDLER="watchify"
@@ -20,7 +33,7 @@ written in JavaScript targeting the browser, code without having to reload the c
 ```
   -h, --host
     Specify the http hostname
-    
+
   -p, --port
     Specify the http port
 
