@@ -11,17 +11,6 @@ written in JavaScript targeting the browser.
 
 Code with realtime feedback, without having to reload the client.
 
-## Synopsis
-```
-  amok [options] <entry>
-```
-
-## Description
-```
-  -h, --host
-     
-  -p, --port
-```
 ```
   export BROWSER="google-chrome --remote-debugging-port=9222"
   export BUNDLER="watchify"
