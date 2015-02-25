@@ -28,8 +28,8 @@ if (cmd.bundler) {
   cmd.args.push(cmd.scripts['bundle.js']);
   
   amok.bundle(cmd, function(error, stdout, stderr) {
-    process.stdout.pipe(stdout);
-    process.stderr.pipe(stderr);
+//    process.stdout.pipe(stdout);
+//    process.stderr.pipe(stderr);
   });
 }
 
@@ -84,8 +84,8 @@ var server = amok.serve(cmd, function() {
   
   if (cmd.browser) {
     var browser = amok.browse(cmd, function(error, stdout, stderr) {
-      process.stdout.pipe(stdout);
-      process.stderr.pipe(stderr);
+//      process.stdout.pipe(stdout);
+//      process.stderr.pipe(stderr);
     });
   }
 });
