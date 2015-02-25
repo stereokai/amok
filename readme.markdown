@@ -25,16 +25,15 @@ Code with realtime feedback, without having to reload the client.
 
   -p, --port
     Specify the http port
-
-
-    Any extra arguments will be passed along with the invocation to BUNDLER,
 ```
+
+Any extra arguments will be passed along with the invocation to BUNDLER.
 
 ## Environment Variables
 ```
   BROWSER
-    When set to a executable, will be opened after the server has been spun up.
-    
+    When set to a executable, will be opened after the server has started.
+
   BUNDLER
     When set to an executable, will be used to bundle scripts.
 ```
