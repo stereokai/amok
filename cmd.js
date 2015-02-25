@@ -26,8 +26,10 @@ if (cmd.bundler) {
 
   cmd.args.push('-o');
   cmd.args.push(cmd.scripts['bundle.js']);
-
-  amok.bundle(cmd, function(error) {
+  
+  amok.bundle(cmd, function(error, stdout, stderr) {
+    process.stdout.pipe(stdout);
+    process.stderr.pipe(stderr);
   });
 }
 
@@ -39,25 +41,43 @@ var watcher = amok.watch(cmd, function() {
 });
 
 setTimeout(function() {
-  var bugger = amok.debug(cmd, function() {
-    watcher.on('change', function(filename) {
-      var script = Object.keys(cmd.scripts).filter(function(key) { return cmd.scripts[key] === filename})[0];
-      if (script) {
-        console.log('re-compiling', script);
+  var bugger = amok.debug(cmd, function(target) {
+  });
+   
+  bugger.on('attach', function(target) {
+    console.info('debugger attatched to target %s', target.title);
+  });
 
-        bugger.source(script, null, function(error) {
-          if (error) {
-            return console.error(error);
-          }
-          
-          console.log('recompilation succesful');
-        });
-      }
+  bugger.on('detatch', function() {
+    var id = setInterval(function() {
+      client.targets(function(targets) {
+        var target = targets.filter(function(target) {
+          return target.url.indexOf(cmd.host) > -1;
+        })[0];
+
+        client.attach(target);
+      });
+    }, 500);
+
+    bugger.once('attach', function() {
+      clearInterval(id);
     });
+  });
+  
+  watcher.on('change', function(filename) {
+    var script = Object.keys(cmd.scripts).filter(function(key) { return cmd.scripts[key] === filename})[0];
+    if (script) {
+      bugger.source(script, null, function(error) {
+        if (error) {
+          return console.error(error);
+        }
+
+        console.info('re-compilation succesful');
+      });
+    }
   });
 }, 500);
 
-// serve scripts and resources
 var server = amok.serve(cmd, function() {
   var address = server.address();
   
