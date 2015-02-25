@@ -12,6 +12,8 @@ cmd.option('-p, --port <PORT>', 'specify http port', 9966);
 cmd.option('-H, --debugger-host <HOST>', 'specify debugger host', 'localhost');
 cmd.option('-P, --debugger-port <PORT>', 'specify debugger port', 9222);
 
+cmd.option('--no-debugger', 'disable remote debugger');
+
 cmd.version(pkg.version);
 cmd.parse(process.argv);
 
@@ -44,41 +46,43 @@ var watcher = amok.watch(cmd, function() {
 });
 
 setTimeout(function() {
-  var bugger = amok.debug(cmd, function(target) {
-  });
-   
-  bugger.on('attach', function(target) {
-    console.info('debugger attatched to target %s', target.title);
-  });
-
-  bugger.on('detatch', function() {
-    var id = setInterval(function() {
-      client.targets(function(targets) {
-        var target = targets.filter(function(target) {
-          return target.url.indexOf(cmd.host) > -1;
-        })[0];
-
-        client.attach(target);
-      });
-    }, 500);
-
-    bugger.once('attach', function() {
-      clearInterval(id);
+  if (cmd.debugger) {
+    var bugger = amok.debug(cmd, function(target) {
     });
-  });
-  
-  watcher.on('change', function(filename) {
-    var script = Object.keys(cmd.scripts).filter(function(key) { return cmd.scripts[key] === filename})[0];
-    if (script) {
-      bugger.source(script, null, function(error) {
-        if (error) {
-          return console.error(error);
-        }
+     
+    bugger.on('attach', function(target) {
+      console.info('debugger attatched to target %s', target.title);
+    });
 
-        console.info('re-compilation succesful');
+    bugger.on('detatch', function() {
+      var id = setInterval(function() {
+        client.targets(function(targets) {
+          var target = targets.filter(function(target) {
+            return target.url.indexOf(cmd.host) > -1;
+          })[0];
+
+          client.attach(target);
+        });
+      }, 500);
+
+      bugger.once('attach', function() {
+        clearInterval(id);
       });
-    }
-  });
+    });
+    
+    watcher.on('change', function(filename) {
+      var script = Object.keys(cmd.scripts).filter(function(key) { return cmd.scripts[key] === filename})[0];
+      if (script) {
+        bugger.source(script, null, function(error) {
+          if (error) {
+            return console.error(error);
+          }
+
+          console.info('re-compilation succesful');
+        });
+      }
+    });
+  }
 }, 500);
 
 var server = amok.serve(cmd, function() {
