@@ -22,16 +22,16 @@ Code with realtime feedback, without having to reload the client.
 ## Options
 ```
   -h, --host <HOST>
-    specify the http host
+    specify the http host, default HOST is localhost.
 
   -p, --port <PORT>
-    specify the http port
+    specify the http port, default PORT is 9966.
 
   -H, --debugger-host <HOST>
-    specify the remote debugger host
+    specify the remote debugger host, default HOST is localhost.
 
   -P, --debugger-port <PORT>
-    specify the remote debugger port
+    specify the remote debugger port, default PORT is 9222.
 ```
 
 Any extra arguments will be passed along with the invocation to BUNDLER.
