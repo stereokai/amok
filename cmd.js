@@ -83,7 +83,9 @@ var server = amok.serve(cmd, function() {
   console.info('http server listening on http://%s:%d', address.address, address.port);
   
   if (cmd.browser) {
-    var browser = amok.browse(cmd, function() {
+    var browser = amok.browse(cmd, function(error, stdout, stderr) {
+      process.stdout.pipe(stdout);
+      process.stderr.pipe(stderr);
     });
   }
 });
