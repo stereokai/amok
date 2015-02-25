@@ -21,11 +21,17 @@ Code with realtime feedback, without having to reload the client.
 
 ## Options
 ```
-  -h, --host
+  -h, --host <HOST>
     specify the http host
 
-  -p, --port
+  -p, --port <PORT>
     specify the http port
+
+  -H, --debugger-host <HOST>
+    specify the remote debugger host
+
+  -P, --debugger-port <PORT>
+    specify the remote debugger port
 ```
 
 Any extra arguments will be passed along with the invocation to BUNDLER.
