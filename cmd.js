@@ -58,7 +58,7 @@ setTimeout(function() {
     });
      
     bugger.on('attach', function(target) {
-      console.info('Debugger attached to %s', target.title);
+      console.info('Debugger attached to %s', target.url);
     });
 
     bugger.on('detatch', function() {
