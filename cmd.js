@@ -13,7 +13,7 @@ cmd.option('-H, --debugger-host <HOST>', 'specify debugger host', 'localhost');
 cmd.option('-P, --debugger-port <PORT>', 'specify debugger port', 9222);
 
 cmd.option('--no-bundler', 'disable bundling');
-cmd.option('--no-browser', 'disable bundling');
+cmd.option('--no-browser', 'disable browsing');
 cmd.option('--no-debugger', 'disable debugging');
 
 cmd.version(pkg.version);
