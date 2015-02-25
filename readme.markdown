@@ -32,6 +32,9 @@ Code with realtime feedback, without having to reload the client.
 
   -P, --debugger-port <PORT>
     specify the remote debugger port, default PORT is 9222.
+    
+  --no-debugger
+    disable remote debugger
 ```
 
 Any extra arguments will be passed along with the invocation to BUNDLER.
