@@ -94,12 +94,16 @@ setTimeout(function() {
 
 var server = amok.serve(cmd, function() {
   var address = server.address();
-  console.info('http server listening on http://%s:%d', address.address, address.port);
+  console.info('Server listening on http://%s:%d', address.address, address.port);
   
   if (cmd.browser) {
     var browser = amok.browse(cmd, function(error, stdout, stderr) {
-//      process.stdout.pipe(stdout);
-//      process.stderr.pipe(stderr);
+      if (error) {
+        process.stdout.write(error);
+      }
+
+      process.stdout.write(stdout);
+      process.stderr.write(stderr);
     });
   }
 });
