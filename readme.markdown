@@ -33,6 +33,12 @@ Code with realtime feedback, without having to reload the client.
   -P, --debugger-port <PORT>
     specify the remote debugger port, default PORT is 9222.
     
+  --no-browser
+    disable remote debugger
+    
+  --no-bundler
+    disable remote debugger
+
   --no-debugger
     disable remote debugger
 ```
