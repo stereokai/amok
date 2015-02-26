@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var cmd = require('commander');
 var amok = require('./');
 var temp = require('temp');
