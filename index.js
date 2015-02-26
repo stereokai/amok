@@ -65,10 +65,33 @@ function debug(options, callback) {
     var target = targets.filter(function(target) {
       return target.url.indexOf(options.host) > -1;
     })[0];
+
+    bugger.on('detatch', function() {
+      var id = setInterval(function() {
+        bugger.targets(function(targets) {
+          if (targets == undefined) {
+            targets = [];
+          }
+
+          var target = targets.filter(function(target) {
+            return target.url.indexOf(options.host) > -1;
+          })[0];
+          
+          if (target) {  
+            bugger.attach(target, function() {
+            });
+          }
+        });
+      }, 500);
+      
+      bugger.once('attach', function() {
+        clearInterval(id);
+      });
+    });
     
     bugger.attach(target, callback);
   });
-  
+
   return bugger;
 }
 
