@@ -1,6 +1,7 @@
 # Amok(1)
 [![Dependency Status](https://img.shields.io/gratipay/caspervonb.svg)](https://gratipay.com/caspervonb/)
 
+[![Live Editing JavaScript with Amok](http://img.youtube.com/vi/xHXqyfkct2w/0.jpg)](http://www.youtube.com/watch?v=xHXqyfkct2w)
 ## Synopsis
 ```
 amok [options] <script>
