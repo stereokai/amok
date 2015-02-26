@@ -5,8 +5,7 @@
   "main": "index.js",
   "files": [
     "index.js",
-    "cmd.js",
-    "rdbg.js"
+    "cmd.js"
   ],
   "keywords": [
     "realtime",
