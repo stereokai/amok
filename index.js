@@ -50,7 +50,7 @@ function bundle(options, callback) {
 
 function watch(options, callback) {
   var watcher = chokidar.watch(options.cwd, {
-    ignored: '/[\/\\]\./', persistent: true
+    ignored: /[\/\\]\./, persistent: true
   });
   
   if (callback) {
