@@ -1,6 +1,6 @@
 {
   "name": "amok",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "description": "A development server with realtime live editing feedback",
   "main": "index.js",
   "files": [
