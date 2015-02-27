@@ -1,8 +1,9 @@
 # Amok(1)
-[![Dependency Status](https://img.shields.io/gratipay/caspervonb.svg)](https://gratipay.com/caspervonb/)
-[![Dependency Status](https://img.shields.io/badge/gitter-join%20chat-green.svg)](https://gitter.im/caspervonb/amok)
+[![tips](https://img.shields.io/gratipay/caspervonb.svg?style=flat-square)](https://gratipay.com/caspervonb/)
+[![chat](https://img.shields.io/badge/gitter-join%20chat-green.svg?style=flat-square)](https://gitter.im/caspervonb/amok)
+[![npm](https://img.shields.io/npm/v/amok?style=flat-square)](https://www.npmjs.org/package/amok)
 
-[![Live Editing JavaScript with Amok](http://img.youtube.com/vi/xHXqyfkct2w/0.jpg)](http://www.youtube.com/watch?v=xHXqyfkct2w)
+[![Live Editing JavaScript with Amok](https://cloud.githubusercontent.com/assets/157787/6416635/720834ec-bee2-11e4-8766-43eb170bd3a4.png)](https://www.youtube.com/watch?v=xHXqyfkct2w)
 ## Synopsis
 ```
 amok [options] <script>
