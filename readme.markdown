@@ -1,5 +1,6 @@
 # Amok(1)
 [![Dependency Status](https://img.shields.io/gratipay/caspervonb.svg)](https://gratipay.com/caspervonb/)
+[![Dependency Status](https://img.shields.io/badge/gitter-join%20chat-green.svg)](https://gitter.im/caspervonb/amok)
 
 [![Live Editing JavaScript with Amok](http://img.youtube.com/vi/xHXqyfkct2w/0.jpg)](http://www.youtube.com/watch?v=xHXqyfkct2w)
 ## Synopsis
