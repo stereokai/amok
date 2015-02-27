@@ -54,8 +54,8 @@ var watcher = amok.watch(cmd, function() {
   }
 });
 
-setTimeout(function() {
-  if (cmd.debugger) {
+if (cmd.debugger) {
+  setTimeout(function() {
     var bugger = amok.debug(cmd, function(target) {
     });
     
@@ -79,8 +79,8 @@ setTimeout(function() {
         });
       }
     });
-  }
-}, 500);
+  }, 500);
+}
 
 var server = amok.serve(cmd, function() {
   var address = server.address();
