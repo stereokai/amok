@@ -76,10 +76,9 @@ function debug(options, callback) {
           var target = targets.filter(function(target) {
             return target.url.indexOf(options.host) > -1;
           })[0];
-          
-          if (target) {  
-            bugger.attach(target, function() {
-            });
+
+          if (target && target.webSocketDebuggerUrl) {
+            bugger.attach(target);
           }
         });
       }, 500);
