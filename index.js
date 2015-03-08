@@ -62,10 +62,6 @@ function watch(options, callback) {
 
 function debug(options, callback) {
   var bugger = rdbg.connect(options.debuggerPort, options.debuggerHost, function(targets) {
-    var target = targets.filter(function(target) {
-      return target.url.indexOf(options.host) > -1;
-    })[0];
-
     bugger.on('detatch', function() {
       var id = setInterval(function() {
         bugger.targets(function(targets) {
@@ -87,8 +83,17 @@ function debug(options, callback) {
         clearInterval(id);
       });
     });
-    
-    bugger.attach(target, callback);
+
+    var id = setInterval(function() {
+      var target = targets.filter(function(target) {
+        return target.url.indexOf(options.host) > -1 && target.webSocketDebuggerUrl;
+      })[0];
+
+      if (target) {
+        bugger.attach(target, callback);
+        clearInterval(id);
+      }
+    }, 250);
   });
 
   return bugger;

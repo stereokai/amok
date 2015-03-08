@@ -56,20 +56,22 @@ var watcher = amok.watch(cmd, function() {
 });
 
 if (cmd.debugger) {
-  setTimeout(function() {
-    var bugger = amok.debug(cmd, function(target) {
-    });
-    
+  console.info('Connecting to debugger');
+
+  var bugger = amok.debug(cmd, function(target) {
     bugger.on('detach', function() {
       console.info('Debugger detatched');
     });
-    
+
     bugger.on('attach', function(target) {
       console.info('Debugger attached to %s', target.url);
     });
 
     watcher.on('change', function(filename) {
-      var script = Object.keys(cmd.scripts).filter(function(key) { return cmd.scripts[key] === filename})[0];
+      var script = Object.keys(cmd.scripts).filter(function(key) {
+        return cmd.scripts[key] === filename
+      })[0];
+
       if (script) {
         bugger.source(script, null, function(error) {
           if (error) {
@@ -80,7 +82,7 @@ if (cmd.debugger) {
         });
       }
     });
-  }, 500);
+  });
 }
 
 var server = amok.serve(cmd, function() {
