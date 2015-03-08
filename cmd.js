@@ -56,9 +56,11 @@ var watcher = amok.watch(cmd, function() {
 });
 
 if (cmd.debugger) {
-  console.info('Connecting to debugger');
+  console.info('Attaching debugger...');
 
   var bugger = amok.debug(cmd, function(target) {
+    console.info('Debugger attached to %s', target.url);
+
     bugger.on('detach', function() {
       console.info('Debugger detatched');
     });
