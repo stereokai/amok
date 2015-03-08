@@ -3,6 +3,7 @@
 var cmd = require('commander');
 var amok = require('./');
 var temp = require('temp');
+var path = require('path');
 
 var pkg = require('./package.json');
 
@@ -31,7 +32,7 @@ if (cmd.bundler !== false) {
 }
 
 cmd.scripts = cmd.args.reduce(function(object, value, key) {
-  object[value] = value;
+  object[value] = path.resolve(value);
   return object;
 }, {});
 
