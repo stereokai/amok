@@ -14,7 +14,7 @@ function serve(options, callback) {
       response.write('<!doctype html><head><meta charset="utf-8"></head><body>');
 
       for (var key in options.scripts) {
-        response.write('<script src="' +  key + '"></script>');
+        response.write('<script src="' + key + '"></script>');
       }
 
       response.end('</body>');
@@ -38,7 +38,7 @@ function serve(options, callback) {
       });
     }
   });
-  
+
   server.listen(options.port, options.host, callback);
   return server;
 }
@@ -52,11 +52,11 @@ function watch(options, callback) {
   var watcher = chokidar.watch(options.cwd, {
     ignored: /[\/\\]\./, persistent: true
   });
-  
+
   if (callback) {
     watcher.once('ready', callback);
   }
-  
+
   return watcher;
 }
 
@@ -83,7 +83,7 @@ function debug(options, callback) {
           }
         });
       }, 500);
-      
+
       bugger.once('attach', function() {
         clearInterval(id);
       });
@@ -97,8 +97,6 @@ function debug(options, callback) {
 
 function browse(options, callback) {
   var cmd = util.format('%s http://%s:%d', options.browser, options.host, options.port);
-  
-
   return child.exec(cmd, callback);
 }
 
