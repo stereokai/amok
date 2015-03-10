@@ -4,8 +4,8 @@
 [![npm](https://img.shields.io/npm/v/amok.svg?style=flat-square)](https://www.npmjs.org/package/amok)
 
 [![Live Editing JavaScript with Amok](https://cloud.githubusercontent.com/assets/157787/6416635/720834ec-bee2-11e4-8766-43eb170bd3a4.png)](https://www.youtube.com/watch?v=xHXqyfkct2w)
-[YouTube Video](https://www.youtube.com/watch?v=xHXqyfkct2w)
-[Introduction Article](https://caspervonb.github.io/javascript/tools/live-editing-javascript-amok/)
+
+**Make sure you read the [tutorial](https://caspervonb.com/javascript/tools/live-edit-javascript-amok/)**
 
 ## Synopsis
 ```
