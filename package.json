@@ -23,6 +23,7 @@
     "amok": "cmd.js"
   },
   "dependencies": {
+    "async": "^0.9.0",
     "chokidar": "^1.0.0-rc3",
     "commander": "^2.6.0",
     "mime": "^1.3.4",

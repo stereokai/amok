@@ -4,6 +4,7 @@ var cmd = require('commander');
 var amok = require('./');
 var temp = require('temp');
 var path = require('path');
+var async = require('async');
 
 var pkg = require('./package.json');
 
@@ -36,69 +37,84 @@ cmd.scripts = cmd.args.reduce(function(object, value, key) {
   return object;
 }, {});
 
-if (cmd.bundler) {
-  cmd.scripts = { 'bundle.js': temp.path({suffix: '.js'}) };
+async.auto({
+  bundler: function(callback, data) {
+    if (cmd.bundler) {
+      cmd.scripts = { 'bundle.js': temp.path({suffix: '.js'}) };
 
-  cmd.args.push('-o');
-  cmd.args.push(cmd.scripts['bundle.js']);
-  
-  amok.bundle(cmd, function(error, stdout, stderr) {
-//    process.stdout.pipe(stdout);
-//    process.stderr.pipe(stderr);
-  });
-}
+      cmd.args.push('-o');
+      cmd.args.push(cmd.scripts['bundle.js']);
 
-var watcher = amok.watch(cmd, function() {
-  for (var script in cmd.scripts) {
-    var filename = cmd.scripts[script];
-    watcher.add(filename);
-  }
-});
+      var bundler = amok.bundle(cmd, function(error, stdout, stderr) {
+        callback(null, bundler);
+      });
+    } else {
+      callback();
+    }
+  },
 
-if (cmd.debugger) {
-  console.info('Attaching debugger...');
-
-  var bugger = amok.debug(cmd, function(target) {
-    console.info('Debugger attached to %s', target.url);
-
-    bugger.on('detach', function() {
-      console.info('Debugger detatched');
+  server: function(callback, data) {
+    var server = amok.serve(cmd, function() {
+      var address = server.address();
+      console.info('Server listening on http://%s:%d', address.address, address.port);
+      callback(null, server);
     });
+  },
 
-    bugger.on('attach', function(target) {
-      console.info('Debugger attached to %s', target.url);
-    });
+  browser: ['server', function(callback, data) {
+    if (cmd.browser) {
+      console.log('Spawning browser...');
+      var browser = amok.browse(cmd, function(error, stdout, stderr) {
+        if (error) {
+          process.stdout.write(error);
+        }
 
-    watcher.on('change', function(filename) {
-      var script = Object.keys(cmd.scripts).filter(function(key) {
-        return cmd.scripts[key] === filename
-      })[0];
+        process.stdout.write(stdout);
+        process.stderr.write(stderr);
+        callback();
+      });
+    } else {
+      callback();
+    }
+  }],
 
-      if (script) {
-        bugger.source(script, null, function(error) {
-          if (error) {
-            return console.error(error);
-          }
+  bugger: ['browser', function(callback, results) {
+    if (cmd.debugger) {
+      console.info('Attaching debugger...');
 
-          console.info('Re-compilation succesful');
+      var bugger = amok.debug(cmd, function(target) {
+        console.info('Debugger attached to %s', target.url);
+
+        bugger.on('detach', function() {
+          console.info('Debugger detatched');
         });
-      }
-    });
-  });
-}
 
-var server = amok.serve(cmd, function() {
-  var address = server.address();
-  console.info('Server listening on http://%s:%d', address.address, address.port);
-  
-  if (cmd.browser) {
-    var browser = amok.browse(cmd, function(error, stdout, stderr) {
-      if (error) {
-        process.stdout.write(error);
-      }
+        bugger.on('attach', function(target) {
+          console.info('Debugger attached to %s', target.url);
+        });
 
-      process.stdout.write(stdout);
-      process.stderr.write(stderr);
-    });
+        watcher.on('change', function(filename) {
+          var script = Object.keys(cmd.scripts).filter(function(key) {
+            return cmd.scripts[key] === filename
+          })[0];
+
+          if (script) {
+            bugger.source(script, null, function(error) {
+              if (error) {
+                return console.error(error);
+              }
+
+              console.info('Re-compilation succesful');
+            });
+          }
+        });
+
+        callback();
+      });
+    }
+  }],
+}, function(error) {
+  if (error) {
+    return console.error(error);
   }
 });
