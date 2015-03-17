@@ -5,7 +5,9 @@
 
 [![Live Editing JavaScript with Amok](https://cloud.githubusercontent.com/assets/157787/6416635/720834ec-bee2-11e4-8766-43eb170bd3a4.png)](https://www.youtube.com/watch?v=xHXqyfkct2w)
 
-**Make sure you read the [tutorial](https://caspervonb.com/javascript/tools/live-edit-javascript-amok/)**
+> **[Accelerate Development! Support the fundraiser](http://bit.ly/18BJ1fI)**
+
+Make sure you read the [tutorial](https://caspervonb.com/javascript/tools/live-edit-javascript-amok/)
 
 ## Synopsis
 ```
