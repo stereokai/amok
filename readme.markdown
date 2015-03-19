@@ -3,9 +3,9 @@
 [![chat](https://img.shields.io/badge/gitter-join%20chat-green.svg?style=flat-square)](https://gitter.im/caspervonb/amok)
 [![npm](https://img.shields.io/npm/v/amok.svg?style=flat-square)](https://www.npmjs.org/package/amok)
 
-[![Live Editing JavaScript with Amok](https://cloud.githubusercontent.com/assets/157787/6416635/720834ec-bee2-11e4-8766-43eb170bd3a4.png)](https://www.youtube.com/watch?v=xHXqyfkct2w)
+[![Support the fundraiser](https://cloud.githubusercontent.com/assets/157787/6731116/4a310ec6-ce7d-11e4-9866-1332f739da4b.png)](https://www.bountysource.com/fundraisers/682-amok-live-editing-javascript)
 
-> **[Accelerate Development! Support the fundraiser](http://bit.ly/18BJ1fI)**
+[![Live Editing JavaScript with Amok](https://cloud.githubusercontent.com/assets/157787/6416635/720834ec-bee2-11e4-8766-43eb170bd3a4.png)](https://www.youtube.com/watch?v=xHXqyfkct2w)
 
 Make sure you read the [tutorial](https://caspervonb.com/javascript/tools/live-edit-javascript-amok/)
 
