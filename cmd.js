@@ -40,6 +40,8 @@ cmd.scripts = cmd.args.reduce(function(object, value, key) {
 async.auto({
   bundler: function(callback, data) {
     if (cmd.bundler) {
+      console.info('Spawning bundler...');
+
       cmd.scripts = { 'bundle.js': temp.path({suffix: '.js'}) };
 
       cmd.args.push('-o');
@@ -67,6 +69,7 @@ async.auto({
   },
 
   server: function(callback, data) {
+    console.info('Starting server...');
     var server = amok.serve(cmd, function() {
       var address = server.address();
       console.info('Server listening on http://%s:%d', address.address, address.port);
@@ -112,6 +115,8 @@ async.auto({
           })[0];
 
           if (script) {
+            console.info('Re-compiling', script, '...');
+
             bugger.source(script, null, function(error) {
               if (error) {
                 return console.error(error);
