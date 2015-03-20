@@ -53,6 +53,19 @@ async.auto({
     }
   },
 
+  watcher: function(callback, data) {
+    var watcher = amok.watch(cmd, function() {
+      for (var script in cmd.scripts) {
+      var filename = cmd.scripts[script];
+        watcher.add(filename);
+
+        console.info('Watching file', filename, 'for changes');
+      }
+
+      callback(null, watcher);
+    });
+  },
+
   server: function(callback, data) {
     var server = amok.serve(cmd, function() {
       var address = server.address();
@@ -78,7 +91,7 @@ async.auto({
     }
   }],
 
-  bugger: ['browser', function(callback, results) {
+  bugger: ['browser', 'watcher', function(callback, data) {
     if (cmd.debugger) {
       console.info('Attaching debugger...');
 
@@ -93,7 +106,7 @@ async.auto({
           console.info('Debugger attached to %s', target.url);
         });
 
-        watcher.on('change', function(filename) {
+        data.watcher.on('change', function(filename) {
           var script = Object.keys(cmd.scripts).filter(function(key) {
             return cmd.scripts[key] === filename
           })[0];
