@@ -5,11 +5,9 @@
 
 [![support](https://cloud.githubusercontent.com/assets/157787/6764979/c806eed4-d007-11e4-93fc-b1c5f1a222fb.png)](https://www.bountysource.com/fundraisers/682-amok-live-editing-javascript)
 
-![amok](https://cloud.githubusercontent.com/assets/157787/6764974/9336122a-d007-11e4-8225-3d1c7b63cde2.png)
+[![Live Editing JavaScript with Amok](https://cloud.githubusercontent.com/assets/157787/6779990/3028fe4a-d19c-11e4-9653-c0b80c286c24.png)](https://www.youtube.com/watch?v=xHXqyfkct2w)
 
-[![Live Editing JavaScript with Amok](https://cloud.githubusercontent.com/assets/157787/6416635/720834ec-bee2-11e4-8766-43eb170bd3a4.png)](https://www.youtube.com/watch?v=xHXqyfkct2w)
-
-Make sure you read the [tutorial](https://caspervonb.com/javascript/tools/live-edit-javascript-amok/)
+Read the [tutorial](https://caspervonb.com/javascript/tools/live-edit-javascript-amok/)
 
 ## Synopsis
 ```
