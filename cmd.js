@@ -53,6 +53,7 @@ async.auto({
         object[value] = path.resolve(value);
         return object;
       }, {});
+
       callback();
     }
   },
@@ -72,11 +73,32 @@ async.auto({
         }
       }
 
-      if (cmd.verbose) {
-        watcher.on('change', function(filename) {
+      watcher.on('change', function(filename) {
+        if (cmd.verbose) {
           console.info(filename, 'changed');
-        });
-      }
+        }
+
+        var script = Object.keys(cmd.scripts)
+          .filter(function(key) {
+            return cmd.scripts[key] === filename
+          })[0];
+
+        if (script) {
+          if (cmd.verbose) {
+            console.info('Re-compiling', script, '...');
+          }
+
+          data.bugger.source(script, null, function(error) {
+            if (error) {
+              return console.error(error);
+            }
+
+            if (cmd.verbose) {
+              console.info('Re-compilation succesful');
+            }
+          });
+        }
+      });
 
       callback(null, watcher);
     });
@@ -140,29 +162,7 @@ async.auto({
           }
         });
 
-        data.watcher.on('change', function(filename) {
-          var script = Object.keys(cmd.scripts).filter(function(key) {
-            return cmd.scripts[key] === filename
-          })[0];
-
-          if (script) {
-            if (cmd.verbose) {
-              console.info('Re-compiling', script, '...');
-            }
-
-            bugger.source(script, null, function(error) {
-              if (error) {
-                return console.error(error);
-              }
-
-              if (cmd.verbose) {
-                console.info('Re-compilation succesful');
-              }
-            });
-          }
-        });
-
-        callback();
+        callback(null, bugger);
       });
     }
   }],
