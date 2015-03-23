@@ -15,6 +15,7 @@ cmd.option('-p, --port <PORT>', 'specify http port', 9966);
 
 cmd.option('-H, --debugger-host <HOST>', 'specify debugger host', 'localhost');
 cmd.option('-P, --debugger-port <PORT>', 'specify debugger port', 9222);
+cmd.option('-v, --verbose', 'enable verbose logging mode');
 
 cmd.option('--no-bundler', 'disable bundling');
 cmd.option('--no-browser', 'disable browsing');
@@ -40,7 +41,9 @@ cmd.scripts = cmd.args.reduce(function(object, value, key) {
 async.auto({
   bundler: function(callback, data) {
     if (cmd.bundler) {
-      console.info('Spawning bundler...');
+      if (cmd.verbose) {
+        console.info('Spawning bundler...');
+      }
 
       cmd.scripts = { 'bundle.js': temp.path({suffix: '.js'}) };
 
@@ -57,11 +60,23 @@ async.auto({
 
   watcher: function(callback, data) {
     var watcher = amok.watch(cmd, function() {
+      if (cmd.verbose) {
+        console.info('File watcher ready');
+      }
+
       for (var script in cmd.scripts) {
-      var filename = cmd.scripts[script];
+        var filename = cmd.scripts[script];
         watcher.add(filename);
 
-        console.info('Watching file', filename, 'for changes');
+        if (cmd.verbose) {
+          console.info('Watching script file', filename, 'for changes');
+        }
+      }
+
+      if (cmd.verbose) {
+        watcher.on('change', function(filename) {
+          console.info(filename, 'changed');
+        });
       }
 
       callback(null, watcher);
@@ -69,17 +84,26 @@ async.auto({
   },
 
   server: function(callback, data) {
-    console.info('Starting server...');
+    if (cmd.verbose) {
+      console.info('Starting server...');
+    }
+
     var server = amok.serve(cmd, function() {
       var address = server.address();
-      console.info('Server listening on http://%s:%d', address.address, address.port);
+      if (cmd.verbose) {
+        console.info('Server listening on http://%s:%d', address.address, address.port);
+      }
+
       callback(null, server);
     });
   },
 
   browser: ['server', function(callback, data) {
     if (cmd.browser) {
-      console.log('Spawning browser...');
+      if (cmd.verbose) {
+        console.log('Spawning browser...');
+      }
+
       var browser = amok.browse(cmd, function(error, stdout, stderr) {
         if (error) {
           process.stdout.write(error);
@@ -96,17 +120,25 @@ async.auto({
 
   bugger: ['browser', 'watcher', function(callback, data) {
     if (cmd.debugger) {
-      console.info('Attaching debugger...');
+      if (cmd.verbose) {
+        console.info('Attaching debugger...');
+      }
 
       var bugger = amok.debug(cmd, function(target) {
-        console.info('Debugger attached to %s', target.url);
-
+        if (cmd.verbose) {
+          console.info('Debugger attached to %s', target.url);
+        }
+        
         bugger.on('detach', function() {
-          console.info('Debugger detatched');
+          if (cmd.verbose) {
+            console.info('Debugger detatched');
+          }
         });
 
         bugger.on('attach', function(target) {
-          console.info('Debugger attached to %s', target.url);
+          if (cmd.verbose) {
+            console.info('Debugger attached to %s', target.url);
+          }
         });
 
         data.watcher.on('change', function(filename) {
@@ -115,14 +147,18 @@ async.auto({
           })[0];
 
           if (script) {
-            console.info('Re-compiling', script, '...');
+            if (cmd.verbose) {
+              console.info('Re-compiling', script, '...');
+            }
 
             bugger.source(script, null, function(error) {
               if (error) {
                 return console.error(error);
               }
 
-              console.info('Re-compilation succesful');
+              if (cmd.verbose) {
+                console.info('Re-compilation succesful');
+              }
             });
           }
         });
