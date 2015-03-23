@@ -3,11 +3,13 @@
 [![chat](https://img.shields.io/badge/gitter-join%20chat-green.svg?style=flat-square)](https://gitter.im/caspervonb/amok)
 [![npm](https://img.shields.io/npm/v/amok.svg?style=flat-square)](https://www.npmjs.org/package/amok)
 
-[![support](https://cloud.githubusercontent.com/assets/157787/6764979/c806eed4-d007-11e4-93fc-b1c5f1a222fb.png)](https://www.bountysource.com/fundraisers/682-amok-live-editing-javascript)
+[![View the video](https://cloud.githubusercontent.com/assets/157787/6780089/1ed197f0-d19d-11e4-858a-2e14b90096b8.png)](https://www.youtube.com/watch?v=xHXqyfkct2w)
 
-[![Live Editing JavaScript with Amok](https://cloud.githubusercontent.com/assets/157787/6779990/3028fe4a-d19c-11e4-9653-c0b80c286c24.png)](https://www.youtube.com/watch?v=xHXqyfkct2w)
+[![tutorial](https://cloud.githubusercontent.com/assets/157787/6780102/2b9d538e-d19d-11e4-99ad-c1a9ac091aa0.png)]
+(https://caspervonb.com/javascript/tools/live-edit-javascript-amok/)
 
-Read the [tutorial](https://caspervonb.com/javascript/tools/live-edit-javascript-amok/)
+[![Support the fundraiser](https://cloud.githubusercontent.com/assets/157787/6764979/c806eed4-d007-11e4-93fc-b1c5f1a222fb.png)](https://www.bountysource.com/fundraisers/682-amok-live-editing-javascript)
+
 
 ## Synopsis
 ```
