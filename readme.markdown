@@ -5,11 +5,10 @@
 
 [![View the video](https://cloud.githubusercontent.com/assets/157787/6780089/1ed197f0-d19d-11e4-858a-2e14b90096b8.png)](https://www.youtube.com/watch?v=xHXqyfkct2w)
 
-[![tutorial](https://cloud.githubusercontent.com/assets/157787/6780102/2b9d538e-d19d-11e4-99ad-c1a9ac091aa0.png)]
+[![Read the tutorial](https://cloud.githubusercontent.com/assets/157787/6780102/2b9d538e-d19d-11e4-99ad-c1a9ac091aa0.png)]
 (https://caspervonb.com/javascript/tools/live-edit-javascript-amok/)
 
 [![Support the fundraiser](https://cloud.githubusercontent.com/assets/157787/6764979/c806eed4-d007-11e4-93fc-b1c5f1a222fb.png)](https://www.bountysource.com/fundraisers/682-amok-live-editing-javascript)
-
 
 ## Synopsis
 ```
@@ -17,14 +16,11 @@ amok [options] <script>
 ```
 
 ## Description
-Amok is a command line tool for rapid prototyping and development of applications
-written in JavaScript targeting the browser.
+Amok is a command line debugging and rapid prototyping tool for JavaScript applications.
 
-Edit your code live with realtime feedback, without having to reload
-or loose your application state.
+Edit your application code live with realtime feedback, without having to reload the browser, keeping the application state intact.
 
-Amok can also process your application through a compilation and bundling
-process like browserify, typescript, coffeescript or babel.
+It can also process your application through a compiler or other preprocessor like browserify, typescript, coffeescript or babel.
 
 ```
 export BROWSER="google-chrome --remote-debugging-port=9222"
@@ -46,7 +42,10 @@ amok myapp.js
 
 -P, --debugger-port <PORT>
   specify the remote debugger port, default PORT is 9222.
-    
+
+-v, --verbose
+  enable verbose logging mode
+
 --no-browser
   disable browser spawning
     
