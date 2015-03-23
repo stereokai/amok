@@ -33,11 +33,6 @@ if (cmd.bundler !== false) {
   cmd.bundler = process.env['BUNDLER'];
 }
 
-cmd.scripts = cmd.args.reduce(function(object, value, key) {
-  object[value] = path.resolve(value);
-  return object;
-}, {});
-
 async.auto({
   bundler: function(callback, data) {
     if (cmd.bundler) {
@@ -54,6 +49,10 @@ async.auto({
         callback(null, bundler);
       });
     } else {
+      cmd.scripts = cmd.args.reduce(function(object, value, key) {
+        object[value] = path.resolve(value);
+        return object;
+      }, {});
       callback();
     }
   },
