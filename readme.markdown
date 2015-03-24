@@ -5,8 +5,7 @@
 
 [![View the video](https://cloud.githubusercontent.com/assets/157787/6780089/1ed197f0-d19d-11e4-858a-2e14b90096b8.png)](https://www.youtube.com/watch?v=xHXqyfkct2w)
 
-[![Read the tutorial](https://cloud.githubusercontent.com/assets/157787/6780102/2b9d538e-d19d-11e4-99ad-c1a9ac091aa0.png)]
-(https://caspervonb.com/javascript/tools/live-edit-javascript-amok/)
+[![Read the tutorial](https://cloud.githubusercontent.com/assets/157787/6780102/2b9d538e-d19d-11e4-99ad-c1a9ac091aa0.png)](https://caspervonb.com/javascript/tools/live-edit-javascript-amok/)
 
 [![Support the fundraiser](https://cloud.githubusercontent.com/assets/157787/6764979/c806eed4-d007-11e4-93fc-b1c5f1a222fb.png)](https://www.bountysource.com/fundraisers/682-amok-live-editing-javascript)
 
