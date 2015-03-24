@@ -51,8 +51,12 @@ function bundle(options, callback) {
 }
 
 function watch(options, callback) {
-  var watcher = chokidar.watch(options.cwd, {
-    ignored: /[\/\\]\./, persistent: true
+  var files = Object.keys(options.scripts).map(function(key) {
+    return options.scripts[key];
+  });
+
+  var watcher = chokidar.watch(files, {
+    persistent: true
   });
 
   if (callback) {

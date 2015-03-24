@@ -71,16 +71,6 @@ async.auto({
       if (cmd.verbose) {
         console.info('File watcher ready');
       }
-
-      for (var script in cmd.scripts) {
-        var filename = cmd.scripts[script];
-        watcher.add(filename);
-
-        if (cmd.verbose) {
-          console.info('Watching script file', filename, 'for changes');
-        }
-      }
-
       watcher.on('change', function(filename) {
         if (cmd.verbose) {
           console.info(filename, 'changed');
