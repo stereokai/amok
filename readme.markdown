@@ -60,9 +60,9 @@ use -- to terminate argument parsing.
 
 ## Environment Variables
 ```
-BROWSER
+AMOK_BROWSER
   When set to a executable, will be opened after the server has started.
 
-BUNDLER
+AMOK_BUNDLER
   When set to an executable, will be used to bundle scripts.
 ```
