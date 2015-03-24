@@ -26,11 +26,11 @@ cmd.parse(process.argv);
 
 cmd.cwd = process.cwd();
 if (cmd.browser !== false) {
-  cmd.browser = process.env['BROWSER'];
+  cmd.browser = process.env['BROWSER'] || process.env['AMOK_BROWSER'];
 }
 
 if (cmd.bundler !== false) {
-  cmd.bundler = process.env['BUNDLER'];
+  cmd.bundler = process.env['BUNDLER'] || process.env['AMOK_BUNDLER'];
 }
 
 async.auto({
