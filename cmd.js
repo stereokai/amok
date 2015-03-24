@@ -59,7 +59,7 @@ async.auto({
     }
   },
 
-  watcher: ['bundler', function(callback, data) {
+  watcher: ['bundler', 'bugger', function(callback, data) {
     var watcher = amok.watch(cmd, function() {
       if (cmd.verbose) {
         console.info('File watcher ready');
