@@ -55,8 +55,7 @@ amok myapp.js
   disable remote debugger
 ```
 
-Any extra arguments will be passed along with the invocation to BUNDLER,
-use -- to terminate argument parsing.
+Any extra arguments following the `--` terminator, will be passed along with the invocation to the source bundler if one is specified.
 
 ## Environment Variables
 ```
