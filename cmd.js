@@ -46,16 +46,23 @@ async.auto({
       cmd.args.push(cmd.scripts['bundle.js']);
 
       var bundler = amok.bundle(cmd, function(error, stdout, stderr) {
+        if (error) {
+          return callback(error);
+        }
+
+        stdout.pipe(process.stdout);
+        stderr.pipe(process.stderr);
+
+        callback(null, bundler);
       });
 
-      callback(null, bundler);
     } else {
       cmd.scripts = cmd.args.reduce(function(object, value, key) {
         object[value] = path.resolve(value);
         return object;
       }, {});
 
-      callback();
+      callback(null, null);
     }
   },
 

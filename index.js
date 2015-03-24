@@ -44,8 +44,10 @@ function serve(options, callback) {
 }
 
 function bundle(options, callback) {
-  var cmd = util.format('%s %s', options.bundler, options.args.join(' '));
-  return child.exec(cmd, callback);
+  var bundler = child.spawn(options.bundler, options.args);
+  callback(null, bundler.stdout, bundler.stderr);
+
+  return bundler;
 }
 
 function watch(options, callback) {
