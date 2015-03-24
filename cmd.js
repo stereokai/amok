@@ -130,10 +130,10 @@ async.auto({
 
         process.stdout.write(stdout);
         process.stderr.write(stderr);
-        callback();
+        callback(null, browser);
       });
     } else {
-      callback();
+      callback(null, null);
     }
   }],
 
