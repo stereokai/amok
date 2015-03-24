@@ -139,7 +139,7 @@ async.auto({
     }
   }],
 
-  bugger: ['browser', 'watcher', function(callback, data) {
+  bugger: ['browser', function(callback, data) {
     if (cmd.debugger) {
       if (cmd.verbose) {
         console.info('Attaching debugger...');
