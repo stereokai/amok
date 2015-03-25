@@ -128,9 +128,12 @@ async.auto({
           process.stdout.write(error);
         }
 
-        process.stdout.write(stdout);
-        process.stderr.write(stderr);
-        callback(null, browser);
+        stdout.pipe(process.stdout);
+        stderr.pipe(process.stderr);
+
+        setTimeout(function () {
+          callback(null, browser);
+        }, 1000);
       });
     } else {
       callback(null, null);

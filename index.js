@@ -115,8 +115,19 @@ function debug(options, callback) {
 }
 
 function browse(options, callback) {
-  var cmd = util.format('%s http://%s:%d', options.browser, options.host, options.port);
-  return child.exec(cmd, callback);
+  var args = options.browser.split(' ');
+  var cmd = args.shift();
+
+  var url = util.format('http://%s:%d', options.host, options.port);
+  args.push(url);
+
+  var browser = child.spawn(cmd, args);
+
+  process.nextTick(function() {
+    callback(null, browser.stdout, browser.stderr);
+  });
+
+  return browser;
 }
 
 module.exports.serve = serve;
