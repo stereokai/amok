@@ -44,8 +44,17 @@ function serve(options, callback) {
 }
 
 function bundle(options, callback) {
-  var bundler = child.spawn(options.bundler, options.args);
-  callback(null, bundler.stdout, bundler.stderr);
+  var args = options.bundler.split(' ');
+  var cmd = args.shift();
+
+  args = args.concat(options.args);
+
+  var bundler = child.spawn(cmd, args);
+  console.log(args);
+
+  process.nextTick(function() {
+    callback(null, bundler.stdout, bundler.stderr);
+  });
 
   return bundler;
 }
