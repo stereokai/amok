@@ -61,7 +61,7 @@ function bundle(options, callback) {
 
 function watch(options, callback) {
   var files = Object.keys(options.scripts).map(function(key) {
-    return options.scripts[key];
+    return path.dirname(options.scripts[key]);
   });
 
   var watcher = chokidar.watch(files, {

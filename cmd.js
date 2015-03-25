@@ -40,20 +40,23 @@ async.auto({
         console.info('Spawning bundler...');
       }
 
-      cmd.scripts = { 'bundle.js': temp.path({suffix: '.js'}) };
+      temp.track();
+      temp.mkdir('amok', function(err, dirpath) {
+        cmd.scripts = { 'bundle.js': path.join(dirpath, 'bundle.js') };
 
-      cmd.args.push('-o');
-      cmd.args.push(cmd.scripts['bundle.js']);
+        cmd.args.push('-o');
+        cmd.args.push(cmd.scripts['bundle.js']);
 
-      var bundler = amok.bundle(cmd, function(error, stdout, stderr) {
-        if (error) {
-          return callback(error);
-        }
+        var bundler = amok.bundle(cmd, function(error, stdout, stderr) {
+          if (error) {
+            return callback(error);
+          }
 
-        stdout.pipe(process.stdout);
-        stderr.pipe(process.stderr);
+          stdout.pipe(process.stdout);
+          stderr.pipe(process.stderr);
 
-        callback(null, bundler);
+          callback(null, bundler);
+        });
       });
 
     } else {
