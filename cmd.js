@@ -55,7 +55,9 @@ async.auto({
           stdout.pipe(process.stdout);
           stderr.pipe(process.stderr);
 
-          callback(null, bundler);
+          setTimeout(function() {
+            callback(null, bundler);
+          }, 200);
         });
       });
 
