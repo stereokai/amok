@@ -1,0 +1,106 @@
+// Clear floats
+.clearfix {
+  @include clearfix;
+}
+
+// Floats
+.right { float: right; }
+
+.left { float: left; }
+
+
+// Text alignment
+.text-right { text-align: right; }
+
+.text-left { text-align: left; }
+
+
+// Text states
+.danger { color: #c00; }
+
+.mute { color: #000; }
+
+.text-diff-added { color: darken($brand-green, 10%); }
+
+.text-diff-deleted { color: $brand-red; }
+
+.text-open,
+.text-success { color: $status-open; }
+
+.text-closed { color: $status-closed; }
+
+.text-reverted { color: $status-reverted; }
+
+.text-merged { color: $status-merged; }
+
+.text-renamed { color: $status-renamed; }
+
+.text-pending { color: $status-pending; }
+
+.text-error,
+.text-failure { color: $brand-red; }
+
+
+// Muted link
+//
+// Have a link you need to be gray to start, and blue on hover? Use this.
+.muted-link {
+  color: #777;
+
+  &:hover {
+    color: $brand-blue;
+    text-decoration: none;
+  }
+}
+
+// Misc
+.hidden {
+  display: none;
+}
+
+.warning {
+  padding: 0.5em;
+  margin-bottom: 0.8em;
+  font-weight: bold;
+  background-color: #fffccc;
+}
+
+.error_box {
+  padding: 1em;
+  font-weight: bold;
+  background-color: #ffebe8;
+  border: 1px solid #dd3c10;
+}
+
+// responsive embeds
+.embed-responsive {
+  position: relative;
+  display: block;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+
+  .embed-responsive-item,
+  iframe,
+  embed,
+  object,
+  video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    border: 0;
+  }
+}
+
+// Modifier class for 16:9 aspect ratio
+.embed-responsive-16by9 {
+  padding-bottom: 56.25%;
+}
+
+// Modifier class for 4:3 aspect ratio
+.embed-responsive-4by3 {
+  padding-bottom: 75%;
+}

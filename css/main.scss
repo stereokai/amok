@@ -1,0 +1,181 @@
+---
+---
+
+@charset "utf-8";
+@import "primer";
+
+$brand-yellow: #f3df49;
+
+// Global type
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: "Helvetica Neue", $body-font;
+  font-size: 1rem;
+}
+
+// Make containers responsive
+.container {
+  width: auto;
+  max-width: 1020px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.markdown-body {
+  overflow: visible;
+}
+
+//
+// Custom button
+//
+
+.btn-reverse {
+  color: #2e2e2c;
+  background: none;
+  border: 1px solid #2e2e2c;
+
+  &:hover,
+  &:active {
+    color: #ffffff;
+    background: #2e2e2c;
+    border-color: #2e2e2c;
+    box-shadow: none;
+  }
+}
+
+
+//
+// Site header
+//
+
+.masthead {
+  padding-top:    1rem;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  background-color: $brand-yellow;
+
+  a {
+    color: #2e2e2c;
+
+    &:hover {
+      color: #ffffff;
+      text-decoration: none;
+    }
+  }
+
+  .masthead-logo {
+    display: inline-block;
+    font-size: 1.5rem;
+    color: #2e2e2c;
+
+    .mega-octicon {
+      float: left;
+      margin-right: .5rem;
+    }
+  }
+
+  @media (min-width: 34em) {
+    text-align: left;
+
+    .masthead-logo {
+      float: left;
+    }
+  }
+}
+
+.masthead-nav {
+  margin-top: 1rem;
+  font-size: 1rem;
+
+  a {
+    display: inline-block;
+
+    &:not(:last-child) {
+      margin-right: 1.25rem;
+    }
+  }
+
+  .active {
+    color: #2e2e2c;
+    font-weight: 500;
+  }
+
+  @media (max-width: 34em) {
+    padding-top: 1rem;
+    border-top: .075rem solid rgba(255, 255, 255, 0.25);
+  }
+
+  @media (min-width: 34em) {
+    float: right;
+    margin-top: .5rem;
+  }
+}
+
+
+//
+// Homepage jumbotron
+//
+
+.jumbotron {
+  margin-top: -2rem;
+  margin-bottom: 3rem;
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+  background-color: $brand-yellow;
+  font-size: 1.25rem;
+  color: #2e2e2c;
+  text-align: center;
+
+  h1 {
+    font-size: 4.5em;
+    font-weight: normal;
+  }
+  
+  .fa {
+    float: left;
+  }
+
+  .btn {
+    width: 100%;
+    text-align: right;
+    padding: .75em 1.15em;
+    font-size: inherit;
+    font-weight: normal;
+    line-height: 1;
+    margin: 0.25em;
+  }
+
+  @media (min-width: 34em) {
+    padding-top: 6rem;
+    padding-bottom: 8rem;
+    font-size: 1.5rem;
+    text-align: left;
+  }
+}
+
+
+.featurette {
+  h2 {
+    font-size: 1.5em;
+  }
+  
+  img {
+    max-width: 100%;
+  }
+  
+  margin-bottom: 8.5em;
+}
+
+.footer {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  margin-top: 3rem;
+  line-height: 1.75;
+  color: #7a7a7a;
+  border-top: 1px solid #eee;
+}
+

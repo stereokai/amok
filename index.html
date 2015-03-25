@@ -1,0 +1,93 @@
+---
+layout: default
+---
+
+<div class="jumbotron">
+  <div class="container">    
+    <div class="columns">
+      <div class="one-half column">
+        <h1>{{ site.title }}</h1>
+        <p>{{ site.description }}</p>
+      </div>
+
+      <div class="one-half column">
+        <a href="{{ site.npm }}" class="btn btn-reverse">
+          <i class="fa fa-download fa-lg"></i> View Package
+        </a>
+        
+        <a href="{{ site.github }}" class="btn btn-reverse">
+          <i class="fa fa-github fa-lg"></i> View Source
+        </a>
+
+        <a href="{{ site.gitter }}" class="btn btn-reverse">
+          <i class="fa fa-question fa-lg"></i> Join Chat
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="featurette">
+  <div class="container">
+    <div class="one-half column">
+      <h2>What is it?</h2>
+        <p>Amok is a free, open source standalone command line tool for rapid prototyping and development of JavaScript applications.</p>
+        
+        <p>Amok is written in <a href="">node</a> and distributed via <a href="">npm</a></p>
+    </div>
+
+    <div class="one-half column">
+      &nbsp;
+    </div>
+  </div>
+</div>
+<div class="featurette">
+  <div class="container">
+    <div class="three-fourths column">
+      <div class="embed-responsive embed-responsive-16by9">
+        <iframe width="1280" height="720" src="https://www.youtube.com/embed/xHXqyfkct2w?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <div class="one-fourth column">
+      <h2>What does it do?</h2>
+        <p>Amok monitors changes in the file system. As soon as you save a file, it is then preprocessed/compiled as needed, and reloaded in the browser session <strong>without refreshing</strong>
+        </p>
+        
+        <p>It can also spawn a server for rapid development of front end applications</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="featurette">
+  <div class="container">
+    <div class="one-half column">
+      <h2>How does it work?</h2>
+        <p>Amok works by connecting directly to the browser via the debugging protocol, which means no browser extension are required.</p>
+        
+        <p>Using a browser debugging session like this, means that it is truly a live editing experience with support from the JavaScript runtime itself, so the application state is never lost and it can reach deep down into closures.</p>
+    </div>
+
+    <div class="one-half column">
+      &nbsp;
+    </div>
+  </div>
+</div>
+
+<div class="featurette">
+  <div class="container">
+    <div class="one-half column">
+      &nbsp;
+    </div>
+
+    <div class="one-half column">
+      <h2>How do i get it?</h2>
+        <h3>Prerequisites</h3>
+        <p><a href="http://nodejs.org/download/">Download and install node</a><p>
+
+        <h3>Installation</h3>
+        <p>Open a terminal window and run the following command<p>
+        <pre><code>npm install --global amok</code></pre>
+    </div>
+  </div>
+</div>

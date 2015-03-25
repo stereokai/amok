@@ -1,0 +1,10 @@
+# Site settings
+title: Amok
+description: Live Editing for JavaScript
+
+baseurl: ""
+url: "http://amokjs.com"
+
+npm: https://www.npmjs.com/package/amok
+github: https://github.com/caspervonb/amok
+gitter: https://gitter.im/caspervonb/amok
