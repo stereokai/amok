@@ -105,7 +105,7 @@ async.auto({
     });
   }],
 
-  server: function(callback, data) {
+  server: ['bundler', function(callback, data) {
     if (cmd.verbose) {
       console.info('Starting server...');
     }
@@ -118,7 +118,7 @@ async.auto({
 
       callback(null, server);
     });
-  },
+  }],
 
   browser: ['server', function(callback, data) {
     if (cmd.browser) {
