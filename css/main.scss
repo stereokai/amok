@@ -170,6 +170,14 @@ body {
   margin-bottom: 8.5em;
 }
 
+.highlight {
+  background: #333;
+  width: 80;
+  color: #fff;
+  padding: 1em;
+  font-family: $mono-font;
+}
+
 .footer {
   padding-top: 3rem;
   padding-bottom: 3rem;
