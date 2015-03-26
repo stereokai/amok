@@ -13,12 +13,13 @@ amok [options] <script>
 ```
 
 ## Description
-Amok is a command line debugging and rapid prototyping tool for JavaScript applications.
+Amok is a standalone command line tool for rapid prototyping and development of JavaScript applications.
 
-Edit your application code live with realtime feedback, without having to reload the browser, keeping the application state intact.
+It monitors changes in the file system. As soon as you save a file, it is then preprocessed/compiled as needed, and reloaded in the browser session without refreshing. This keeps the application state unchanged while doing live edits.
 
-It can also process your application through a compiler or other preprocessor like browserify, typescript, coffeescript or babel.
+It does this by connecting directly to the browser via the debugging protocol, which means no browser extension are required, but the browser does have to support the remote debugging protocol (which, is currently only Chrome)
 
+## Example
 ```
 export AMOK_BROWSER="google-chrome --remote-debugging-port=9222"
 export AMOK_BUNDLER="watchify"
