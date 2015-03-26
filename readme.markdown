@@ -20,8 +20,8 @@ Edit your application code live with realtime feedback, without having to reload
 It can also process your application through a compiler or other preprocessor like browserify, typescript, coffeescript or babel.
 
 ```
-export BROWSER="google-chrome --remote-debugging-port=9222"
-export BUNDLER="watchify"
+export AMOK_BROWSER="google-chrome --remote-debugging-port=9222"
+export AMOK_BUNDLER="watchify"
   
 amok myapp.js
 ```
