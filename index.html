@@ -11,15 +11,15 @@ layout: default
       </div>
 
       <div class="one-half column">
-        <a href="{{ site.npm }}" class="btn btn-reverse">
+        <a href="{{ site.npm }}" class="btn btn-reverse" onclick="track('{{ site.npm }}')">
           <i class="fa fa-download fa-fw fa-lg pull-left"></i> View Package
         </a>
         
-        <a href="{{ site.github }}" class="btn btn-reverse">
+        <a href="{{ site.github }}" class="btn btn-reverse" onclick="track('{{ site.github }}')">
           <i class="fa fa-github fa-fw fa-lg pull-left"></i> View Source
         </a>
 
-        <a href="{{ site.gitter }}" class="btn btn-reverse">
+        <a href="{{ site.gitter }}" class="btn btn-reverse" onclick="track('{{ site.gitter }}')">
           <i class="fa fa-question fa-fw fa-lg pull-left"></i> Join Chat
         </a>
       </div>
@@ -36,7 +36,7 @@ layout: default
 	    </span>
     </div>
     
-    <a href="https://www.bountysource.com/teams/amok/fundraiser" class="btn btn-reverse" style="text-align: center;">
+    <a href="https://www.bountysource.com/teams/amok/fundraiser" onclick="track('https://www.bountysource.com/teams/amok/fundraiser')" class="btn btn-reverse" style="text-align: center;">
       <i class="fa fa-heart fa-lg pull-left"></i> Pledge Support
     </a>
   </div>
