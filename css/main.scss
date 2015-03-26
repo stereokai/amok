@@ -152,6 +152,20 @@ body {
   }
 }
 
+.faq {
+  font-size: 0.8em;
+  border: solid 1px #999;
+  padding: 0.5em;
+}
+
+.faq-question {
+  font-size: 2em;
+}
+
+.faq-answer {
+  padding: 0.5em 0.3em 1em;
+}
+
 .progress {
   display: block;
   height: 25px;
