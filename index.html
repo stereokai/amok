@@ -29,7 +29,7 @@ layout: default
 <div class="featurette">
   <div class="container">
     <div class="one-half column">
-      <h2>What is it?</h2>
+      <h2>What Is It?</h2>
         <p>Amok is a free, open source standalone command line tool for rapid prototyping and development of JavaScript applications.</p>
         
         <p>Amok is written in JavaScript, runs on <a href="https://nodejs.org/">node</a> and is distributed via <a href="https://www.npmjs.com/">npm</a></p>
@@ -49,23 +49,22 @@ layout: default
     </div>
 
     <div class="one-fourth column">
-      <h2>What does it do?</h2>
+      <h2>What Does It Do?</h2>
         <p>Amok monitors changes in the file system. As soon as you save a file, it is then preprocessed/compiled as needed, and reloaded in the browser session <strong>without refreshing</strong>. This keeps the application state unchanged while doing live edits.
         </p>
         
         <p>It can also spawn a server for rapid development of front end applications</p>
     </div>
-    
   </div>
 </div>
 
 <div class="featurette">
   <div class="container">
     <div class="one-half column">
-      <h2>How does it work?</h2>
+      <h2>How Does It Work?</h2>
         <p>Amok works by connecting directly to the browser via the debugging protocol, which means no browser extension are required.</p>
-        
-        <p>Using a browser debugging session like this, means that it is truly a live editing experience with support from the JavaScript runtime itself, so the application state is never lost and it can reach deep down into closures.</p>
+
+        <p>Using a browser debugging session like this, means that it is truly a live editing experience with support from the JavaScript runtime itself, so the application state is never lost and it can reach deep down into closures without causing side effects.</p>
     </div>
 
     <div class="one-half column">
@@ -81,14 +80,26 @@ layout: default
     </div>
 
     <div class="one-half column">
-      <h2>How do i get it?</h2>
-        <h3>Prerequisites</h3>
+      <h2>Where Can I Get It?</h2>
         <p><a href="http://nodejs.org/download/">Download and install node</a><p>
-
-        <h3>Installation</h3>
+        
         <p>Open a terminal window and run the following command<p>
         <pre class="highlight"><code>npm install --global amok</code></pre>
     </div>
+  </div>
+</div>
+
+<div class="featurette">
+  <div class="container">
+    <div class="one-half column">
+      <h2>How do i use it?</h2>
+        <p>Open a terminal window, navigate to your project and run the amok command with the files you want live edit<p>
+        <pre class="highlight"><code>amok app.js</code></pre>
+    </div>
+  </div>
+
+  <div class="one-half column">
+    &nbsp;
   </div>
 </div>
 
