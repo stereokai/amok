@@ -10,3 +10,6 @@ github: https://github.com/caspervonb/amok
 gitter: https://gitter.im/caspervonb/amok
 
 analytics: UA-48351156-5
+
+gems:
+  - jekyll-sitemap
