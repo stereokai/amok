@@ -15,15 +15,15 @@ amok [options] <script>
 ## Description
 Amok is a standalone command line tool for rapid prototyping and development of JavaScript applications.
 
-It monitors changes in the file system. As soon as you save a file, it is then preprocessed/compiled as needed, and reloaded in the browser session without refreshing. This keeps the application state unchanged while doing live edits.
+It monitors changes in the file system. As soon as you save a file, it is then preprocessed/compiled as needed, and re-compiled in the browser session without refreshing. This keeps the application state unchanged while doing live edits.
 
-It does this by connecting directly to the browser via the debugging protocol, which means no browser extension are required, but the browser does have to support the remote debugging protocol (which, is currently only Chrome)
+It does this by connecting directly to the browser via the debugging protocol, which means no browser extensions are required, but the browser does have to support the remote debugging protocol (which, is currently only Chrome)
 
 ## Example
 ```
-export AMOK_BROWSER="google-chrome --remote-debugging-port=9222"
-export AMOK_BUNDLER="watchify"
-  
+export AMOK_BROWSER='google-chrome --remote-debugging-port=9222'
+export AMOK_BUNDLER='watchify -o $<'
+
 amok myapp.js
 ```
 
@@ -46,7 +46,7 @@ amok myapp.js
 
 --no-browser
   disable browser spawning
-    
+
 --no-bundler
   disable bundling
 
@@ -63,4 +63,10 @@ AMOK_BROWSER
 
 AMOK_BUNDLER
   When set to an executable, will be used to bundle scripts.
+```
+
+## Automatic Variables
+```
+$<
+  When using a bundler, this is set to the output path of the bundle
 ```
