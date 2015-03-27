@@ -49,9 +49,11 @@ function bundle(options, callback) {
 
   args = args.concat(options.args);
 
-  var bundler = child.spawn(cmd, args);
-  console.log(args);
+  if (args.indexOf('$@') > -1) {
+    args[args.indexOf('$@')] = options.output;
+  }
 
+  var bundler = child.spawn(cmd, args);
   process.nextTick(function() {
     callback(null, bundler.stdout, bundler.stderr);
   });

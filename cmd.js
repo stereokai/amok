@@ -42,10 +42,8 @@ async.auto({
 
       temp.track();
       temp.mkdir('amok', function(err, dirpath) {
-        cmd.scripts = { 'bundle.js': path.join(dirpath, 'bundle.js') };
-
-        cmd.args.push('-o');
-        cmd.args.push(cmd.scripts['bundle.js']);
+        cmd.output = path.join(dirpath, 'bundle.js');
+        cmd.scripts = { 'bundle.js': cmd.output };
 
         var bundler = amok.bundle(cmd, function(error, stdout, stderr) {
           if (error) {
