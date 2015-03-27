@@ -22,7 +22,7 @@ It does this by connecting directly to the browser via the debugging protocol, w
 ## Example
 ```
 export AMOK_BROWSER='google-chrome --remote-debugging-port=9222'
-export AMOK_BUNDLER='watchify -o $<'
+export AMOK_BUNDLER='watchify -o $@'
 
 amok myapp.js
 ```
@@ -67,6 +67,6 @@ AMOK_BUNDLER
 
 ## Automatic Variables
 ```
-$<
+$@
   When using a bundler, this is set to the output path of the bundle
 ```
