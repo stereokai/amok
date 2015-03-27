@@ -8,7 +8,7 @@
 [![Support the fundraiser](https://cloud.githubusercontent.com/assets/157787/6764979/c806eed4-d007-11e4-93fc-b1c5f1a222fb.png)](https://www.bountysource.com/fundraisers/682-amok-live-editing-javascript)
 
 ## Synopsis
-```
+```sh
 amok [options] <script>
 ```
 
@@ -20,7 +20,7 @@ It monitors changes in the file system. As soon as you save a file, it is then p
 It does this by connecting directly to the browser via the debugging protocol, which means no browser extensions are required, but the browser does have to support the remote debugging protocol (which, is currently only Chrome)
 
 ## Example
-```
+```sh
 export AMOK_BROWSER='google-chrome --remote-debugging-port=9222'
 export AMOK_BUNDLER='watchify -o $@'
 
