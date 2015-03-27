@@ -1,4 +1,4 @@
-Amok has been backed and funded by these awesome people
+Amok has been backed and funded by the following awesome individuals
 
 - Dan Abramov
 - Denny Trebbin
