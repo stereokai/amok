@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-var cmd = require('commander');
 var amok = require('./');
-var temp = require('temp');
-var path = require('path');
 var async = require('async');
+var cmd = require('commander');
+var path = require('path');
+var temp = require('temp');
 
 var pkg = require('./package.json');
 
