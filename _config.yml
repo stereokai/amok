@@ -1,6 +1,6 @@
 # Site settings
 title: Amok
-description: Live Editing for JavaScript Without Having to Reload
+description: Live Editing for JavaScript
 
 baseurl: ""
 url: "http://amokjs.com"
