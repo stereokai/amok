@@ -30,12 +30,12 @@ layout: default
     <div class="progress">
 	    <span class="progress-bar" style="width: 3%">
 	    </span>
-	    
+
 	    <span class="progress-value">
 	      3% funded with 19 days remaining
 	    </span>
     </div>
-    
+
     <a href="https://www.bountysource.com/teams/amok/fundraiser" onclick="track('https://www.bountysource.com/teams/amok/fundraiser')" class="btn btn-reverse" style="text-align: center;">
       <i class="fa fa-heart fa-lg pull-left"></i> Pledge Support
     </a>
@@ -47,7 +47,7 @@ layout: default
     <div class="one-half column">
       <h2>What Is It?</h2>
         <p>Amok is a free, open source standalone command line tool for rapid prototyping and development of JavaScript applications.</p>
-        
+
         <p>Amok is written in JavaScript, runs on <a href="https://nodejs.org/">node</a> and is distributed via <a href="https://www.npmjs.com/">npm</a></p>
     </div>
 
@@ -69,7 +69,7 @@ layout: default
         <p>Amok monitors changes in the file system. As soon as you save a file, it is then preprocessed, compiled and bundled as needed, and reloaded in the browser session <strong>without refreshing</strong>. This keeps the application state unchanged while doing live edits.
         </p>
 
-        <p>Additional features include http server, console redirection and code evaluation</p>
+        <p>Additional features include a zero configuration http development server, console redirection and code evaluation</p>
     </div>
   </div>
 </div>
@@ -77,46 +77,58 @@ layout: default
 <div class="featurette">
   <div class="container">
     <div class="one-half column">
+      <h2>What Compiler Can It Use?</h2>
+      <p>Amok can use any compiler that has a command line interface capable of writing to a file.</p>
+      <p>This is done trough a simple option or environment variable configuration, which means it can work with CoffeeScript, TypeScript, Babel, Webpack and Browserify.</p>
+    </div>
+
+    <div class="one-half column">
+      &nbsp;
+    </div>
+  </div>
+</div>
+
+<div class="featurette">
+  <div class="container">
+    <div class="one-half column">
+      &nbsp;
+    </div>
+
+    <div class="one-half column">
       <h2>How Does It Work?</h2>
-        <p>Amok works by connecting directly to the browser via the debugging protocol, which means no browser extension are required.</p>
+        <p>Amok works by connecting directly to the browser via the remote debugging protocol, which means no browser extension are required.</p>
 
         <p>Using a browser debugging session like this, means that it is truly a live editing experience with support from the JavaScript runtime itself, so the application state is never lost and it can reach deep down into closures without causing side effects.</p>
     </div>
-
-    <div class="one-half column">
-      &nbsp;
-    </div>
   </div>
 </div>
 
 <div class="featurette">
   <div class="container">
-    <div class="one-half column">
-      &nbsp;
-    </div>
-
     <div class="one-half column">
       <h2>Where Can I Get It?</h2>
         <p><a href="http://nodejs.org/download/">Download and install node</a><p>
-        
+
         <p>Open a terminal window and run the following command<p>
         <pre class="highlight"><code>npm install --global amok</code></pre>
+    </div>
+
+    <div class="one-half column">
+      &nbsp;
     </div>
   </div>
 </div>
 
 <div class="featurette">
-  <div class="container">
-    <div class="one-half column">
-      <h2>How Do I Use It?</h2>
-        <p>First, open Google Chrome with <a href="https://developer.chrome.com/devtools/docs/debugger-protocol#remote">remote debugging enabled</a></p>
-        <p>Open a terminal window, navigate to your project and run the command with the files you want live edit<p>
-        <pre class="highlight"><code>amok app.js</code></pre>
-    </div>
-  </div>
-
   <div class="one-half column">
     &nbsp;
   </div>
+  <div class="container">
+  <div class="one-half column">
+    <h2>How Do I Use It?</h2>
+      <p>First, open Google Chrome with <a href="https://developer.chrome.com/devtools/docs/debugger-protocol#remote">remote debugging enabled</a></p>
+      <p>Open a terminal window, navigate to your project and run the command with the files you want live edit<p>
+      <pre class="highlight"><code>amok app.js</code></pre>
+    </div>
+  </div>
 </div>
-

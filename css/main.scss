@@ -194,13 +194,15 @@ body {
 .featurette {
   h2 {
     font-size: 1.5em;
+    margin-top: 0;
   }
   
   img {
     max-width: 100%;
   }
   
-  margin-bottom: 8.5em;
+  padding: 4em 0;
+
 }
 
 .highlight {
