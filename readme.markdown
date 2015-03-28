@@ -13,17 +13,24 @@ amok [options] <script>
 ```
 
 ## Description
-Amok is a standalone command line tool for rapid prototyping and development of JavaScript applications.
+Amok standalone command line tool for rapid prototyping and development of JavaScript applications.
 
-It monitors changes in the file system. As soon as you save a file, it is then preprocessed/compiled as needed, and re-compiled in the browser session without refreshing. This keeps the application state unchanged while doing live edits.
+It monitors changes in the file system. As soon as you save a file, it is then preprocessed, compiled and bundled as needed, and reloaded in the browser session without refreshing. This keeps the application state unchanged while doing live edits.
 
-It does this by connecting directly to the browser via the debugging protocol, which means no browser extensions are required, but the browser does have to support the remote debugging protocol (which, is currently only Chrome)
+Additional features include a zero configuration http development server, console redirection and code evaluation.
 
 ## Example
-```
+
+```sh
+# Set to the browser you wish to spawn
+# The executable needs to be in PATH
 export AMOK_BROWSER='google-chrome --remote-debugging-port=9222'
+
+# Set to the compiler you wish to use, make sure to set the output file
+# The executable needs to be in PATH
 export AMOK_BUNDLER='watchify -o $@'
 
+# Then just start amok with the entry point of your application
 amok myapp.js
 ```
 
@@ -54,9 +61,11 @@ amok myapp.js
   disable remote debugger
 ```
 
-Any extra arguments following the `--` terminator, will be passed along with the invocation to the source bundler if one is specified.
+Any extra arguments following the `--` terminator, will be passed as arguments when spawning the compiler, if one is specified.
 
 ## Environment Variables
+These environment variables are used to provide amok with default values.
+
 ```
 AMOK_BROWSER
   When set to a executable, will be opened after the server has started.
@@ -66,6 +75,8 @@ AMOK_BUNDLER
 ```
 
 ## Automatic Variables
+These automatic variables are set and substituted when spawning clients and compilers.
+
 ```
 $@
   When using a bundler, this is set to the output path of the bundle
