@@ -170,6 +170,7 @@ async.auto({
   }],
 }, function(error) {
   if (error) {
-    return console.error(error);
+    console.error(error);
+    process.exit(1);
   }
 });
