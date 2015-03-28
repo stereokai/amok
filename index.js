@@ -44,7 +44,7 @@ function serve(options, callback) {
 }
 
 function bundle(options, callback) {
-  var args = options.bundler.split(' ');
+  var args = options.bundler.match(/\w+|"(?:\\"|[^"])+"/g);
   var cmd = args.shift();
 
   args = args.concat(options.args);
@@ -117,7 +117,7 @@ function debug(options, callback) {
 }
 
 function browse(options, callback) {
-  var args = options.browser.split(' ');
+  var args = options.browser.match(/\w+|"(?:\\"|[^"])+"/g);
   var cmd = args.shift();
 
   var url = util.format('http://%s:%d', options.host, options.port);
