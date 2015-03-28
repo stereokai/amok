@@ -15,7 +15,9 @@ amok [options] <script>
 ## Description
 Amok standalone command line tool for rapid prototyping and development of JavaScript applications.
 
-It monitors changes in the file system. As soon as you save a file, it is then preprocessed, compiled and bundled as needed, and reloaded in the browser session without refreshing. This keeps the application state unchanged while doing live edits.
+It monitors changes in the file system. As soon as you save a file, it is then preprocessed, compiled and bundled as needed, and reloaded in the browser session without refreshing.
+
+This is done trough a debugging session, and keeps the application state unchanged while doing live edits.
 
 Additional features include a zero configuration http development server, console redirection and code evaluation.
 
