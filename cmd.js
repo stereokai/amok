@@ -74,15 +74,15 @@ async.auto({
       if (cmd.verbose) {
         console.info('File watcher ready');
       }
+
       watcher.on('change', function(filename) {
         if (cmd.verbose) {
           console.info(filename, 'changed');
         }
 
-        var script = Object.keys(cmd.scripts)
-          .filter(function(key) {
-            return cmd.scripts[key] === filename
-          })[0];
+        var script = Object.keys(cmd.scripts).filter(function(key) {
+          return cmd.scripts[key] === filename
+        })[0];
 
         if (script) {
           if (cmd.verbose) {
