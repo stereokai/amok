@@ -8,7 +8,7 @@
 [![Support the fundraiser](https://cloud.githubusercontent.com/assets/157787/6764979/c806eed4-d007-11e4-93fc-b1c5f1a222fb.png)](https://www.bountysource.com/fundraisers/682-amok-live-editing-javascript)
 
 ## Synopsis
-```
+```sh
 amok [options] <script>
 ```
 
