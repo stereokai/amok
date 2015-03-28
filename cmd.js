@@ -16,6 +16,9 @@ cmd.option('-p, --port <PORT>', 'specify http port', 9966);
 cmd.option('-H, --debugger-host <HOST>', 'specify debugger host', 'localhost');
 cmd.option('-P, --debugger-port <PORT>', 'specify debugger port', 9222);
 
+cmd.option('--browser <CMD>', 'specify the browser to spawn');
+cmd.option('--bundler <CMD>', 'specify the bundler to spawn');
+
 cmd.option('-v, --verbose', 'enable verbose logging mode');
 
 cmd.option('--no-bundler', 'disable bundling');

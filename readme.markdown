@@ -37,6 +37,8 @@ amok myapp.js
 ```
 
 ## Options
+
+
 ```
 -h, --host <HOST>
   specify the http host, default HOST is localhost.
@@ -49,6 +51,12 @@ amok myapp.js
 
 -P, --debugger-port <PORT>
   specify the remote debugger port, default PORT is 9222.
+
+--browser
+  specify the browser to spawn
+  
+--bundler
+  specify the bundler to spawn
 
 -v, --verbose
   enable verbose logging mode
@@ -70,10 +78,10 @@ These environment variables are used to provide amok with default values.
 
 ```
 AMOK_BROWSER
-  When set to a executable, will be opened after the server has started.
+  When set to a executable, will be used as the default browser value.
 
 AMOK_BUNDLER
-  When set to an executable, will be used to bundle scripts.
+  When set to an executable, will be used as the default bundler value.
 ```
 
 ## Automatic Variables
