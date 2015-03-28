@@ -2,12 +2,30 @@
 layout: default
 ---
 
+<script>
+  $(function() {
+    $('.type-text')
+      .teletype({
+        text: [
+          'JavaScript',
+          'TypeScript',
+          'CoffeeScript',
+          'ECMAScript 6',
+        ],
+        prefix: 'Live Editing for ',
+
+        typeDelay: 0,
+        backDelay: 20
+      });
+  });
+</script>
+
 <div class="jumbotron">
   <div class="container">    
     <div class="columns">
       <div class="one-half column">
         <h1>{{ site.title }}</h1>
-        <p>{{ site.description }}</p>
+        <p class="type-text">{{ site.description }}</p>
       </div>
 
       <div class="one-half column">
