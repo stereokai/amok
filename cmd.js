@@ -15,11 +15,11 @@ cmd.option('-p, --port <PORT>', 'specify http port', 9966);
 
 cmd.option('-H, --debugger-host <HOST>', 'specify debugger host', 'localhost');
 cmd.option('-P, --debugger-port <PORT>', 'specify debugger port', 9222);
+
 cmd.option('-v, --verbose', 'enable verbose logging mode');
 
 cmd.option('--no-bundler', 'disable bundling');
 cmd.option('--no-browser', 'disable browsing');
-cmd.option('--no-debugger', 'disable debugging');
 
 cmd.version(pkg.version);
 cmd.parse(process.argv);
@@ -144,31 +144,29 @@ async.auto({
   }],
 
   bugger: ['browser', function(callback, data) {
-    if (cmd.debugger) {
-      if (cmd.verbose) {
-        console.info('Attaching debugger...');
-      }
+    if (cmd.verbose) {
+      console.info('Attaching debugger...');
+    }
 
-      var bugger = amok.debug(cmd, function(target) {
+    var bugger = amok.debug(cmd, function(target) {
+      if (cmd.verbose) {
+        console.info('Debugger attached to %s', target.url);
+      }
+      
+      bugger.on('detach', function() {
+        if (cmd.verbose) {
+          console.info('Debugger detatched');
+        }
+      });
+
+      bugger.on('attach', function(target) {
         if (cmd.verbose) {
           console.info('Debugger attached to %s', target.url);
         }
-        
-        bugger.on('detach', function() {
-          if (cmd.verbose) {
-            console.info('Debugger detatched');
-          }
-        });
-
-        bugger.on('attach', function(target) {
-          if (cmd.verbose) {
-            console.info('Debugger attached to %s', target.url);
-          }
-        });
-
-        callback(null, bugger);
       });
-    }
+
+      callback(null, bugger);
+    });
   }],
 }, function(error) {
   if (error) {
