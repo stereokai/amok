@@ -1,6 +1,6 @@
 {
   "name": "amok",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "description": "Live Editing for JavaScript",
   "main": "index.js",
   "files": [
