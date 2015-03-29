@@ -5,6 +5,7 @@ var async = require('async');
 var cmd = require('commander');
 var path = require('path');
 var temp = require('temp');
+var fs = require('fs');
 
 var pkg = require('./package.json');
 
@@ -56,9 +57,15 @@ async.auto({
           stdout.pipe(process.stdout);
           stderr.pipe(process.stderr);
 
-          setTimeout(function() {
-            callback(null, compiler);
-          }, 200);
+          process.nextTick(function tick() {
+            fs.exists(cmd.output, function(exists) {
+              if (exists) {
+                return callback(null, compiler);
+              } else {
+                setTimeout(tick, 100);
+              }
+            });
+          });
         });
       });
 
