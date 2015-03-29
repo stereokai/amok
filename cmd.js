@@ -3,9 +3,9 @@
 var amok = require('./');
 var async = require('async');
 var cmd = require('commander');
+var fs = require('fs');
 var path = require('path');
 var temp = require('temp');
-var fs = require('fs');
 
 var pkg = require('./package.json');
 

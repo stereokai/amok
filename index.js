@@ -1,11 +1,11 @@
-var http = require('http');
-var util = require('util');
 var child = require('child_process');
-var fs = require('fs');
-var path = require('path');
-var mime = require('mime');
 var chokidar = require('chokidar');
+var fs = require('fs');
+var http = require('http');
+var mime = require('mime');
+var path = require('path');
 var rdbg = require('rdbg');
+var util = require('util');
 
 function serve(options, callback) {
   var server = http.createServer(function(request, response) {
