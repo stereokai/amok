@@ -93,12 +93,6 @@ amok --compiler 'webpack --watch --output-file $@' entry.js
 
 Amok requires that a client is listening on the remote debugging port when launching, it can spawn a client for you at the appropriate time, this is set by passing the `--client` option with the executable name and appropriate flags, this option has automatic variables available to it.
 
-Google Chrome and Chromium it needs to be started with a remote debugging port specified to enable remote debugging, the default expected port is 9222 `--remote-debugging-port=9222`.
-
-```sh
-amok --client `google-chrome --remote-debugging-port=9222`
-```
-
 Amok can also, optionally use a compiler to process script sources, this compiler is specified via the `--compiler` option, this option has automatic variables available to it.
 
 Any extra arguments following the `--` terminator, will be passed as arguments when spawning the compiler, if one is specified.
