@@ -21,6 +21,46 @@ This re-compilation is done through a debugging session, unlike reloading or ree
 
 Additional features include a zero configuration http development server for developing front end applications.
 
+
+## Example
+### Setting Chrome as the Client
+First, set `AMOK_CLIENT` to the path of the chrome executable, the
+appropriate value depends on your operating system.
+
+This could also be set by passing it via `--compiler`.
+
+#### Linux
+```
+export AMOK_CLIENT='google-chrome --remote-debugging-port=9222'
+```
+
+#### OSX
+```sh
+export AMOK_CLIENT='"/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome" --remote-debugging-port=9222'
+```
+
+#### Windows 7 (32 bit)
+```sh
+SET AMOK_CLIENT='"C:\Program Files\Google\Application\chrome.exe" --remote-debugging-port=9222'
+```
+#### Windows 7 (64 bit)
+```sh
+SET AMOK_CLIENT='"C:\Program Files\Google\Application\chrome.exe" --remote-debugging-port=9222'
+```
+
+### Launching with a Compiler
+To lanch with a compiler, we'll set the --compiler option (default can be set via `AMOK_COMPILER`)
+
+### Browserify
+```sh
+amok --compiler 'watchify -o $@' entry.js
+```
+
+### Webpack
+```sh
+amok --compiler 'webpack --watch --output-file $@' entry.js
+```
+
 ## Options
 ```
 -h, --host <HOST>
@@ -62,45 +102,6 @@ amok --client `google-chrome --remote-debugging-port=9222`
 Amok can also, optionally use a compiler to process script sources, this compiler is specified via the `--compiler` option, this option has automatic variables available to it.
 
 Any extra arguments following the `--` terminator, will be passed as arguments when spawning the compiler, if one is specified.
-
-## Example
-### Setting Chrome as the Client
-First, set `AMOK_CLIENT` to the path of the chrome executable, the
-appropriate value depends on your operating system.
-
-This could also be set by passing it via `--compiler`.
-
-#### Linux
-```
-export AMOK_CLIENT='google-chrome --remote-debugging-port=9222'
-```
-
-#### OSX
-```sh
-export AMOK_CLIENT='"/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome" --remote-debugging-port=9222'
-```
-
-#### Windows 7 (32 bit)
-```sh
-SET AMOK_CLIENT='"C:\Program Files\Google\Application\chrome.exe" --remote-debugging-port=9222'
-```
-#### Windows 7 (64 bit)
-```sh
-SET AMOK_CLIENT='"C:\Program Files\Google\Application\chrome.exe" --remote-debugging-port=9222'
-```
-
-### Launching with a Compiler
-To lanch with a compiler, we'll set the --compiler option (default can be set via `AMOK_COMPILER`)
-
-### Browserify
-```sh
-amok --compiler 'watchify -o $@' entry.js
-```
-
-### Webpack
-```sh
-amok --compiler 'webpack --watch --output-file $@' entry.js
-```
 
 ## Environment Variables
 These environment variables are used to provide amok with default values.
