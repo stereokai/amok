@@ -134,7 +134,7 @@ body {
     font-size: 4.5em;
     font-weight: normal;
   }
-  
+
   .btn {
     width: 100%;
     padding: .75em 1.15em;
@@ -168,27 +168,26 @@ body {
 
 .progress {
   display: block;
-  height: 25px;
   position: relative;
-  margin: 60px 0 20px 0;
   background: #555;
   border-radius: 2px;
   padding: 0;
   width: 100%;
-  margin: 2em 0;
-  
+  margin: 2em 0 .5em;
+
   .progress-bar {
     display: block;
-    height: 100%;
+    height: 25px;
     background-color: $brand-green;
   }
-  
-  .progress-value {
-    display: block;
-    text-align: center;
-    width: 100%;
-    margin: auto;
-  }
+
+}
+
+.progress-value {
+  display: block;
+  margin: 0 auto 2em;
+  text-align: center;
+  width: 100%;
 }
 
 .featurette {
@@ -196,11 +195,11 @@ body {
     font-size: 1.5em;
     margin-top: 0;
   }
-  
+
   img {
     max-width: 100%;
   }
-  
+
   padding: 4em 0;
 
 }
@@ -229,3 +228,17 @@ top: 0;
 left: 0;
 }
 
+@media (max-width: 600px) {
+  .column {
+    width: 100%;
+    padding: 0 0 1em;
+  }
+
+  .featurette {
+    padding: 0;
+  }
+
+  .hidden-med {
+    display: none;
+  }
+}
