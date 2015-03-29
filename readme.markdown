@@ -27,10 +27,10 @@ Additional features include a zero configuration http development server for dev
 First, set `AMOK_CLIENT` to the path of the chrome executable, the
 appropriate value depends on your operating system.
 
-This could also be set by passing it via `--compiler`.
+This could also be set by passing it via the `--client` option.
 
 #### Linux
-```
+```sh
 export AMOK_CLIENT='google-chrome --remote-debugging-port=9222'
 ```
 
@@ -49,7 +49,7 @@ SET AMOK_CLIENT='"C:\Program Files\Google\Application\chrome.exe" --remote-debug
 ```
 
 ### Launching with a Compiler
-To lanch with a compiler, we'll set the --compiler option (default can be set via `AMOK_COMPILER`)
+To lanch with a compiler, we'll set the --compiler option (default can be set via the `AMOK_COMPILER` environment variable)
 
 ### Browserify
 ```sh
