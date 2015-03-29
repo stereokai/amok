@@ -15,7 +15,7 @@ amok [options] <script>
 ## Description
 Amok standalone command line tool for rapid prototyping and development of JavaScript applications.
 
-It monitors changes in the file system. As soon as you save a file, it is then preprocessed, compiled and bundled as needed, and reloaded in the browser session without refreshing.
+It monitors changes in the file system. As soon as you save a file, it is then preprocessed, compiled and bundled as needed, and reloaded in the client session without refreshing or restarting the client.
 
 This is done through a debugging session, and keeps the application state unchanged while doing live edits.
 
@@ -26,11 +26,11 @@ Additional features include a zero configuration http development server, consol
 ```sh
 # Set to the browser you wish to spawn
 # The executable needs to be in PATH
-export AMOK_BROWSER='google-chrome --remote-debugging-port=9222'
+export AMOK_CLIENT='google-chrome --remote-debugging-port=9222'
 
 # Set to the compiler you wish to use, make sure to set the output file
 # The executable needs to be in PATH
-export AMOK_BUNDLER='watchify -o $@'
+export AMOK_COMPILER='watchify -o $@'
 
 # Then just start amok with the entry point of your application
 amok myapp.js
@@ -52,23 +52,22 @@ amok myapp.js
 -P, --debugger-port <PORT>
   specify the remote debugger port, default PORT is 9222.
 
---browser
-  specify the browser to spawn
+--client
+  specify the client to spawn
   
---bundler
-  specify the bundler to spawn
+--compiler
+  specify the compiler to spawn
 
 -v, --verbose
   enable verbose logging mode
 
---no-browser
-  disable browser spawning
-
---no-bundler
-  disable bundling
+--no-client
+  disable client
 
 --no-debugger
   disable remote debugger
+--no-compiler
+  disable compiler
 ```
 
 Any extra arguments following the `--` terminator, will be passed as arguments when spawning the compiler, if one is specified.
@@ -77,11 +76,11 @@ Any extra arguments following the `--` terminator, will be passed as arguments w
 These environment variables are used to provide amok with default values.
 
 ```
-AMOK_BROWSER
-  When set to a executable, will be used as the default browser value.
+AMOK_CLIENT
+  When set to a executable, will be used as the default client value.
 
-AMOK_BUNDLER
-  When set to an executable, will be used as the default bundler value.
+AMOK_COMPILER
+  When set to an executable, will be used as the default compiler value.
 ```
 
 ## Automatic Variables
@@ -89,5 +88,5 @@ These automatic variables are set and substituted when spawning clients and comp
 
 ```
 $@
-  When using a bundler, this is set to the output path of the bundle
+  When using a compiler, this is set to the output path of the compilation result
 ```

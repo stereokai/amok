@@ -43,8 +43,8 @@ function serve(options, callback) {
   return server;
 }
 
-function bundle(options, callback) {
-  var args = options.bundler.match(/\S+|"[^"]+"/g);
+function compile(options, callback) {
+  var args = options.compiler.match(/\S+|"[^"]+"/g);
   var cmd = args.shift();
 
   args = args.concat(options.args);
@@ -53,12 +53,12 @@ function bundle(options, callback) {
     args[args.indexOf('$@')] = options.output;
   }
 
-  var bundler = child.spawn(cmd, args);
+  var compiler = child.spawn(cmd, args);
   process.nextTick(function() {
-    callback(null, bundler.stdout, bundler.stderr);
+    callback(null, compiler.stdout, compiler.stderr);
   });
 
-  return bundler;
+  return compiler;
 }
 
 function watch(options, callback) {
@@ -116,24 +116,24 @@ function debug(options, callback) {
   return bugger;
 }
 
-function browse(options, callback) {
-  var args = options.browser.match(/\S+|"[^"]+"/g);
+function open(options, callback) {
+  var args = options.client.match(/\S+|"[^"]+"/g);
   var cmd = args.shift();
 
   var url = util.format('http://%s:%d', options.host, options.port);
   args.push(url);
 
-  var browser = child.spawn(cmd, args);
+  var client = child.spawn(cmd, args);
 
   process.nextTick(function() {
-    callback(null, browser.stdout, browser.stderr);
+    callback(null, client.stdout, client.stderr);
   });
 
-  return browser;
+  return client;
 }
 
 module.exports.serve = serve;
 module.exports.watch = watch;
-module.exports.bundle = bundle;
+module.exports.compile = compile;
 module.exports.debug = debug;
-module.exports.browse = browse;
+module.exports.open = open;

@@ -16,31 +16,31 @@ cmd.option('-p, --port <PORT>', 'specify http port', 9966);
 cmd.option('-H, --debugger-host <HOST>', 'specify debugger host', 'localhost');
 cmd.option('-P, --debugger-port <PORT>', 'specify debugger port', 9222);
 
-cmd.option('--browser <CMD>', 'specify the browser to spawn');
-cmd.option('--bundler <CMD>', 'specify the bundler to spawn');
+cmd.option('--client <CMD>', 'specify the client to spawn');
+cmd.option('--compiler <CMD>', 'specify the compiler to spawn');
 
 cmd.option('-v, --verbose', 'enable verbose logging mode');
 
-cmd.option('--no-bundler', 'disable bundling');
-cmd.option('--no-browser', 'disable browsing');
+cmd.option('--no-client', 'disable client');
+cmd.option('--no-compiler', 'disable compilation');
 
 cmd.version(pkg.version);
 cmd.parse(process.argv);
 
 cmd.cwd = process.cwd();
-if (cmd.browser !== false) {
-  cmd.browser = process.env['BROWSER'] || process.env['AMOK_BROWSER'];
+if (cmd.client !== false) {
+  cmd.client = process.env['AMOK_CLIENT'];
 }
 
-if (cmd.bundler !== false) {
-  cmd.bundler = process.env['BUNDLER'] || process.env['AMOK_BUNDLER'];
+if (cmd.compiler !== false) {
+  cmd.compiler = process.env['AMOK_COMPILER'];
 }
 
 async.auto({
-  bundler: function(callback, data) {
-    if (cmd.bundler) {
+  compiler: function(callback, data) {
+    if (cmd.compiler) {
       if (cmd.verbose) {
-        console.info('Spawning bundler...');
+        console.info('Spawning compiler...');
       }
 
       temp.track();
@@ -48,7 +48,7 @@ async.auto({
         cmd.output = path.join(dirpath, 'bundle.js');
         cmd.scripts = { 'bundle.js': cmd.output };
 
-        var bundler = amok.bundle(cmd, function(error, stdout, stderr) {
+        var compiler = amok.compile(cmd, function(error, stdout, stderr) {
           if (error) {
             return callback(error);
           }
@@ -57,7 +57,7 @@ async.auto({
           stderr.pipe(process.stderr);
 
           setTimeout(function() {
-            callback(null, bundler);
+            callback(null, compiler);
           }, 200);
         });
       });
@@ -72,7 +72,7 @@ async.auto({
     }
   },
 
-  watcher: ['bundler', 'bugger', function(callback, data) {
+  watcher: ['compiler', 'bugger', function(callback, data) {
     var watcher = amok.watch(cmd, function() {
       if (cmd.verbose) {
         console.info('File watcher ready');
@@ -108,7 +108,7 @@ async.auto({
     });
   }],
 
-  server: ['bundler', function(callback, data) {
+  server: ['compiler', function(callback, data) {
     if (cmd.verbose) {
       console.info('Starting server...');
     }
@@ -123,13 +123,13 @@ async.auto({
     });
   }],
 
-  browser: ['server', function(callback, data) {
-    if (cmd.browser) {
+  client: ['server', function(callback, data) {
+    if (cmd.client) {
       if (cmd.verbose) {
-        console.log('Spawning browser...');
+        console.log('Spawning client...');
       }
 
-      var browser = amok.browse(cmd, function(error, stdout, stderr) {
+      var client = amok.open(cmd, function(error, stdout, stderr) {
         if (error) {
           process.stdout.write(error);
         }
@@ -138,7 +138,7 @@ async.auto({
         stderr.pipe(process.stderr);
 
         setTimeout(function () {
-          callback(null, browser);
+          callback(null, client);
         }, 1000);
       });
     } else {
@@ -146,7 +146,7 @@ async.auto({
     }
   }],
 
-  bugger: ['browser', function(callback, data) {
+  bugger: ['client', function(callback, data) {
     if (cmd.verbose) {
       console.info('Attaching debugger...');
     }
