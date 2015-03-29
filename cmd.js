@@ -99,14 +99,20 @@ async.auto({
             console.info('Re-compiling', script, '...');
           }
 
-          data.bugger.source(script, null, function(error) {
+          fs.readFile(filename, 'utf-8', function(error, contents) {
             if (error) {
               return console.error(error);
             }
 
-            if (cmd.verbose) {
-              console.info('Re-compilation succesful');
-            }
+            data.bugger.source(script, contents, function(error) {
+              if (error) {
+                return console.error(error);
+              }
+
+              if (cmd.verbose) {
+                console.info('Re-compilation succesful');
+              }
+            });
           });
         }
       });
@@ -158,22 +164,14 @@ async.auto({
       console.info('Attaching debugger...');
     }
 
-    var bugger = amok.debug(cmd, function(target) {
-      if (cmd.verbose) {
-        console.info('Debugger attached to %s', target.url);
+    var bugger = amok.debug(cmd, function(error, target) {
+      if (error) {
+        callback(error);
       }
-      
-      bugger.on('detach', function() {
-        if (cmd.verbose) {
-          console.info('Debugger detatched');
-        }
-      });
 
-      bugger.on('attach', function(target) {
-        if (cmd.verbose) {
-          console.info('Debugger attached to %s', target.url);
-        }
-      });
+      if (cmd.verbose) {
+        console.info('Debugger attached to', target.title);
+      }
 
       callback(null, bugger);
     });
