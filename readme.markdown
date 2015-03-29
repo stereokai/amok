@@ -29,16 +29,23 @@ Additional features include a zero configuration http development server, consol
 export AMOK_CLIENT='google-chrome --remote-debugging-port=9222'
 
 # Set to the compiler you wish to use, make sure to set the output file
-# The executable needs to be in PATH
+# The executable needs to be in PATH.
+# Note the single quotes, with double quotes they would be expanded in bash.
 export AMOK_COMPILER='watchify -o $@'
 
 # Then just start amok with the entry point of your application
 amok myapp.js
 ```
 
+```sh
+# For webpack, it's the same thing, add watch tho as single shot compilers are not yet supported.
+export AMOK_COMPILER='webpack --out-file $@ --watch'
+
+# Then just start amok with the entry point of your application
+amok myapp.js
+```
+
 ## Options
-
-
 ```
 -h, --host <HOST>
   specify the http host, default HOST is localhost.
