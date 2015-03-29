@@ -17,7 +17,7 @@ Amok standalone command line tool for rapid prototyping and development of JavaS
 
 It monitors changes in the file system. As soon as you save a file, it is then preprocessed, compiled and bundled as needed, and re-compiled in the client session without refreshing or restarting the client.
 
-This re-compilation is done through a debugging session, unlike live reloading doing re-compilation leaves the application state intact, no side effects are executed when doing live re-compilation.
+This re-compilation is done through a debugging session, unlike reloading or reevaluation, re-compilation leaves the application state intact, no side effects are executed when doing re-compilation.
 
 Additional features include a zero configuration http development server for developing front end applications.
 
