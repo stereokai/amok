@@ -68,21 +68,30 @@ Any extra arguments following the `--` terminator, will be passed as arguments w
 First, set `AMOK_CLIENT` to the path of the chrome executable, the
 appropriate value depends on your operating system.
 
+This could also be set by passing it via `--compiler`.
+
 #### Linux
 ```
 export AMOK_CLIENT='google-chrome --remote-debugging-port=9222'
 ```
 
 #### OSX
+```sh
 export AMOK_CLIENT='"/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome" --remote-debugging-port=9222'
+```
 
 #### Windows 7 (32 bit)
+```sh
 SET AMOK_CLIENT='"C:\Program Files\Google\Application\chrome.exe" --remote-debugging-port=9222'
-
+```
 #### Windows 7 (64 bit)
+```sh
 SET AMOK_CLIENT='"C:\Program Files\Google\Application\chrome.exe" --remote-debugging-port=9222'
+```
 
 ### Launching with a Compiler
+To lanch with a compiler, we'll set the --compiler option (default can be set via `AMOK_COMPILER`)
+
 ### Browserify
 ```sh
 amok --compiler 'watchify -o $@' entry.js
