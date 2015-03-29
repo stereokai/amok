@@ -64,8 +64,6 @@ amok myapp.js
 --no-client
   disable client
 
---no-debugger
-  disable remote debugger
 --no-compiler
   disable compiler
 ```
