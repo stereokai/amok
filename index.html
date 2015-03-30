@@ -65,7 +65,7 @@ layout: default
   <div class="container">
     <div class="one-half column">
       <h2>What Is It?</h2>
-        <p>Amok is a free, open source standalone command line tool for rapid prototyping and development of JavaScript applications.</p>
+        <p>Amok is a free, cross-platform, open source standalone command line tool for rapid prototyping, development and debugging of JavaScript applications.</p>
 
         <p>Amok is written in JavaScript, runs on <a href="https://nodejs.org/">node</a> and is distributed via <a href="https://www.npmjs.com/">npm</a></p>
     </div>
@@ -85,10 +85,10 @@ layout: default
 
     <div class="one-fourth column">
       <h2>What Does It Do?</h2>
-        <p>Amok monitors changes in the file system. As soon as you save a file, it is then preprocessed, compiled and bundled as needed, and reloaded in the browser session <strong>without refreshing</strong>. This keeps the application state unchanged while doing live edits.
+        <p>Amok monitors changes in the file system. As soon as you save a file, it is then preprocessed, compiled and bundled as needed, and reloaded in the browser session <strong>without refreshing</strong>. This keeps the application state unchanged while making edits to the source code.
         </p>
 
-        <p>Additional features include a zero configuration http development server, console redirection and code evaluation</p>
+        <p>Additional features include a zero configuration http server and an interactive mode (read-eval-print-loop).</p>
     </div>
   </div>
 </div>
@@ -98,7 +98,7 @@ layout: default
     <div class="one-half column">
       <h2>What Compiler Can It Use?</h2>
       <p>Amok can use any compiler that has a command line interface capable of writing to a file.</p>
-      <p>This is done trough a simple option or environment variable configuration, which means it can work with CoffeeScript, TypeScript, Babel, Webpack and Browserify.</p>
+      <p>This is done trough a simple command line option or environment variable configuration, which means it can work with CoffeeScript, TypeScript, Babel, Webpack and Browserify just by pointing it to the compiler executable.</p>
     </div>
 
     <div class="one-half column hidden-med">
