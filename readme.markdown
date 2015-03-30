@@ -19,8 +19,7 @@ It monitors changes in the file system. As soon as you save a file, it is then p
 
 This re-compilation is done through a debugging session, unlike reloading or reevaluation, re-compilation leaves the application state intact, no side effects are executed when doing re-compilation.
 
-Additional features include a zero configuration http development server for developing front end applications.
-
+Additional features include a zero configuration http development server for developing front end applications, an interactive mode (read–eval–print loop).
 
 ## Example
 ### Setting Chrome as the Client
