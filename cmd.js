@@ -6,6 +6,8 @@ var cmd = require('commander');
 var fs = require('fs');
 var path = require('path');
 var temp = require('temp');
+var repl = require('repl');
+var util = require('util');
 
 var pkg = require('./package.json');
 
@@ -16,6 +18,8 @@ cmd.option('-p, --port <PORT>', 'specify http port', 9966);
 
 cmd.option('-H, --debugger-host <HOST>', 'specify debugger host', 'localhost');
 cmd.option('-P, --debugger-port <PORT>', 'specify debugger port', 9222);
+
+cmd.option('-i, --interactive', 'enable interactive mode');
 
 cmd.option('--client <CMD>', 'specify the client to spawn');
 cmd.option('--compiler <CMD>', 'specify the compiler to spawn');
@@ -175,6 +179,36 @@ async.auto({
 
       callback(null, bugger);
     });
+  }],
+
+  interactor: ['bugger', function(callback, data) {
+    if (cmd.interactive) {
+      var options = {
+        prompt: '> ',
+        input: process.stdin,
+        output: process.stdout,
+        writer: function(result) {
+          if (result.value) {
+            return util.inspect(result.value, {
+              colors: true,
+            });
+          } else if (result.objectId) {
+            return util.format('[class %s]\n%s', result.className, result.description);
+          }
+        },
+
+        eval: function (cmd, context, filename, write) {
+          data.bugger.evaluate(cmd, function(error, result) {
+            write(error, result);
+          });
+        },
+      };
+
+      var interactor = repl.start(options);
+      callback(null, interactor);
+    } else {
+      callback(null, null);
+    }
   }],
 }, function(error) {
   if (error) {
