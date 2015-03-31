@@ -6,3 +6,22 @@
 
 <script src="jquery.min.js"></script>
 <script src="jquery.teletype.min.js"></script>
+
+<script>
+  $(function() {
+    $('.teletype').teletype({
+      text: [
+        'JavaScript',
+        'Google Chrome',
+        'TypeScript',
+        'Webpack',
+        'CoffeeScript',
+        'Browserify',
+        'ECMAScript 6',
+      ],
+      prefix: 'Live Editing for ',
+      typeDelay: 0,
+      backDelay: 20
+    });
+  });
+</script>
