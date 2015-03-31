@@ -8,7 +8,7 @@ title: Live Editing for JavaScript
     <div class="columns">
       <div class="one-half column">
         <h1 class="site-title">{{ site.title }}</h1>
-        <p class="site-tagline">{{ site.tagline }}</p>
+        <p class="site-tagline teletype">{{ site.tagline }}</p>
       </div>
 
       <div class="one-half column">
@@ -162,22 +162,21 @@ title: Live Editing for JavaScript
   </div>
 </div>
 
-<script type="text-typescript">
+<script>
   $(function() {
-    $('.site-tagline')
-      .teletype({
-        text: [
-          'JavaScript',
-          'Google Chrome',
-          'TypeScript',
-          'Webpack',
-          'CoffeeScript',
-          'Browserify',
-          'ECMAScript 6',
-        ],
-        prefix: 'Live Editing for ',
-        typeDelay: 0,
-        backDelay: 20
-      });
+    $('.teletype').teletype({
+      text: [
+        'JavaScript',
+        'Google Chrome',
+        'TypeScript',
+        'Webpack',
+        'CoffeeScript',
+        'Browserify',
+        'ECMAScript 6',
+      ],
+      prefix: 'Live Editing for ',
+      typeDelay: 0,
+      backDelay: 20
+    });
   });
 </script>
