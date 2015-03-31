@@ -62,3 +62,16 @@
   padding-left: $grid-gutter;
   vertical-align: top;
 }
+
+
+@media (max-width: $container-width) {
+  .container {
+    width: 100%;
+    padding: 1em;
+  }
+
+  .column {
+    float: none;
+    width: 100%;
+  }
+}
