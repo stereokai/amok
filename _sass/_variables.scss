@@ -1,34 +1,19 @@
 $container-width: 980px !default;
 $grid-gutter:     10px !default;
 
-// Brand colors
-$brand-blue:       #4183c4 !default;
-$brand-gray-light: #999    !default;
-$brand-gray:       #666    !default;
-$brand-gray-dark:  #333    !default;
-$brand-green:      #6cc644 !default;
-$brand-red:        #bd2c00 !default;
-$brand-orange:     #f93    !default;
-$brand-purple:     #6e5494 !default;
+$base-font: 'Montserrat';
+$heading-font: $base-font;
 
-// Font stack
-$body-font: Montserrat, Helvetica, arial, nimbussansl, liberationsans, freesans, clean, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol" !default;
+$base-font-size: 16px !default;
 
-// The base body size
-$body-font-size: 13px !default;
+$monospace-font: 'Inconsolata';
 
-// Monospace font stack
-$mono-font: Consolas, "Liberation Mono", Menlo, Courier, monospace !default;
-
-// State indicators.
-$status-open:     $brand-green;
-$status-closed:   $brand-red;
-$status-reverted: $status-closed;
-$status-merged:   $brand-purple;
-$status-renamed:  #fffa5d;
-$status-pending:  #cea61b;
-
-// Repository type colors
-$repo-private-text: #a1882b;
-$repo-private-bg:   #fff9ea;
-$repo-private-icon: #e9dba5;
+$color-blue:       #4183c4 !default;
+$color-gray-light: #999    !default;
+$color-gray:       #666    !default;
+$color-gray-dark:  #333    !default;
+$color-green:      #6cc644 !default;
+$color-red:        #bd2c00 !default;
+$color-orange:     #f93    !default;
+$color-purple:     #6e5494 !default;
+$color-yellow:     #f3df49 !default;

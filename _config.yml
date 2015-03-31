@@ -1,7 +1,7 @@
 # Site settings
 title: Amok
 tagline: Live Editing for JavaScript
-description: An open source tool for JavaScript, TypeScript, CoffeeScript and friends, provides editor agnostic live editing, an interactive read-eval-print-loop, http development server, and more.
+description: An open source tool for JavaScript, TypeScript, CoffeeScript and friends, it provides editor agnostic live editing, an interactive read-eval-print-loop, http development server, and more.
 
 baseurl: ""
 url: "http://amokjs.com"

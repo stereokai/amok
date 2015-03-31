@@ -1,10 +1,170 @@
 ---
 layout: default
+title: Live Editing for JavaScript
 ---
 
-<script>
+<div class="jumbotron">
+  <div class="container">
+    <div class="columns">
+      <div class="one-half column">
+        <h1 class="site-title">{{ site.title }}</h1>
+        <p class="site-tagline">{{ site.tagline }}</p>
+      </div>
+
+      <div class="one-half column">
+        <a href="{{ site.npm }}" class="btn btn-block btn-inverse">
+          <i class="fa fa-download fa-fw fa-lg pull-left"></i> View Package
+        </a>
+
+        <a href="{{ site.github }}" class="btn btn-block btn-inverse">
+          <i class="fa fa-github fa-fw fa-lg pull-left"></i> View Source
+        </a>
+
+        <a href="{{ site.gitter }}" class="btn btn-block btn-inverse">
+          <i class="fa fa-question fa-fw fa-lg pull-left"></i> Join Chat
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="progress">
+      <span class="progress-meter" style="width: 33%"></span>
+      <p class="progress-text">
+        31%
+      </p>
+    </div>
+
+    <p>There's only 16 days remaining of the campaign</p>
+    <a href="https://www.bountysource.com/teams/amok/fundraiser" class="btn btn-block btn-inverse">
+      <i class="fa fa-heart fa-lg pull-left"></i> Pledge now
+    </a>
+  </div>
+</div>
+
+<div class="featurette">
+  <div class="container">
+    <div class="columns">
+      <div class="one-half column">
+        <h2>What Is It?</h2>
+          <p>Amok is a free, cross-platform, open source standalone command line tool for rapid prototyping, development and debugging of JavaScript applications.</p>
+
+          <p>Amok itself written in JavaScript, runs on <a href="https://nodejs.org/">node</a> and is distributed via <a href="https://www.npmjs.com/">npm</a></p>
+      </div>
+
+      <div class="one-half column">
+        &nbsp;
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="featurette">
+  <div class="container">
+    <h2>What Does It Do?</h2>
+
+    <div class="embed-responsive">
+        <iframe src="https://www.youtube.com/embed/YuwPi59Oig0?rel=0&amp;controls=1&amp;showinfo=0" frameborder="0" allowfullscreen=""></iframe>
+      </div>
+
+    <div class="columns">
+      <div class="one-third column">
+        <h3>Live Code Editing</h3>
+        <p>
+          Amok monitors changes in the file system. As soon as you save a file, it is then preprocessed, compiled and bundled as needed, and reloaded in the browser session without refreshing or executing side effects, keeping your application state as it was.
+        </p>
+      </div>
+
+      <div class="one-third column">
+        <h3>Zero Configuration Server</h3>
+        <p>
+          Amok comes with a simple to use zero configuration http development server built-in for
+          rapid development and prototyping.
+        </p>
+      </div>
+
+      <div class="one-third column">
+        <h3>Interactive Mode</h3>
+        <p>
+          Amok can be launched in an interactive mode (read-eval-print-loop) which connects through the remote session and executes in the context of the browser.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="featurette">
+  <div class="container">
+    <div class="columns">
+      <div class="one-half column">
+        &nbsp;
+      </div>
+
+      <div class="one-half column">
+        <h2>What Compiler Can It Use?</h2>
+        <p>Amok can use any compiler that has a command line interface capable of writing to a file with an option to configure the output path.</p>
+        <p>This is done trough a simple command line option or environment variable configuration, which means it can work with CoffeeScript, TypeScript, Babel, Webpack and Browserify just by pointing it to the compiler executable.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="featurette">
+  <div class="container">
+    <div class="columns">
+      <div class="one-half colum">
+        &nbsp;
+      </div>
+
+      <div class="one-half column">
+        <h2>How Does It Work?</h2>
+          <p>Amok works by connecting directly to the browser via the remote debugging protocol, which means no browser extension are required.</p>
+
+          <p>Using a browser debugging session like this, means that it is truly a live editing experience with support from the JavaScript runtime itself, so the application state is never lost and it can reach deep down into closures without causing side effects.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="featurette">
+  <div class="container">
+    <div class="columns">
+      <div class="one-half column">
+        &nbsp;
+      </div>
+
+      <div class="one-half column">
+        <h2>Where Can I Get It?</h2>
+          <p><a href="http://nodejs.org/download/">Download and install node</a><p>
+
+          <p>Open a terminal window and run the following command<p>
+          <pre class="highlight"><code>npm install --global amok</code></pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="featurette">
+  <div class="container">
+    <div class="columns">
+      <div class="one-half column">
+        <h2>How Do I Use It?</h2>
+        <p>First, open Google Chrome with <a href="https://developer.chrome.com/devtools/docs/debugger-protocol#remote">remote debugging enabled</a></p>
+        <p>Open a terminal window, navigate to your project and run the command with the files you want live edit<p>
+        <pre class="highlight"><code>amok app.js</code></pre>
+
+<!--          See the documentation for <a href="">more details</a>-->
+      </div>
+    </div>
+    <div class="one-half column">
+      &nbsp;
+    </div>
+  </div>
+</div>
+
+<script type="text-typescript">
   $(function() {
-    $('.type-text')
+    $('.site-tagline')
       .teletype({
         text: [
           'JavaScript',
@@ -16,168 +176,8 @@ layout: default
           'ECMAScript 6',
         ],
         prefix: 'Live Editing for ',
-
         typeDelay: 0,
         backDelay: 20
       });
   });
 </script>
-
-<div class="jumbotron">
-  <div class="container">
-    <div class="columns">
-      <div class="one-half column">
-        <h1>{{ site.title }}</h1>
-        <p class="type-text">{{ site.tagline }}</p>
-      </div>
-
-      <div class="one-half column">
-        <a href="{{ site.npm }}" class="btn btn-reverse" onclick="track('{{ site.npm }}')">
-          <i class="fa fa-download fa-fw fa-lg pull-left"></i> View Package
-        </a>
-
-        <a href="{{ site.github }}" class="btn btn-reverse" onclick="track('{{ site.github }}')">
-          <i class="fa fa-github fa-fw fa-lg pull-left"></i> View Source
-        </a>
-
-        <a href="{{ site.gitter }}" class="btn btn-reverse" onclick="track('{{ site.gitter }}')">
-          <i class="fa fa-question fa-fw fa-lg pull-left"></i> Join Chat
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <div class="container">
-    <div class="progress">
-	    <span class="progress-bar" style="width: 31%"> </span>
-    </div>
-    <span class="progress-value">
-      31% funded with 16 days remaining
-    </span>
-
-    <a href="https://www.bountysource.com/teams/amok/fundraiser" onclick="track('https://www.bountysource.com/teams/amok/fundraiser')" class="btn btn-reverse" style="text-align: center;">
-      <i class="fa fa-heart fa-lg pull-left"></i> Pledge Support
-    </a>
-  </div>
-
-  <div class="container">
-    <ul class="share-buttons">
-      <h2>Can't pledge? sharing is caring!</h2>
-      <li>
-        <a class="btn btn-reverse" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Famokjs.com&t=Amok"
-        target="_blank" title="Share on Facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(document.URL) + '&t=' + encodeURIComponent(document.URL)); return false;">
-          <i class="fa fa-fw pull-left fa-facebook-square fa-2x"></i>Facebook
-        </a>
-      </li>
-      <li>
-        <a class="btn btn-reverse" href="https://twitter.com/intent/tweet?source=http%3A%2F%2Famokjs.com&text=Amok:%20http%3A%2F%2Famokjs.com&via=caspervonb"
-        target="_blank" title="Tweet" onclick="window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(document.title) + ':%20' + encodeURIComponent(document.URL)); return false;">
-          <i class="fa fa-fw pull-left fa-twitter-square fa-2x"></i>Twitter
-        </a>
-      </li>
-      <li>
-        <a class="btn btn-reverse" href="https://plus.google.com/share?url=http%3A%2F%2Famokjs.com"
-        target="_blank" title="Share on Google+" onclick="window.open('https://plus.google.com/share?url=' + encodeURIComponent(document.URL)); return false;">
-          <i class="fa fa-fw pull-left fa-google-plus-square fa-2x"></i>Google+
-        </a>
-      </li>
-      <li>
-        <a class="btn btn-reverse" href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Famokjs.com&title=Amok&summary=An%20open%20source%20tool%20for%20JavaScript%2C%20TypeScript%2C%20CoffeeScript%20and%20friends%2C%20provides%20editor%20agnostic%20live%20editing%2C%20an%20interactive%20read-eval-print-loop%2C%20http%20development%20server%2C%20and%20more.&source=http%3A%2F%2Famokjs.com"
-        target="_blank" title="Share on LinkedIn" onclick="window.open('http://www.linkedin.com/shareArticle?mini=true&url=' + encodeURIComponent(document.URL) + '&title=' +  encodeURIComponent(document.title)); return false;">
-          <i class="fa fa-fw pull-left fa-linkedin-square fa-2x"></i>LinkedIn
-        </a>
-      </li>
-    </ul>
-  </div>
-</div>
-
-<div class="featurette">
-  <div class="container">
-    <div class="one-half column">
-      <h2>What Is It?</h2>
-        <p>Amok is a free, cross-platform, open source standalone command line tool for rapid prototyping, development and debugging of JavaScript applications.</p>
-
-        <p>Amok is written in JavaScript, runs on <a href="https://nodejs.org/">node</a> and is distributed via <a href="https://www.npmjs.com/">npm</a></p>
-    </div>
-
-    <div class="one-half column hidden-med">
-      &nbsp;
-    </div>
-  </div>
-</div>
-<div class="featurette">
-  <div class="container">
-    <div class="three-fourths column">
-      <div class="embed-responsive embed-responsive-16by9">
-        <iframe width="1280" height="720" src="https://www.youtube.com/embed/YuwPi59Oig0?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
-      </div>
-    </div>
-
-    <div class="one-fourth column">
-      <h2>What Does It Do?</h2>
-        <p>Amok monitors changes in the file system. As soon as you save a file, it is then preprocessed, compiled and bundled as needed, and reloaded in the browser session <strong>without refreshing</strong>. This keeps the application state unchanged while making edits to the source code.
-        </p>
-
-        <p>Additional features include a zero configuration http server and an interactive mode (read-eval-print-loop).</p>
-    </div>
-  </div>
-</div>
-
-<div class="featurette">
-  <div class="container">
-    <div class="one-half column">
-      <h2>What Compiler Can It Use?</h2>
-      <p>Amok can use any compiler that has a command line interface capable of writing to a file.</p>
-      <p>This is done trough a simple command line option or environment variable configuration, which means it can work with CoffeeScript, TypeScript, Babel, Webpack and Browserify just by pointing it to the compiler executable.</p>
-    </div>
-
-    <div class="one-half column hidden-med">
-      &nbsp;
-    </div>
-  </div>
-</div>
-
-<div class="featurette">
-  <div class="container">
-    <div class="one-half colum hidden-med">
-      &nbsp;
-    </div>
-
-    <div class="one-half column">
-      <h2>How Does It Work?</h2>
-        <p>Amok works by connecting directly to the browser via the remote debugging protocol, which means no browser extension are required.</p>
-
-        <p>Using a browser debugging session like this, means that it is truly a live editing experience with support from the JavaScript runtime itself, so the application state is never lost and it can reach deep down into closures without causing side effects.</p>
-    </div>
-  </div>
-</div>
-
-<div class="featurette">
-  <div class="container">
-    <div class="one-half column">
-      <h2>Where Can I Get It?</h2>
-        <p><a href="http://nodejs.org/download/">Download and install node</a><p>
-
-        <p>Open a terminal window and run the following command<p>
-        <pre class="highlight"><code>npm install --global amok</code></pre>
-    </div>
-
-    <div class="one-half column">
-      &nbsp;
-    </div>
-  </div>
-</div>
-
-<div class="featurette">
-  <div class="one-half column hidden-med">
-    &nbsp;
-  </div>
-  <div class="container">
-  <div class="one-half column">
-    <h2>How Do I Use It?</h2>
-      <p>First, open Google Chrome with <a href="https://developer.chrome.com/devtools/docs/debugger-protocol#remote">remote debugging enabled</a></p>
-      <p>Open a terminal window, navigate to your project and run the command with the files you want live edit<p>
-      <pre class="highlight"><code>amok app.js</code></pre>
-    </div>
-  </div>
-</div>

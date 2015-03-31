@@ -1,0 +1,37 @@
+.btn {
+  position: relative;
+  display: inline-block;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 20px;
+  color: #333;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  background-color: #eee;
+  border: 1px solid #d5d5d5;
+  border-radius: 3px;
+  text-decoration: none;
+  user-select: none;
+}
+
+.btn-block {
+  display: block;
+  width: 100%;
+}
+
+.btn-inverse {
+  color: #2e2e2c;
+  background: none;
+  border: 1px solid #2e2e2c;
+
+  &:hover,
+  &:active {
+    color: #ffffff;
+    background: #2e2e2c;
+    border-color: #2e2e2c;
+    box-shadow: none;
+    text-decoration: none;
+  }
+}
