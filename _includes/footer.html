@@ -7,6 +7,29 @@
 <script src="jquery.min.js"></script>
 <script src="jquery.teletype.min.js"></script>
 
+{% if site.analytics %}
+<script>
+$(function() {
+  $('a[href^=https]').each(function() {
+    $(this).click(function(e) {
+      e.preventDefault();
+
+      var redirect = function() {
+        document.location = this.href;
+      }.bind(e.target);
+
+      ga('send', 'event', 'outbound', 'click', e.target.href, { 'hitCallback': redirect });
+
+      setTimeout(function() {
+        redirect();
+      }, 1000);
+    });
+  });
+});
+</script>
+{% endif %}
+
+
 <script>
   $(function() {
     $('.teletype').teletype({
