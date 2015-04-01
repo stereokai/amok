@@ -44,7 +44,7 @@ function serve(options, callback) {
 }
 
 function compile(options, callback) {
-  var args = options.compiler.match(/\S+|"[^"]+"/g);
+  var args = options.compiler.match(/'[^"]*'|"[^"]*"|\S+/);
   var cmd = args.shift();
 
   args = args.concat(options.args);
@@ -94,7 +94,7 @@ function debug(options, callback) {
 }
 
 function open(options, callback) {
-  var args = options.client.match(/\S+|"[^"]+"/g);
+  var args = options.client.match(/'[^"]*'|"[^"]*"|\S+/);
   var cmd = args.shift();
 
   var url = util.format('http://%s:%d', options.host, options.port);
