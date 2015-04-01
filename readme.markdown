@@ -17,7 +17,12 @@ This re-compilation is done through a debugging session, unlike reloading or ree
 
 Additional features include a zero configuration http development server for developing front end applications, an interactive mode (read–eval–print loop).
 
-## Example
+## Getting Started
+### Install via npm
+```sh
+npm install --global amok
+```
+
 ### Setting Chrome as the Client
 First, set `AMOK_CLIENT` to the path of the chrome executable, the
 appropriate value depends on your operating system.
