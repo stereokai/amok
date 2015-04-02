@@ -33,13 +33,6 @@ cmd.version(pkg.version);
 cmd.parse(process.argv);
 
 cmd.cwd = process.cwd();
-if (cmd.client !== false) {
-  cmd.client = process.env['AMOK_CLIENT'];
-}
-
-if (cmd.compiler !== false) {
-  cmd.compiler = process.env['AMOK_COMPILER'];
-}
 
 function compiler(callback, data) {
   if (cmd.compiler) {
