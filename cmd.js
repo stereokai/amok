@@ -26,9 +26,6 @@ cmd.option('--compiler <CMD>', 'specify the compiler to spawn');
 
 cmd.option('-v, --verbose', 'enable verbose logging mode');
 
-cmd.option('--no-client', 'disable client');
-cmd.option('--no-compiler', 'disable compilation');
-
 cmd.version(pkg.version);
 cmd.parse(process.argv);
 
