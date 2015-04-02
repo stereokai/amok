@@ -41,176 +41,187 @@ if (cmd.compiler !== false) {
   cmd.compiler = process.env['AMOK_COMPILER'];
 }
 
-async.auto({
-  compiler: function(callback, data) {
-    if (cmd.compiler) {
-      if (cmd.verbose) {
-        console.info('Spawning compiler...');
-      }
-
-      temp.track();
-      temp.mkdir('amok', function(err, dirpath) {
-        cmd.output = path.join(dirpath, 'bundle.js');
-        cmd.scripts = { 'bundle.js': cmd.output };
-
-        var compiler = amok.compile(cmd, function(error, stdout, stderr) {
-          if (error) {
-            return callback(error);
-          }
-
-          stdout.pipe(process.stdout);
-          stderr.pipe(process.stderr);
-
-          process.nextTick(function tick() {
-            fs.exists(cmd.output, function(exists) {
-              if (exists) {
-                return callback(null, compiler);
-              } else {
-                setTimeout(tick, 100);
-              }
-            });
-          });
-        });
-      });
-
-    } else {
-      cmd.scripts = cmd.args.reduce(function(object, value, key) {
-        object[value] = path.resolve(value);
-        return object;
-      }, {});
-
-      callback(null, null);
-    }
-  },
-
-  watcher: ['compiler', 'bugger', function(callback, data) {
-    var watcher = amok.watch(cmd, function() {
-      if (cmd.verbose) {
-        console.info('File watcher ready');
-      }
-
-      watcher.on('change', function(filename) {
-        if (cmd.verbose) {
-          console.info(filename, 'changed');
-        }
-
-        var script = Object.keys(cmd.scripts).filter(function(key) {
-          return cmd.scripts[key] === filename
-        })[0];
-
-        if (script) {
-          if (cmd.verbose) {
-            console.info('Re-compiling', script, '...');
-          }
-
-          fs.readFile(filename, 'utf-8', function(error, contents) {
-            if (error) {
-              return console.error(error);
-            }
-
-            data.bugger.source(script, contents, function(error) {
-              if (error) {
-                return console.error(error);
-              }
-
-              if (cmd.verbose) {
-                console.info('Re-compilation succesful');
-              }
-            });
-          });
-        }
-      });
-
-      callback(null, watcher);
-    });
-  }],
-
-  server: ['compiler', function(callback, data) {
+function compiler(callback, data) {
+  if (cmd.compiler) {
     if (cmd.verbose) {
-      console.info('Starting server...');
+      console.info('Spawning compiler...');
     }
 
-    var server = amok.serve(cmd, function() {
-      var address = server.address();
-      if (cmd.verbose) {
-        console.info('Server listening on http://%s:%d', address.address, address.port);
-      }
+    temp.track();
+    temp.mkdir('amok', function(err, dirpath) {
+      cmd.output = path.join(dirpath, 'bundle.js');
+      cmd.scripts = {
+        'bundle.js': cmd.output
+      };
 
-      callback(null, server);
-    });
-  }],
-
-  client: ['server', function(callback, data) {
-    if (cmd.client) {
-      if (cmd.verbose) {
-        console.log('Spawning client...');
-      }
-
-      var client = amok.open(cmd, function(error, stdout, stderr) {
+      var compiler = amok.compile(cmd, function(error, stdout, stderr) {
         if (error) {
-          process.stdout.write(error);
+          return callback(error);
         }
 
         stdout.pipe(process.stdout);
         stderr.pipe(process.stderr);
 
-        setTimeout(function () {
-          callback(null, client);
-        }, 1000);
-      });
-    } else {
-      callback(null, null);
-    }
-  }],
-
-  bugger: ['client', function(callback, data) {
-    if (cmd.verbose) {
-      console.info('Attaching debugger...');
-    }
-
-    var bugger = amok.debug(cmd, function(error, target) {
-      if (error) {
-        callback(error);
-      }
-
-      if (cmd.verbose) {
-        console.info('Debugger attached to', target.title);
-      }
-
-      callback(null, bugger);
-    });
-  }],
-
-  interactor: ['bugger', function(callback, data) {
-    if (cmd.interactive) {
-      var options = {
-        prompt: '> ',
-        input: process.stdin,
-        output: process.stdout,
-        writer: function(result) {
-          if (result.value) {
-            return util.inspect(result.value, {
-              colors: true,
-            });
-          } else if (result.objectId) {
-            return util.format('[class %s]\n%s', result.className, result.description);
-          }
-        },
-
-        eval: function (cmd, context, filename, write) {
-          data.bugger.evaluate(cmd, function(error, result) {
-            write(error, result);
+        process.nextTick(function tick() {
+          fs.exists(cmd.output, function(exists) {
+            if (exists) {
+              return callback(null, compiler);
+            } else {
+              setTimeout(tick, 100);
+            }
           });
-        },
-      };
+        });
+      });
+    });
 
-      var interactor = repl.start(options);
-      callback(null, interactor);
-    } else {
-      callback(null, null);
+  } else {
+    cmd.scripts = cmd.args.reduce(function(object, value, key) {
+      object[value] = path.resolve(value);
+      return object;
+    }, {});
+
+    callback(null, null);
+  }
+}
+
+function watcher(callback, data) {
+  var watcher = amok.watch(cmd, function() {
+    if (cmd.verbose) {
+      console.info('File watcher ready');
     }
-  }],
-}, function(error) {
+
+    watcher.on('change', function(filename) {
+      if (cmd.verbose) {
+        console.info(filename, 'changed');
+      }
+
+      var script = Object.keys(cmd.scripts)
+        .filter(function(key) {
+          return cmd.scripts[key] === filename
+        })[0];
+
+      if (script) {
+        if (cmd.verbose) {
+          console.info('Re-compiling', script, '...');
+        }
+
+        fs.readFile(filename, 'utf-8', function(error, contents) {
+          if (error) {
+            return console.error(error);
+          }
+
+          data.bugger.source(script, contents, function(error) {
+            if (error) {
+              return console.error(error);
+            }
+
+            if (cmd.verbose) {
+              console.info('Re-compilation succesful');
+            }
+          });
+        });
+      }
+    });
+
+    callback(null, watcher);
+  });
+}
+
+function server(callback, data) {
+  if (cmd.verbose) {
+    console.info('Starting server...');
+  }
+
+  var server = amok.serve(cmd, function() {
+    var address = server.address();
+    if (cmd.verbose) {
+      console.info('Server listening on http://%s:%d', address.address,
+        address.port);
+    }
+
+    callback(null, server);
+  });
+}
+
+function client(callback, data) {
+  if (cmd.client) {
+    if (cmd.verbose) {
+      console.log('Spawning client...');
+    }
+
+    var client = amok.open(cmd, function(error, stdout, stderr) {
+      if (error) {
+        process.stdout.write(error);
+      }
+
+      stdout.pipe(process.stdout);
+      stderr.pipe(process.stderr);
+
+      setTimeout(function() {
+        callback(null, client);
+      }, 1000);
+    });
+  } else {
+    callback(null, null);
+  }
+}
+
+function bugger(callback, data) {
+  if (cmd.verbose) {
+    console.info('Attaching debugger...');
+  }
+
+  var bugger = amok.debug(cmd, function(error, target) {
+    if (error) {
+      callback(error);
+    }
+
+    if (cmd.verbose) {
+      console.info('Debugger attached to', target.title);
+    }
+
+    callback(null, bugger);
+  });
+}
+
+function interactor(callback, data) {
+  if (cmd.interactive) {
+    var options = {
+      prompt: '> ',
+      input: process.stdin,
+      output: process.stdout,
+      writer: function(result) {
+        if (result.value) {
+          return util.inspect(result.value, {
+            colors: true,
+          });
+        } else if (result.objectId) {
+          return util.format('[class %s]\n%s', result.className, result.description);
+        }
+      },
+
+      eval: function(cmd, context, filename, write) {
+        data.bugger.evaluate(cmd, function(error, result) {
+          write(error, result);
+        });
+      },
+    };
+
+    var interactor = repl.start(options);
+    callback(null, interactor);
+  } else {
+    callback(null, null);
+  }
+}
+
+async.auto({
+  'compiler': [compiler],
+  'server': ['compiler', server],
+  'client': ['server', client],
+  'bugger': ['client', bugger],
+  'watcher': ['bugger', watcher],
+  'interactor': ['bugger', interactor],
+}, function(error, data) {
   if (error) {
     console.error(error);
     process.exit(1);
