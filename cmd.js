@@ -48,7 +48,11 @@ function compiler(callback, data) {
     }
 
     temp.track();
-    temp.mkdir('amok', function(err, dirpath) {
+    temp.mkdir('amok', function(error, dirpath) {
+      if (error) {
+        return callback(error);
+      }
+
       cmd.output = path.join(dirpath, 'bundle.js');
       cmd.scripts = {
         'bundle.js': cmd.output
