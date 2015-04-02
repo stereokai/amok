@@ -41,7 +41,7 @@ export AMOK_CLIENT='"/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chr
 
 #### Windows
 ```sh
-set PATH=%PATH%;%ProgramFiles\Google\Chrome\Application
+set PATH=%PATH%;%ProgramFiles%\Google\Chrome\Application
 set AMOK_CLIENT='chrome.exe --remote-debugging-port=9222'
 ```
 
