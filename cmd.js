@@ -184,6 +184,14 @@ function bugger(callback, data) {
       console.info('Debugger attached to', target.title);
     }
 
+    bugger.console.on('data', function(message) {
+      var parameters = message.parameters.map(function(parameter) {
+        return parameter.value;
+      });
+
+      console[message.level].apply(console, parameters);
+    });
+
     callback(null, bugger);
   });
 }
