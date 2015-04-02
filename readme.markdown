@@ -15,7 +15,7 @@ It monitors changes in the file system. As soon as you save a file, it is then p
 
 This re-compilation is done through a debugging session, unlike reloading or reevaluation, re-compilation leaves the application state intact, no side effects are executed when doing re-compilation.
 
-Additional features include a zero configuration http development server for developing front end applications, an interactive mode (read–eval–print loop).
+Additional features include a zero configuration http development server for developing front end applications, an interactive mode (read–eval–print loop) and console redirection.
 
 ## Getting Started
 ### Install via npm
@@ -24,10 +24,7 @@ npm install --global amok
 ```
 
 ### Setting Chrome as the Client
-First, set `AMOK_CLIENT` to the path of the chrome executable, the
-appropriate value depends on your operating system.
-
-This could also be set by passing it via the `--client` option.
+Set `AMOK_CLIENT` to the name of the Google Chrome or Chromium executable, the executable name depends on your operating system and needs to be accessible in your `PATH`.
 
 #### Linux
 ```sh
@@ -36,7 +33,7 @@ export AMOK_CLIENT='google-chrome --remote-debugging-port=9222'
 
 #### OSX
 ```sh
-export AMOK_CLIENT='"/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome" --remote-debugging-port=9222'
+export AMOK_CLIENT='"Google\ Chrome" --remote-debugging-port=9222'
 ```
 
 #### Windows
@@ -46,7 +43,7 @@ set AMOK_CLIENT='chrome.exe --remote-debugging-port=9222'
 ```
 
 ### Launching with a Compiler
-To lanch with a compiler, we'll set the --compiler option (default can be set via the `AMOK_COMPILER` environment variable)
+Start amok with the `--compiler` containing the executable name of the compiler, the executable needs to be in `PATH`
 
 ### Browserify
 ```sh
