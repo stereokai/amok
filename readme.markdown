@@ -39,13 +39,10 @@ export AMOK_CLIENT='google-chrome --remote-debugging-port=9222'
 export AMOK_CLIENT='"/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome" --remote-debugging-port=9222'
 ```
 
-#### Windows 7 (32 bit)
+#### Windows
 ```sh
-SET AMOK_CLIENT='"C:\Program Files\Google\Application\chrome.exe" --remote-debugging-port=9222'
-```
-#### Windows 7 (64 bit)
-```sh
-SET AMOK_CLIENT='"C:\Program Files\Google\Application\chrome.exe" --remote-debugging-port=9222'
+set PATH=%PATH%;%ProgramFiles\Google\Chrome\Application
+set AMOK_CLIENT='chrome.exe --remote-debugging-port=9222'
 ```
 
 ### Launching with a Compiler
