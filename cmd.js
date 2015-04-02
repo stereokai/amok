@@ -151,7 +151,7 @@ function client(callback, data) {
 
     var client = amok.open(cmd, function(error, stdout, stderr) {
       if (error) {
-        process.stdout.write(error);
+        return callback(error);
       }
 
       stdout.pipe(process.stdout);
@@ -173,7 +173,7 @@ function bugger(callback, data) {
 
   var bugger = amok.debug(cmd, function(error, target) {
     if (error) {
-      callback(error);
+      return callback(error);
     }
 
     if (cmd.verbose) {
