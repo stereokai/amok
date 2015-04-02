@@ -184,7 +184,7 @@ function bugger(callback, data) {
   });
 }
 
-function interactor(callback, data) {
+function prompt(callback, data) {
   if (cmd.interactive) {
     var options = {
       prompt: '> ',
@@ -207,8 +207,8 @@ function interactor(callback, data) {
       },
     };
 
-    var interactor = repl.start(options);
-    callback(null, interactor);
+    var prompt = repl.start(options);
+    callback(null, prompt);
   } else {
     callback(null, null);
   }
@@ -220,7 +220,7 @@ async.auto({
   'client': ['server', client],
   'bugger': ['client', bugger],
   'watcher': ['bugger', watcher],
-  'interactor': ['bugger', interactor],
+  'prompt': ['bugger', prompt],
 }, function(error, data) {
   if (error) {
     console.error(error);
