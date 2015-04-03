@@ -45,6 +45,11 @@ function serve(options, callback) {
 }
 
 function compile(options, callback) {
+  if (options.output == undefined) {
+    var dirpath = temp.mkdirSync('amok-output');
+    options.output = path.join(dirpath, 'bundle.js');
+  }
+
   switch (options.compiler) {
     case 'browserify':
       var command = 'watchify';
@@ -99,8 +104,16 @@ function compile(options, callback) {
   args = args.concat(options.args);
 
   var compiler = child.spawn(command, args);
-  process.nextTick(function() {
-    callback(null, compiler.stdout, compiler.stderr);
+  compiler.output = options.output;
+
+  process.nextTick(function tick() {
+    fs.exists(compiler.output, function(exists) {
+      if (exists) {
+        callback(null, compiler.stdout, compiler.stderr);
+      } else {
+        setTimeout(tick, 100);
+      }
+    });
   });
 
   return compiler;

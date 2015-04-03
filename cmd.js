@@ -43,11 +43,6 @@ function compiler(callback, data) {
         return callback(error);
       }
 
-      cmd.output = path.join(dirpath, 'bundle.js');
-      cmd.scripts = {
-        'bundle.js': cmd.output
-      };
-
       var compiler = amok.compile(cmd, function(error, stdout, stderr) {
         if (error) {
           return callback(error);
@@ -56,15 +51,11 @@ function compiler(callback, data) {
         stdout.pipe(process.stdout);
         stderr.pipe(process.stderr);
 
-        process.nextTick(function tick() {
-          fs.exists(cmd.output, function(exists) {
-            if (exists) {
-              return callback(null, compiler);
-            } else {
-              setTimeout(tick, 100);
-            }
-          });
-        });
+        cmd.scripts = {
+          'bundle.js': compiler.output,
+        };
+
+        callback(null, compiler);
       });
     });
 
