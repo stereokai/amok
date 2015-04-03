@@ -54,6 +54,15 @@ function compile(options, callback) {
       ];
       break;
 
+    case 'webpack':
+      var command = 'webpack';
+      var args = [
+        '--watch',
+        '--output-file',
+        options.output,
+      ];
+      break;
+
     default:
       var args = options.compiler.match(/'[^"]*'|"[^"]*"|\S+/g);
       var command = args.shift();
