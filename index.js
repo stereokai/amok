@@ -63,6 +63,15 @@ function compile(options, callback) {
       ];
       break;
 
+    case 'typescript':
+      var command = 'tsc';
+      var args = [
+        '--watch',
+        '--out',
+        options.output,
+      ];
+      break;
+
     default:
       var args = options.compiler.match(/'[^"]*'|"[^"]*"|\S+/g);
       var command = args.shift();
