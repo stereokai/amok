@@ -72,6 +72,16 @@ function compile(options, callback) {
       ];
       break;
 
+    case 'coffeescript':
+      var command = 'coffee';
+      var args = [
+        '--watch',
+        '--out',
+        options.output,
+      ];
+      break;
+
+
     default:
       var args = options.compiler.match(/'[^"]*'|"[^"]*"|\S+/g);
       var command = args.shift();
