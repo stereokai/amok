@@ -55,7 +55,7 @@ Optionally a compiler may be specified to process script sources via the `--comp
 Any extra arguments and options following the option parsing terminator `--`, will be passed as extra options to the compiler.
 
 ## Example
-1. `git https://gist.github.com/d58c3eecb72ba3dd0846.git examples`
+1. `git clone https://gist.github.com/d58c3eecb72ba3dd0846.git examples`
 2. `cd examples`
 3. `amok --client chrome canvas.js`
 
