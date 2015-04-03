@@ -45,17 +45,24 @@ function serve(options, callback) {
 }
 
 function compile(options, callback) {
-  var args = options.compiler.match(/'[^"]*'|"[^"]*"|\S+/g);
+  switch (options.compiler) {
+    case 'browserify':
+      var command = 'watchify';
+      var args = [
+        '-o',
+        options.output,
+      ];
+      break;
 
-  var cmd = args.shift();
+    default:
+      var args = options.compiler.match(/'[^"]*'|"[^"]*"|\S+/g);
+      var command = args.shift();
+      break;
+  }
 
   args = args.concat(options.args);
 
-  if (args.indexOf('$@') > -1) {
-    args[args.indexOf('$@')] = options.output;
-  }
-
-  var compiler = child.spawn(cmd, args);
+  var compiler = child.spawn(command, args);
   process.nextTick(function() {
     callback(null, compiler.stdout, compiler.stderr);
   });
