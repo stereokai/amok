@@ -26,20 +26,10 @@ cmd.option('--compiler <CMD>', 'specify the compiler to spawn');
 
 cmd.option('-v, --verbose', 'enable verbose logging mode');
 
-cmd.option('--no-client', 'disable client');
-cmd.option('--no-compiler', 'disable compilation');
-
 cmd.version(pkg.version);
 cmd.parse(process.argv);
 
 cmd.cwd = process.cwd();
-if (cmd.client !== false) {
-  cmd.client = process.env['AMOK_CLIENT'];
-}
-
-if (cmd.compiler !== false) {
-  cmd.compiler = process.env['AMOK_COMPILER'];
-}
 
 function compiler(callback, data) {
   if (cmd.compiler) {

@@ -6,6 +6,7 @@ var mime = require('mime');
 var path = require('path');
 var rdbg = require('rdbg');
 var util = require('util');
+var temp = require('temp');
 
 function serve(options, callback) {
   var server = http.createServer(function(request, response) {
@@ -44,17 +45,60 @@ function serve(options, callback) {
 }
 
 function compile(options, callback) {
-  var args = options.compiler.match(/'[^"]*'|"[^"]*"|\S+/g);
+  switch (options.compiler) {
+    case 'browserify':
+      var command = 'watchify';
+      var args = [
+        '-o',
+        options.output,
+      ];
+      break;
 
-  var cmd = args.shift();
+    case 'webpack':
+      var command = 'webpack';
+      var args = [
+        '--watch',
+        '--output-file',
+        options.output,
+      ];
+      break;
+
+    case 'typescript':
+      var command = 'tsc';
+      var args = [
+        '--watch',
+        '--out',
+        options.output,
+      ];
+      break;
+
+    case 'coffeescript':
+      var command = 'coffee';
+      var args = [
+        '--watch',
+        '--out',
+        options.output,
+      ];
+      break;
+
+    case 'babel':
+      var command = 'babel';
+      var args = [
+        '--watch',
+        '--out-file',
+        options.output,
+      ];
+      break;
+
+    default:
+      var args = options.compiler.match(/'[^"]*'|"[^"]*"|\S+/g);
+      var command = args.shift();
+      break;
+  }
 
   args = args.concat(options.args);
 
-  if (args.indexOf('$@') > -1) {
-    args[args.indexOf('$@')] = options.output;
-  }
-
-  var compiler = child.spawn(cmd, args);
+  var compiler = child.spawn(command, args);
   process.nextTick(function() {
     callback(null, compiler.stdout, compiler.stderr);
   });
@@ -95,13 +139,53 @@ function debug(options, callback) {
 }
 
 function open(options, callback) {
-  var args = options.client.match(/'[^"]*'|"[^"]*"|\S+/g);
-  var cmd = args.shift();
+  switch (options.client) {
+    case 'chrome':
+      var command = (function() {
+        if (process.platform == 'win32') {
+          var suffix = '\\Google\\Chrome\\Application\\chrome.exe';
+          var prefixes = [
+            process.env['LOCALAPPDATA'],
+            process.env['PROGRAMFILES'],
+            process.env['PROGRAMFILES(X86)'],
+          ];
+
+          var executables = prefixes.map(function(prefix) {
+            return prefix + suffix;
+          }).filter(function(path) {
+            return fs.existsSync(path);
+          });
+
+          return executables[0];
+        } else if (process.platform == 'darwin') {
+          return '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+        } else {
+          return 'google-chrome';
+        }
+      }());
+
+      var args = [
+        '--remote-debugging-port=' + options.debuggerPort,
+        '--no-first-run',
+        '--no-default-browser-check',
+        '--disable-translate',
+        '--disable-default-apps',
+        '--disable-popup-blocking',
+        '--disable-zero-browsers-open-for-tests',
+        '--user-data-dir=' + temp.mkdirSync('amok-chrome'),
+      ];
+      break;
+
+    default:
+      var args = options.client.match(/'[^"]*'|"[^"]*"|\S+/g);
+      var command = args.shift();
+      break;
+  }
 
   var url = util.format('http://%s:%d', options.host, options.port);
   args.push(url);
 
-  var client = child.spawn(cmd, args);
+  var client = child.spawn(command, args);
 
   process.nextTick(function() {
     callback(null, client.stdout, client.stderr);
