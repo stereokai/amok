@@ -199,10 +199,9 @@ function open(options, callback) {
   args.push(url);
 
   var client = child.spawn(command, args);
-
-  process.nextTick(function() {
+  setTimeout(function() {
     callback(null, client.stdout, client.stderr);
-  });
+  }, 1000);
 
   return client;
 }

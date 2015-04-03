@@ -142,9 +142,7 @@ function client(callback, data) {
       stdout.pipe(process.stdout);
       stderr.pipe(process.stderr);
 
-      setTimeout(function() {
-        callback(null, client);
-      }, 1000);
+      callback(null, client);
     });
   } else {
     callback(null, null);
