@@ -8,6 +8,11 @@
 amok [options] <script>
 ```
 
+## Installation
+```
+npm install amok -g
+```
+
 ## Description
 Amok standalone command line tool for rapid prototyping and development of JavaScript applications.
 
@@ -16,44 +21,6 @@ It monitors changes in the file system. As soon as you save a file, it is then p
 This re-compilation is done through a debugging session, unlike reloading or reevaluation, re-compilation leaves the application state intact, no side effects are executed when doing re-compilation.
 
 Additional features include a zero configuration http development server for developing front end applications, an interactive mode (read–eval–print loop) and console redirection.
-
-## Getting Started
-### Install via npm
-```sh
-npm install --global amok
-```
-
-### Setting Chrome as the Client
-Set `AMOK_CLIENT` to the name of the Google Chrome or Chromium executable, the executable name depends on your operating system and needs to be accessible in your `PATH`.
-
-#### Linux
-```sh
-export AMOK_CLIENT='google-chrome --remote-debugging-port=9222'
-```
-
-#### OSX
-```sh
-export AMOK_CLIENT='"Google\ Chrome" --remote-debugging-port=9222'
-```
-
-#### Windows
-```sh
-set PATH=%PATH%;%ProgramFiles%\Google\Chrome\Application
-set AMOK_CLIENT='chrome.exe --remote-debugging-port=9222'
-```
-
-### Launching with a Compiler
-Start amok with the `--compiler` containing the executable name of the compiler, the executable needs to be in `PATH`
-
-### Browserify
-```sh
-amok --compiler 'watchify -o $@' entry.js
-```
-
-### Webpack
-```sh
-amok --compiler 'webpack --watch --output-file $@' entry.js
-```
 
 ## Options
 ```
@@ -77,35 +44,29 @@ amok --compiler 'webpack --watch --output-file $@' entry.js
 
 -v, --verbose
   enable verbose logging mode
-
---no-client
-  disable client
-
---no-compiler
-  disable compiler
 ```
 
-Amok requires that a client is listening on the remote debugging port when launching, it can spawn a client for you at the appropriate time, this is set by passing the `--client` option with the executable name and appropriate flags, this option has automatic variables available to it.
+You must have a client is already listening on the remote debugging port when launching, or specified via the `--client` option.
 
-Amok can also, optionally use a compiler to process script sources, this compiler is specified via the `--compiler` option, this option has automatic variables available to it.
+Optionally a compiler may be specified to process script sources via the `--compiler` option,
+Any extra arguments and options following the option parsing terminator `--`, will be passed as extra options to the compiler.
 
-Any extra arguments following the `--` terminator, will be passed as arguments when spawning the compiler, if one is specified.
+## Example
+1. `git https://gist.github.com/d58c3eecb72ba3dd0846.git examples`
+2. `cd examples`
+3. `amok --client chrome canvas.js`
 
-## Environment Variables
-These environment variables are used to provide amok with default values.
+### Webpack
+`amok --client chrome --compiler webpack canvas.js`
 
-```
-AMOK_CLIENT
-  When set to a executable, will be used as the default client value.
+### Browserify
+`amok --client chrome --compiler browserify canvas.js`
 
-AMOK_COMPILER
-  When set to an executable, will be used as the default compiler value.
-```
+### Babel
+`amok --client chrome --compiler babel canvas.js`
 
-## Automatic Variables
-These automatic variables are set and substituted when spawning clients and compilers.
+### TypeScript
+`amok --client chrome --compiler typescript canvas.js`
 
-```
-$@
-  When using a compiler, this is set to the output path of the compilation result
-```
+### CoffeeScript
+`amok --client chrome --compiler babel canvas.js`
