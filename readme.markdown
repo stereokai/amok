@@ -69,4 +69,4 @@ Any extra arguments and options following the option parsing terminator `--`, wi
 `amok --client chrome --compiler typescript canvas.js`
 
 ### CoffeeScript
-`amok --client chrome --compiler babel canvas.js`
+`amok --client chrome --compiler coffeescript canvas.js`
