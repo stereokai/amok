@@ -36,11 +36,14 @@ Additional features include a zero configuration http development server for dev
 -P, --debugger-port <PORT>
   specify the remote debugger port, default PORT is 9222.
 
---client
+--client <identifier>
   specify the client to spawn
 
---compiler
+--compiler <identifier>
   specify the compiler to spawn
+
+-i, --interactive
+  start in interactive mode
 
 -v, --verbose
   enable verbose logging mode
