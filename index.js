@@ -81,6 +81,14 @@ function compile(options, callback) {
       ];
       break;
 
+    case 'babel':
+      var command = 'babel';
+      var args = [
+        '--watch',
+        '--out-file',
+        options.output,
+      ];
+      break;
 
     default:
       var args = options.compiler.match(/'[^"]*'|"[^"]*"|\S+/g);
