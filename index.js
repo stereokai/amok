@@ -7,6 +7,7 @@ var path = require('path');
 var rdbg = require('rdbg');
 var util = require('util');
 var temp = require('temp');
+var which = require('which');
 
 function serve(options, callback) {
   var server = http.createServer(function(request, response) {
@@ -52,7 +53,7 @@ function compile(options, callback) {
 
   switch (options.compiler) {
     case 'browserify':
-      var command = 'watchify';
+      var command = which.sync('watchify');
       var args = [
         '-o',
         options.output,
@@ -60,7 +61,7 @@ function compile(options, callback) {
       break;
 
     case 'webpack':
-      var command = 'webpack';
+      var command = which.sync('webpack');
       var args = [
         '--watch',
         '--output-file',
@@ -69,7 +70,7 @@ function compile(options, callback) {
       break;
 
     case 'typescript':
-      var command = 'tsc';
+      var command = which.sync('tsc');
       var args = [
         '--watch',
         '--out',
@@ -78,7 +79,7 @@ function compile(options, callback) {
       break;
 
     case 'coffeescript':
-      var command = 'coffee';
+      var command = which.sync('coffee');
       var args = [
         '--watch',
         '--out',
@@ -87,7 +88,7 @@ function compile(options, callback) {
       break;
 
     case 'babel':
-      var command = 'babel';
+      var command = which.sync('babel');
       var args = [
         '--watch',
         '--out-file',
@@ -168,12 +169,11 @@ function open(options, callback) {
           }).filter(function(path) {
             return fs.existsSync(path);
           });
-
           return executables[0];
         } else if (process.platform == 'darwin') {
           return '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
         } else {
-          return 'google-chrome';
+          return which.sync('google-chrome');
         }
       }());
 
