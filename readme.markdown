@@ -49,10 +49,10 @@ Additional features include a zero configuration http development server for dev
   enable verbose logging mode
 ```
 
-You must have a client is already listening on the remote debugging port when launching, or specified via the `--client` option.
+You must have a client already listening on the remote debugging port when launching, or specified via the `--client` option.
 
 Optionally a compiler may be specified to process script sources via the `--compiler` option,
-Any extra arguments and options following the option parsing terminator `--`, will be passed as extra options to the compiler.
+Any extra arguments and options following the option parsing terminator `--`, will be passed as extra options to the compiler. The specified compiler must have its executable available in `PATH`.
 
 ## Example
 1. `git clone https://gist.github.com/d58c3eecb72ba3dd0846.git examples`
