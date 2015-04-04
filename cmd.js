@@ -169,7 +169,9 @@ function bugger(callback, data) {
           return parameter.value;
         });
 
-        console[message.level].apply(console, parameters);
+        if (console[message.level]) {
+          console[message.level].apply(console, parameters);
+        }
       }
     });
 
