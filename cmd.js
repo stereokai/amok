@@ -164,11 +164,13 @@ function bugger(callback, data) {
     }
 
     bugger.console.on('data', function(message) {
-      var parameters = message.parameters.map(function(parameter) {
-        return parameter.value;
-      });
+      if (message.parameters) {
+        var parameters = message.parameters.map(function(parameter) {
+          return parameter.value;
+        });
 
-      console[message.level].apply(console, parameters);
+        console[message.level].apply(console, parameters);
+      }
     });
 
     callback(null, bugger);
