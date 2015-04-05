@@ -18,7 +18,7 @@ Amok standalone command line tool for rapid prototyping and development of JavaS
 
 It monitors changes in the file system. As soon as you save a file, it is then preprocessed, compiled and bundled as needed, the code is then refreshed in the client while it is running without restarting or reloading the client.
 
-This re-compilation is done through a remote debugging session, which leverages the re-compilation capabilities built into the runtime itself. Doing re-compilation has several advantages over reloading and hot replacement, application state is kept, no side effects are executed, and there is no code that cannot be edited live.
+This re-compilation is done through a remote debugging session, which leverages the re-compilation capabilities built into the runtime itself. Doing re-compilation has several advantages over reloading and hot replacement, application state is kept, no side effects are executed, and there is no code that cannot be edited live, including anonymous closures.
 
 It also has a zero configuration http development server for developing front end applications, this server will automatically generate an appropriate *index.html* file if one is not found.
 
@@ -26,26 +26,32 @@ Additional features include an interactive mode (read–eval–print loop) and c
 
 ## Options
 ```
--h, --host <HOST>
-  specify the http host, default HOST is localhost.
+-h, --help
+  output usage information
 
--p, --port <PORT>
-  specify the http port, default PORT is 9966.
+-V, --version
+  output the version number
 
--H, --debugger-host <HOST>
-  specify the remote debugger host, default HOST is localhost.
+--host <HOST>
+  specify http host
 
--P, --debugger-port <PORT>
-  specify the remote debugger port, default PORT is 9222.
+--port <PORT>
+  specify http port
 
---client <identifier>
-  specify the client to spawn
+--debugger-host <HOST>
+  specify debugger host
 
---compiler <identifier>
-  specify the compiler to spawn
+--debugger-port <PORT>
+  specify debugger port
 
 -i, --interactive
-  start in interactive mode
+  enable interactive mode
+
+--client <ID | CMD>
+  specify the client to spawn
+
+--compiler <ID | CMD>
+  specify the compiler to spawn
 
 -v, --verbose
   enable verbose logging mode
