@@ -16,11 +16,13 @@ npm install amok -g
 ## Description
 Amok standalone command line tool for rapid prototyping and development of JavaScript applications.
 
-It monitors changes in the file system. As soon as you save a file, it is then preprocessed, compiled and bundled as needed, and re-compiled in the client session without refreshing or restarting the client.
+It monitors changes in the file system. As soon as you save a file, it is then preprocessed, compiled and bundled as needed, the code is then refreshed in the client while it is running without restarting or reloading the client.
 
-This re-compilation is done through a debugging session, unlike reloading or reevaluation, re-compilation leaves the application state intact, no side effects are executed when doing re-compilation.
+This re-compilation is done through a remote debugging session, which leverages the re-compilation capabilities built into the runtime itself. Doing re-compilation has several advantages over reloading and hot replacement, application state is kept, no side effects are executed, and there is no code that cannot be edited live.
 
-Additional features include a zero configuration http development server for developing front end applications, an interactive mode (read–eval–print loop) and console redirection.
+It also has a zero configuration http development server for developing front end applications, this server will automatically generate an appropriate *index.html* file if one is not found.
+
+Additional features include an interactive mode (read–eval–print loop) and console redirection.
 
 ## Options
 ```
