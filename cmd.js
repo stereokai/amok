@@ -16,8 +16,8 @@ cmd.usage('[options] <script>');
 cmd.option('--host <HOST>', 'specify http host', 'localhost');
 cmd.option('--port <PORT>', 'specify http port', 9966);
 
-cmd.option('-H, --debugger-host <HOST>', 'specify debugger host', 'localhost');
-cmd.option('-P, --debugger-port <PORT>', 'specify debugger port', 9222);
+cmd.option('--debugger-host <HOST>', 'specify debugger host', 'localhost');
+cmd.option('--debugger-port <PORT>', 'specify debugger port', 9222);
 
 cmd.option('-i, --interactive', 'enable interactive mode');
 
