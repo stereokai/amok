@@ -141,6 +141,21 @@ function debug(options, callback) {
     callback(null, target);
   });
 
+  bugger.on('detatch', function() {
+    var interval = setInterval(function() {
+      bugger.targets(function(targets) {
+        var target = targets.filter(function(target) {
+          return target.url.indexOf(options.host) > -1 && target.webSocketDebuggerUrl;
+        })[0];
+
+        if (target) {
+          bugger.attach(target);
+          clearInterval(interval);
+        }
+      });
+    }, 250);
+  });
+
   bugger.targets(function(targets) {
     var target = targets.filter(function(target) {
       return target.url.indexOf(options.host) > -1 && target.webSocketDebuggerUrl;
