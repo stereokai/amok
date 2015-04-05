@@ -46,10 +46,8 @@ function serve(options, callback) {
 }
 
 function compile(options, callback) {
-  if (options.output == undefined) {
-    var dirpath = temp.mkdirSync('amok-output');
-    options.output = path.join(dirpath, 'bundle.js');
-  }
+  var dirpath = temp.mkdirSync('amok-output');
+  options.output = path.join(dirpath, options.args[0].replace(/\.[^\.]+$/, '.js'));
 
   switch (options.compiler) {
     case 'browserify':
@@ -80,10 +78,12 @@ function compile(options, callback) {
 
     case 'coffeescript':
       var command = which.sync('coffee');
+
       var args = [
         '--watch',
-        '--out',
-        options.output,
+        '--compile',
+        '--output',
+        dirpath,
       ];
       break;
 
