@@ -12,6 +12,7 @@ var util = require('util');
 var pkg = require('./package.json');
 
 cmd.usage('[options] <script>');
+cmd.version(pkg.version);
 
 cmd.option('--host <HOST>', 'specify http host', 'localhost');
 cmd.option('--port <PORT>', 'specify http port', 9966);
@@ -26,7 +27,6 @@ cmd.option('--compiler <CMD>', 'specify the compiler to spawn');
 
 cmd.option('-v, --verbose', 'enable verbose logging mode');
 
-cmd.version(pkg.version);
 cmd.parse(process.argv);
 
 cmd.cwd = process.cwd();
