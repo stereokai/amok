@@ -37,27 +37,21 @@ function compiler(callback, data) {
       console.info('Spawning compiler...');
     }
 
-    temp.track();
-    temp.mkdir('amok', function(error, dirpath) {
+    var compiler = amok.compile(cmd, function(error, stdout, stderr) {
       if (error) {
         return callback(error);
       }
 
-      var compiler = amok.compile(cmd, function(error, stdout, stderr) {
-        if (error) {
-          return callback(error);
-        }
+      stdout.pipe(process.stdout);
+      stderr.pipe(process.stderr);
 
-        stdout.pipe(process.stdout);
-        stderr.pipe(process.stderr);
+      cmd.scripts = {
+        'bundle.js': compiler.output,
+      };
 
-        cmd.scripts = {
-          'bundle.js': compiler.output,
-        };
-
-        callback(null, compiler);
-      });
+      callback(null, compiler);
     });
+
 
   } else {
     cmd.scripts = cmd.args.reduce(function(object, value, key) {
