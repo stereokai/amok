@@ -32,35 +32,33 @@ cmd.parse(process.argv);
 cmd.cwd = process.cwd();
 
 function compiler(callback, data) {
-  if (cmd.compiler) {
-    if (cmd.verbose) {
-      console.info('Spawning compiler...');
-    }
-
-    var compiler = amok.compile(cmd, function(error, stdout, stderr) {
-      if (error) {
-        return callback(error);
-      }
-
-      stdout.pipe(process.stdout);
-      stderr.pipe(process.stderr);
-
-      cmd.scripts = {
-        'bundle.js': compiler.output,
-      };
-
-      callback(null, compiler);
-    });
-
-
-  } else {
+  if (cmd.compiler === undefined) {
     cmd.scripts = cmd.args.reduce(function(object, value, key) {
       object[value] = path.resolve(value);
       return object;
     }, {});
 
-    callback(null, null);
+    return callback(null, null);
   }
+
+  if (cmd.verbose) {
+    console.info('Spawning compiler...');
+  }
+
+  var compiler = amok.compile(cmd, function(error, stdout, stderr) {
+    if (error) {
+      return callback(error);
+    }
+
+    stdout.pipe(process.stdout);
+    stderr.pipe(process.stderr);
+
+    cmd.scripts = {
+      'bundle.js': compiler.output,
+    };
+
+    callback(null, compiler);
+  });
 }
 
 function watcher(callback, data) {
@@ -123,24 +121,24 @@ function server(callback, data) {
 }
 
 function client(callback, data) {
-  if (cmd.client) {
-    if (cmd.verbose) {
-      console.log('Spawning client...');
+  if (cmd.client === undefined) {
+    return callback(null, null);
+  }
+
+  if (cmd.verbose) {
+    console.log('Spawning client...');
+  }
+
+  var client = amok.open(cmd, function(error, stdout, stderr) {
+    if (error) {
+      return callback(error);
     }
 
-    var client = amok.open(cmd, function(error, stdout, stderr) {
-      if (error) {
-        return callback(error);
-      }
+    stdout.pipe(process.stdout);
+    stderr.pipe(process.stderr);
 
-      stdout.pipe(process.stdout);
-      stderr.pipe(process.stderr);
-
-      callback(null, client);
-    });
-  } else {
-    callback(null, null);
-  }
+    callback(null, client);
+  });
 }
 
 function bugger(callback, data) {
@@ -174,33 +172,33 @@ function bugger(callback, data) {
 }
 
 function prompt(callback, data) {
-  if (cmd.interactive) {
-    var options = {
-      prompt: '> ',
-      input: process.stdin,
-      output: process.stdout,
-      writer: function(result) {
-        if (result.value) {
-          return util.inspect(result.value, {
-            colors: true,
-          });
-        } else if (result.objectId) {
-          return util.format('[class %s]\n%s', result.className, result.description);
-        }
-      },
-
-      eval: function(cmd, context, filename, write) {
-        data.bugger.evaluate(cmd, function(error, result) {
-          write(error, result);
-        });
-      },
-    };
-
-    var prompt = repl.start(options);
-    callback(null, prompt);
-  } else {
-    callback(null, null);
+  if (cmd.interactive === undefined) {
+    return callback(null, null);
   }
+
+  var options = {
+    prompt: '> ',
+    input: process.stdin,
+    output: process.stdout,
+    writer: function(result) {
+      if (result.value) {
+        return util.inspect(result.value, {
+          colors: true,
+        });
+      } else if (result.objectId) {
+        return util.format('[class %s]\n%s', result.className, result.description);
+      }
+    },
+
+    eval: function(cmd, context, filename, write) {
+      data.bugger.evaluate(cmd, function(error, result) {
+        write(error, result);
+      });
+    },
+  };
+
+  var prompt = repl.start(options);
+  callback(null, prompt);
 }
 
 async.auto({
