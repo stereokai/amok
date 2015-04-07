@@ -11,34 +11,34 @@ var which = require('which');
 
 function serve(options, callback) {
   var server = http.createServer(function(request, response) {
-    if (request.url == '/') {
-      response.setHeader('content-type', 'text/html');
-      response.write('<!doctype html><head><meta charset="utf-8"></head><body>');
+    var url = (request.url === '/') ? '/index.html' : request.url;
+    var filename = options.scripts[path.basename(url)];
 
-      for (var key in options.scripts) {
-        response.write('<script src="' + key + '"></script>');
-      }
-
-      response.end('</body>');
-    } else {
-      var filename = options.scripts[path.basename(request.url)];
-      if (!filename) {
-        var filename = path.join(options.cwd, request.url);
-      }
-
-      fs.exists(filename, function(exists) {
-        if (exists) {
-          response.setHeader('content-type', mime.lookup(filename));
-          response.writeHead(200);
-
-          var file = fs.createReadStream(filename);
-          file.pipe(response);
-        } else {
-          response.writeHead(404);
-          response.end('404');
-        }
-      });
+    if (filename === undefined) {
+      var filename = path.join(options.cwd, url);
     }
+
+    fs.exists(filename, function(exists) {
+      if (exists) {
+        response.setHeader('content-type', mime.lookup(filename));
+        response.writeHead(200);
+
+        var file = fs.createReadStream(filename);
+        file.pipe(response);
+      } else if (url === '/index.html') {
+        response.setHeader('content-type', 'text/html');
+        response.write('<!doctype html><head><meta charset="utf-8"></head><body>');
+
+        for (var key in options.scripts) {
+          response.write('<script src="' + key + '"></script>');
+        }
+
+        response.end('</body>');
+      } else {
+        response.writeHead(404);
+        response.end('404');
+      }
+    });
   });
 
   server.listen(options.port, options.host, callback);
