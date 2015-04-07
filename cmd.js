@@ -183,21 +183,32 @@ function bugger(callback, data) {
       return callback(error);
     }
 
-    log.info('attach', { url: target.url, title: target.title });
-
-    bugger.console.on('data', function(message) {
-      if (message.parameters) {
-        var parameters = message.parameters.map(function(parameter) {
-          return parameter.value;
-        });
-
-        if (console[message.level]) {
-          console[message.level].apply(console, parameters);
-        }
-      }
-    });
-
     callback(null, bugger);
+  });
+
+  bugger.on('attach', function(error) {
+    log.info('attach', { url: target.url, title: target.title });
+  });
+
+  bugger.on('detatch', function() {
+    log.warn('detatch');
+  });
+
+  bugger.on('error', function(error) {
+    log.error(error);
+    process.exit(error.errno);
+  });
+
+  bugger.console.on('data', function(message) {
+    if (message.parameters) {
+      var parameters = message.parameters.map(function(parameter) {
+        return parameter.value;
+      });
+
+      if (console[message.level]) {
+        console[message.level].apply(console, parameters);
+      }
+    }
   });
 }
 
