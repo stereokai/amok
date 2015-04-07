@@ -36,7 +36,11 @@ function program(callback, data) {
     cmd.help();
   }
 
-  cmd.scripts = cmd.args.reduce(function(object, value, key) {
+  var scripts = cmd.args.filter(function(arg) {
+    return path.extname(arg);
+  });
+
+  cmd.scripts = scripts.reduce(function(object, value, key) {
     object[value] = path.resolve(value);
     return object;
   }, {});
