@@ -32,6 +32,10 @@ function program(callback, data) {
   cmd.parse(process.argv);
   cmd.cwd = process.cwd();
 
+  if (cmd.args.length < 1) {
+    cmd.help();
+  }
+
   cmd.scripts = cmd.args.reduce(function(object, value, key) {
     object[value] = path.resolve(value);
     return object;
