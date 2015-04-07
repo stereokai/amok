@@ -140,6 +140,10 @@ function server(callback, data) {
 
     callback(null, server);
   });
+
+  server.on('request', function(request, response) {
+    log.info(request);
+  });
 }
 
 function client(callback, data) {
