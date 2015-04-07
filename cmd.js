@@ -80,7 +80,7 @@ function compiler(callback, data) {
       log.info(data.toString());
     });
 
-    stdout.on('data', function(data) {
+    stderr.on('data', function(data) {
       log.error(data.toString());
     });
 
