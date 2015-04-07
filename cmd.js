@@ -9,6 +9,9 @@ var temp = require('temp');
 var repl = require('repl');
 var util = require('util');
 
+var bole = require('bole');
+var bistre = require('bistre');
+
 function program(callback, data) {
   var cmd = require('commander');
   var pkg = require('./package.json');
@@ -45,25 +48,41 @@ function program(callback, data) {
     return object;
   }, {});
 
+  var transform = bistre.createStream();
+  transform.pipe(process.stdout);
+
+  bole.output({
+    level: cmd.verbose ? 'info' : 'error',
+    stream: transform
+  });
+
   callback(null, cmd);
 }
 
 function compiler(callback, data) {
+  var log = bole('compile');
+
   if (data.program.compiler === undefined) {
+    log.info('skip');
     return callback(null, null);
   }
 
-  if (data.program.verbose) {
-    console.info('Spawning compiler...');
-  }
+  log.info('spawn');
 
   var compiler = amok.compile(data.program, function(error, stdout, stderr) {
     if (error) {
       return callback(error);
     }
 
-    stdout.pipe(process.stdout);
-    stderr.pipe(process.stderr);
+    log.info('ok', { pid: compiler.pid });
+
+    stdout.on('data', function(data) {
+      log.info(data.toString());
+    });
+
+    stdout.on('data', function(data) {
+      log.error(data.toString());
+    });
 
     data.program.scripts = {
       'bundle.js': compiler.output,
@@ -74,15 +93,14 @@ function compiler(callback, data) {
 }
 
 function watcher(callback, data) {
+  var log = bole('watch');
+
+  log.info('start');
   var watcher = amok.watch(data.program, function() {
-    if (data.program.verbose) {
-      console.info('File watcher ready');
-    }
+    log.info('ok');
 
     watcher.on('change', function(filename) {
-      if (data.program.verbose) {
-        console.info(filename, 'changed');
-      }
+      log.info('change', { filename: filename });
 
       var script = Object.keys(data.program.scripts)
         .filter(function(key) {
@@ -90,23 +108,19 @@ function watcher(callback, data) {
         })[0];
 
       if (script) {
-        if (data.program.verbose) {
-          console.info('Re-compiling', script, '...');
-        }
+        log.info('re-compile', { filename: filename });
 
         fs.readFile(filename, 'utf-8', function(error, contents) {
           if (error) {
-            return console.error(error);
+            log.error(error);
           }
 
           data.bugger.source(script, contents, function(error) {
             if (error) {
-              return console.error(error);
+              return log.error(error);
             }
 
-            if (data.program.verbose) {
-              console.info('Re-compilation succesful');
-            }
+            log.info('ok');
           });
         });
       }
@@ -117,55 +131,56 @@ function watcher(callback, data) {
 }
 
 function server(callback, data) {
-  if (data.program.verbose) {
-    console.info('Starting server...');
-  }
+  var log = bole('http');
+  log.info('starting');
 
   var server = amok.serve(data.program, function() {
     var address = server.address();
-    if (data.program.verbose) {
-      console.info('Server listening on http://%s:%d', address.address,
-        address.port);
-    }
+    log.info('listening', { host: address.address, port: address.port });
 
     callback(null, server);
   });
 }
 
 function client(callback, data) {
+  var log = bole('client');
+
   if (data.program.client === undefined) {
+    log('skip');
     return callback(null, null);
   }
 
-  if (data.program.verbose) {
-    console.log('Spawning client...');
-  }
-
+  log.info('spawn');
   var client = amok.open(data.program, function(error, stdout, stderr) {
     if (error) {
       return callback(error);
     }
 
-    stdout.pipe(process.stdout);
-    stderr.pipe(process.stderr);
+    log.info('ok', { pid: client.pid });
+
+    stdout.on('data', function(data) {
+      log.info(data.toString());
+    });
+
+    stderr.on('data', function(data) {
+      log.warn(data.toString());
+    });
 
     callback(null, client);
   });
 }
 
 function bugger(callback, data) {
-  if (data.program.verbose) {
-    console.info('Attaching debugger...');
-  }
+  var log = bole('debugger');
+
+  log.info('connect');
 
   var bugger = amok.debug(data.program, function(error, target) {
     if (error) {
       return callback(error);
     }
 
-    if (data.program.verbose) {
-      console.info('Debugger attached to', target.title);
-    }
+    log.info('attach', { url: target.url, title: target.title });
 
     bugger.console.on('data', function(message) {
       if (message.parameters) {
