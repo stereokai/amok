@@ -5,7 +5,6 @@ var async = require('async');
 
 var fs = require('fs');
 var path = require('path');
-var temp = require('temp');
 var repl = require('repl');
 var util = require('util');
 
