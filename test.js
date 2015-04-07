@@ -1,7 +1,5 @@
 var test = require('tape');
 var child = require('child_process');
-var fs = require('fs');
-var amok = require('./');
 
 test('--client chrome', function(t) {
   var exe = child.spawn('node', ['./cmd.js', '--client', 'chrome', 'fixture.js']);
