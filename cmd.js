@@ -28,16 +28,15 @@ cmd.option('--compiler <CMD>', 'specify the compiler to spawn');
 cmd.option('-v, --verbose', 'enable verbose logging mode');
 
 cmd.parse(process.argv);
-
 cmd.cwd = process.cwd();
+
+cmd.scripts = cmd.args.reduce(function(object, value, key) {
+  object[value] = path.resolve(value);
+  return object;
+}, {});
 
 function compiler(callback, data) {
   if (cmd.compiler === undefined) {
-    cmd.scripts = cmd.args.reduce(function(object, value, key) {
-      object[value] = path.resolve(value);
-      return object;
-    }, {});
-
     return callback(null, null);
   }
 
