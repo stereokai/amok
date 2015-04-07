@@ -102,10 +102,9 @@ function watcher(callback, data) {
     watcher.on('change', function(filename) {
       log.info('change', { filename: filename });
 
-      var script = Object.keys(data.program.scripts)
-        .filter(function(key) {
-          return data.program.scripts[key] === filename
-        })[0];
+      var script = Object.keys(data.program.scripts).filter(function(key) {
+        return data.program.scripts[key] === filename;
+      }).pop();
 
       if (script) {
         log.info('re-compile', { filename: filename });
