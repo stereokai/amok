@@ -75,19 +75,19 @@ function compiler(callback, data) {
 
     log.info('ok', { pid: compiler.pid });
 
-    stdout.on('data', function(data) {
-      log.info(data.toString());
-    });
-
-    stderr.on('data', function(data) {
-      log.error(data.toString());
-    });
-
     data.program.scripts = {
       'bundle.js': compiler.output,
     };
 
     callback(null, compiler);
+  });
+
+  compiler.stdout.on('data', function(data) {
+    log.info(data.toString());
+  });
+
+  compiler.stderr.on('data', function(data) {
+    log.error(data.toString());
   });
 }
 
@@ -98,33 +98,33 @@ function watcher(callback, data) {
   var watcher = amok.watch(data.program, function() {
     log.info('ok');
 
-    watcher.on('change', function(filename) {
-      log.info('change', { filename: filename });
+    callback(null, watcher);
+  });
 
-      var script = Object.keys(data.program.scripts).filter(function(key) {
-        return data.program.scripts[key] === filename;
-      }).pop();
+  watcher.on('change', function(filename) {
+    log.info('change', { filename: filename });
 
-      if (script) {
-        log.info('re-compile', { filename: filename });
+    var script = Object.keys(data.program.scripts).filter(function(key) {
+      return data.program.scripts[key] === filename;
+    }).pop();
 
-        fs.readFile(filename, 'utf-8', function(error, contents) {
+    if (script) {
+      log.info('re-compile', { filename: filename });
+
+      fs.readFile(filename, 'utf-8', function(error, contents) {
+        if (error) {
+          log.error(error);
+        }
+
+        data.bugger.source(script, contents, function(error) {
           if (error) {
-            log.error(error);
+            return log.error(error);
           }
 
-          data.bugger.source(script, contents, function(error) {
-            if (error) {
-              return log.error(error);
-            }
-
-            log.info('ok');
-          });
+          log.info('ok');
         });
-      }
-    });
-
-    callback(null, watcher);
+      });
+    }
   });
 }
 
@@ -159,16 +159,15 @@ function client(callback, data) {
     }
 
     log.info('ok', { pid: client.pid });
-
-    stdout.on('data', function(data) {
-      log.info(data.toString());
-    });
-
-    stderr.on('data', function(data) {
-      log.warn(data.toString());
-    });
-
     callback(null, client);
+  });
+
+  client.stdout.on('data', function(data) {
+    log.info(data.toString());
+  });
+
+  client.stderr.on('data', function(data) {
+    log.warn(data.toString());
   });
 }
 
