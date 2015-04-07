@@ -199,7 +199,7 @@ function bugger(callback, data) {
     callback(null, bugger);
   });
 
-  bugger.on('attach', function(error) {
+  bugger.on('attach', function(target) {
     log.info('attach', { url: target.url, title: target.title });
   });
 
