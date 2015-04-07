@@ -126,6 +126,11 @@ function watcher(callback, data) {
       });
     }
   });
+
+  watcher.on('error', function(error) {
+    log.error(error);
+    process.exit(error.errno);
+  });
 }
 
 function server(callback, data) {
@@ -141,6 +146,11 @@ function server(callback, data) {
 
   server.on('request', function(request, response) {
     log.info(request);
+  });
+
+  server.on('error', function(error) {
+    log.error(error);
+    process.exit(error.errno);
   });
 }
 
@@ -160,6 +170,11 @@ function client(callback, data) {
 
     log.info('ok', { pid: client.pid });
     callback(null, client);
+  });
+
+  client.on('error', function(error) {
+    log.error(error);
+    process.exit(error.errno);
   });
 
   client.stdout.on('data', function(data) {
