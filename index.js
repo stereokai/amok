@@ -171,7 +171,7 @@ function open(options, callback) {
   switch (options.client) {
     case 'chrome':
       command = (function() {
-        if (process.platform == 'win32') {
+        if (process.platform === 'win32') {
           var suffix = '\\Google\\Chrome\\Application\\chrome.exe';
           var prefixes = [
             process.env['LOCALAPPDATA'],
@@ -185,7 +185,7 @@ function open(options, callback) {
             return fs.existsSync(path);
           });
           return executables[0];
-        } else if (process.platform == 'darwin') {
+        } else if (process.platform === 'darwin') {
           return '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
         } else {
           return which.sync('google-chrome');
