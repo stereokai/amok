@@ -15,7 +15,7 @@ function serve(options, callback) {
     var filename = options.scripts[path.basename(url)];
 
     if (filename === undefined) {
-      var filename = path.join(options.cwd, url);
+      filename = path.join(options.cwd, url);
     }
 
     fs.exists(filename, function(exists) {
@@ -49,18 +49,21 @@ function compile(options, callback) {
   var dirpath = temp.mkdirSync('amok-output');
   options.output = path.join(dirpath, options.args[0].replace(/\.[^\.]+$/, '.js'));
 
+  var args = options.compiler.match(/'[^"]*'|"[^"]*"|\S+/g);
+  var command = args.shift();
+
   switch (options.compiler) {
     case 'browserify':
-      var command = which.sync('watchify');
-      var args = [
+      command = which.sync('watchify');
+      args = [
         '-o',
         options.output,
       ];
       break;
 
     case 'webpack':
-      var command = which.sync('webpack');
-      var args = [
+      command = which.sync('webpack');
+      args = [
         '--watch',
         '--output-file',
         options.output,
@@ -68,8 +71,8 @@ function compile(options, callback) {
       break;
 
     case 'typescript':
-      var command = which.sync('tsc');
-      var args = [
+      command = which.sync('tsc');
+      args = [
         '--watch',
         '--out',
         options.output,
@@ -77,9 +80,8 @@ function compile(options, callback) {
       break;
 
     case 'coffeescript':
-      var command = which.sync('coffee');
-
-      var args = [
+      command = which.sync('coffee');
+      args = [
         '--watch',
         '--compile',
         '--output',
@@ -88,17 +90,12 @@ function compile(options, callback) {
       break;
 
     case 'babel':
-      var command = which.sync('babel');
-      var args = [
+      command = which.sync('babel');
+      args = [
         '--watch',
         '--out-file',
         options.output,
       ];
-      break;
-
-    default:
-      var args = options.compiler.match(/'[^"]*'|"[^"]*"|\S+/g);
-      var command = args.shift();
       break;
   }
 
@@ -168,9 +165,12 @@ function debug(options, callback) {
 }
 
 function open(options, callback) {
+  var args = options.client.match(/'[^"]*'|"[^"]*"|\S+/g);
+  var command = args.shift();
+
   switch (options.client) {
     case 'chrome':
-      var command = (function() {
+      command = (function() {
         if (process.platform == 'win32') {
           var suffix = '\\Google\\Chrome\\Application\\chrome.exe';
           var prefixes = [
@@ -192,7 +192,7 @@ function open(options, callback) {
         }
       }());
 
-      var args = [
+      args = [
         '--remote-debugging-port=' + options.debuggerPort,
         '--no-first-run',
         '--no-default-browser-check',
@@ -202,11 +202,6 @@ function open(options, callback) {
         '--disable-zero-browsers-open-for-tests',
         '--user-data-dir=' + temp.mkdirSync('amok-chrome'),
       ];
-      break;
-
-    default:
-      var args = options.client.match(/'[^"]*'|"[^"]*"|\S+/g);
-      var command = args.shift();
       break;
   }
 
