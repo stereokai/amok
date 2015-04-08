@@ -40,7 +40,7 @@ function program(callback, data) {
   }
 
   var scripts = cmd.args.filter(function(arg) {
-    return arg.match(/^([a-zA-Z\d_-]+)\.*$/);
+    return arg.match(/[^\\/]+$/);
   });
 
   var url = cmd.args.filter(function(arg) {
