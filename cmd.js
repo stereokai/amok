@@ -197,7 +197,7 @@ function server(callback, data) {
     var address = server.address();
     log.info('listening', { host: address.address, port: address.port });
 
-    data.program.url = util.format('http://%s:%d', options.host, options.port);
+    data.program.url = util.format('http://%s:%d', data.program.host, data.program.port);
     callback(null, server);
   });
 
