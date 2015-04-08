@@ -187,6 +187,7 @@ function server(callback, data) {
   var log = bole('http');
 
   if (data.program.url) {
+    log.info('skip');
     return callback(null, null);
   }
 
