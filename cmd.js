@@ -25,6 +25,7 @@ function program(callback, data) {
   cmd.option('--debugger-port <PORT>', 'specify debugger port', 9222);
 
   cmd.option('-i, --interactive', 'enable interactive mode');
+  cmd.option('-w, --watch <GLOB>', 'specify watch pattern', process.cwd());
 
   cmd.option('--client <CMD>', 'specify the client to spawn');
   cmd.option('--compiler <CMD>', 'specify the compiler to spawn');

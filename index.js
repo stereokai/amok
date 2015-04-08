@@ -118,13 +118,21 @@ function compile(options, callback) {
 }
 
 function watch(options, callback) {
-  var files = Object.keys(options.scripts).map(function(key) {
-    return path.dirname(options.scripts[key]);
-  });
-
-  var watcher = chokidar.watch(files, {
+  var watcher = chokidar.watch(options.watch, {
     persistent: true
   });
+
+  if (options.scripts) {
+    var directories = Object.keys(options.scripts).filter(function(path, index, paths) {
+      return paths.indexOf(path) == index;
+    }).map(function(key) {
+      return path.dirname(options.scripts[key]);
+    });
+
+    directories.forEach(function(path) {
+      watcher.add(path);
+    });
+  }
 
   if (callback) {
     watcher.once('ready', callback);
