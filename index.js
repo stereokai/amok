@@ -150,7 +150,7 @@ function debug(options, callback) {
     var interval = setInterval(function() {
       bugger.targets(function(targets) {
         var target = targets.filter(function(target) {
-          return target.url === options.url && target.webSocketDebuggerUrl;
+          return target.url.search(options.url) > -1 && target.webSocketDebuggerUrl;
         })[0];
 
         if (target) {
@@ -163,7 +163,7 @@ function debug(options, callback) {
 
   bugger.targets(function(targets) {
     var target = targets.filter(function(target) {
-      return target.url === options.url && target.webSocketDebuggerUrl;
+      return target.url.search(options.url) > -1 && target.webSocketDebuggerUrl;
     })[0];
 
     bugger.attach(target);
