@@ -150,7 +150,7 @@ function debug(options, callback) {
     var interval = setInterval(function() {
       bugger.targets(function(targets) {
         var target = targets.filter(function(target) {
-          return target.url.indexOf(options.host) > -1 && target.webSocketDebuggerUrl;
+          return target.url === options.url && target.webSocketDebuggerUrl;
         })[0];
 
         if (target) {
@@ -163,7 +163,7 @@ function debug(options, callback) {
 
   bugger.targets(function(targets) {
     var target = targets.filter(function(target) {
-      return target.url.indexOf(options.host) > -1 && target.webSocketDebuggerUrl;
+      return target.url === options.url && target.webSocketDebuggerUrl;
     })[0];
 
     bugger.attach(target);
@@ -213,8 +213,7 @@ function open(options, callback) {
       break;
   }
 
-  var url = util.format('http://%s:%d', options.host, options.port);
-  args.push(url);
+  args.push(options.url);
 
   var client = child.spawn(command, args);
   setTimeout(function() {

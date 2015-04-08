@@ -15,7 +15,7 @@ function program(callback, data) {
   var cmd = require('commander');
   var pkg = require('./package.json');
 
-  cmd.usage('[options] <script>');
+  cmd.usage('[options] <script | url>');
   cmd.version(pkg.version);
 
   cmd.option('--host <HOST>', 'specify http host', 'localhost');
@@ -40,13 +40,19 @@ function program(callback, data) {
   }
 
   var scripts = cmd.args.filter(function(arg) {
-    return path.extname(arg);
+    return arg.match(/^([a-zA-Z\d_-]+)\.*$/);
   });
+
+  var url = cmd.args.filter(function(arg) {
+    return arg.match(/^(http|https):\/\//);
+  }).pop();
 
   cmd.scripts = scripts.reduce(function(object, value, key) {
     object[value] = path.resolve(value);
     return object;
   }, {});
+
+  cmd.url = url;
 
   var transform = bistre.createStream();
   transform.pipe(process.stdout);
@@ -109,6 +115,16 @@ function watcher(callback, data) {
       return data.program.scripts[key] === filename;
     }).pop();
 
+    if (script == undefined) {
+      var scripts = data.bugger._scripts.map(function(obj) {
+        return path.basename(obj.url);
+      });
+
+      script = scripts.filter(function(basename) {
+        return path.resolve(basename) == filename;
+      })[0];
+    }
+
     if (script) {
       log.info('re-compile', { filename: filename });
 
@@ -136,12 +152,18 @@ function watcher(callback, data) {
 
 function server(callback, data) {
   var log = bole('http');
+
+  if (data.program.url) {
+    return callback(null, null);
+  }
+
   log.info('starting');
 
   var server = amok.serve(data.program, function() {
     var address = server.address();
     log.info('listening', { host: address.address, port: address.port });
 
+    data.program.url = util.format('http://%s:%d', options.host, options.port);
     callback(null, server);
   });
 
