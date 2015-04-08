@@ -108,8 +108,40 @@ function watcher(callback, data) {
     callback(null, watcher);
   });
 
+  var emit = function(event, filename) {
+    filename = path.relative(process.cwd(), filename);
+
+    var source = 'if (typeof(window) !== \'undefined\') {'
+               + '  var e = new CustomEvent(\''+ event + '\','
+               + '    { detail: \'' + filename +'\' });'
+               + ''
+               + '  window.dispatchEvent(e);'
+               + '}';
+               + ''
+               + 'if (typeof(process) !== \'undefined\') {'
+               + '  process.emit(\'' + event + '\', \'' + filename + '\');'
+               + '}';
+
+    data.bugger.evaluate(source, function(error, result) {
+      if (error) {
+        log.error(error);
+      }
+    });
+  };
+
+  watcher.on('add', function(filename) {
+    log.info('add', { filename: filename });
+    emit('add', filename);
+  });
+
+  watcher.on('unlink', function(filename) {
+    log.info('remove', { filename: filename });
+    emit('remove', filename);
+  });
+
   watcher.on('change', function(filename) {
     log.info('change', { filename: filename });
+    emit('change', filename);
 
     var script = Object.keys(data.program.scripts).filter(function(key) {
       return data.program.scripts[key] === filename;
@@ -139,6 +171,7 @@ function watcher(callback, data) {
           }
 
           log.info('ok');
+          emit('source', filename);
         });
       });
     }
