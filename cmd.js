@@ -170,7 +170,7 @@ function watcher(callback, data) {
             return log.error(error);
           }
 
-          log.info('ok');
+          log.info('ok', { filename: filename, length: contents.length });
           emit('source', filename);
         });
       });
