@@ -82,9 +82,8 @@ function compiler(callback, data) {
 
     log.info('ok', { pid: compiler.pid });
 
-    data.program.scripts = {
-      'bundle.js': compiler.output,
-    };
+    data.program.scripts = {};
+    data.program.scripts[path.basename(compiler.output)] = compiler.output;
 
     callback(null, compiler);
   });
