@@ -22,7 +22,8 @@ This re-compilation is done through a remote debugging session, which leverages 
 
 It also has a zero configuration http development server for developing front end applications, this server will automatically generate an appropriate *index.html* file if one is not found.
 
-Additional features include an interactive mode (read–eval–print loop) and console redirection.
+Additional features include an client side file change notifications,
+interactive mode (read–eval–print loop) and console redirection.
 
 ## Options
 ```
