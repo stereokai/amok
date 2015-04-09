@@ -239,7 +239,7 @@ function client(callback, data) {
   });
 
   client.stderr.on('data', function(data) {
-    log.warn(data.toString());
+    log.error(data.toString());
   });
 }
 
