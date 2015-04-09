@@ -14,16 +14,32 @@ npm install amok -g
 ```
 
 ## Description
-Amok standalone command line tool for rapid prototyping and development of JavaScript applications.
 
-It monitors changes in the file system. As soon as you save a file, it is then preprocessed, compiled and bundled as needed, the code is then refreshed in the client while it is running without restarting or reloading the client.
+Amok standalone remote debugging command line tool that enables rapid
+prototyping and development of JavaScript based web applications.
 
-This re-compilation is done through a remote debugging session, which leverages the re-compilation capabilities built into the runtime itself. Doing re-compilation has several advantages over reloading and hot replacement, application state is kept, no side effects are executed, and there is no code that cannot be edited live, including anonymous closures.
+Given a script as the entry point, it will start a zero
+configuration http development server, which may be configured to
+incrementally watch and compile the scripts through preprocessors,
+compilers and bundlers such as typescript, coffeescript, browserify,
+webpack and babel.
 
-It also has a zero configuration http development server for developing front end applications, this server will automatically generate an appropriate *index.html* file if one is not found.
+Alternatively a url may be specified as the entry point, in which case
+it will connect to the client directly without starting the development
+server.
 
-Additional features include an client side file change notifications,
-interactive mode (read–eval–print loop) and console redirection.
+If the client option is enabled, the executable of that client is
+located and opened with the correct settings to allow it to accept
+remote debugging connections.
+
+Once connected to a client it monitors changes in the file system,
+emitting events on the global object in the client environment when such
+changes occur, when a change to the source of a script currently loaded
+in the client is detected, it gets re-compiled and refreshed in the
+client without reloading, restarting, interrupting execution, loosing
+any state, or executing side effects in the client application, output
+from the client's console calls gets mirrored into stdout and stderr.
+
 
 ## Options
 ```
@@ -48,20 +64,24 @@ interactive mode (read–eval–print loop) and console redirection.
 -i, --interactive
   enable interactive mode
 
---client <ID | CMD>
+--client <PRESET | COMMAND>
   specify the client to spawn
 
---compiler <ID | CMD>
+--compiler <PRESET | COMMAND>
   specify the compiler to spawn
 
 -v, --verbose
   enable verbose logging mode
 ```
 
-You must have a client already listening on the remote debugging port when launching, or specified via the **client** option.
+A client must already listening on the same remote debugging port when
+launching, or specified with the **client** option.
 
-Optionally a compiler may be specified to process script sources via the **compiler** option,
-Any extra arguments and options following the option parsing terminator **--**, will be passed as extra options to the compiler. The specified compiler must have its executable available via **PATH**.
+A compiler may be specified to process script sources served via the
+http server with the **compiler** option, Any extra arguments and
+options following the option parsing terminator **--**, will be passed
+as extra options to the compiler. The specified compiler must have its
+executable available via **PATH**.
 
 ## Example
 1. `git clone https://gist.github.com/d58c3eecb72ba3dd0846.git examples`
