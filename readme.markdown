@@ -5,7 +5,7 @@
 
 ## Synopsis
 ```sh
-amok [options] <script>
+amok [options] <SCRIPT | URL>
 ```
 
 ## Installation
