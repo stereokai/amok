@@ -25,36 +25,37 @@ It also has a zero configuration http development server for developing front en
 Additional features include an interactive mode (read–eval–print loop) and console redirection.
 
 ## Options
-
-**-h, --help**
+```
+-h, --help
   output usage information
 
-**-V, --version**
+-V, --version
   output the version number
 
-**--host <host>**
+--host <HOST>
   specify http host
 
-**--port <port>**
+--port <PORT>
   specify http port
 
-**--debugger-host <HOST>**
+--debugger-host <HOST>
   specify debugger host
 
-**--debugger-port <PORT>**
+--debugger-port <PORT>
   specify debugger port
 
-**-i, --interactive**
+-i, --interactive
   enable interactive mode
 
-**--client <PRESET | COMMAND>**
+--client <ID | CMD>
   specify the client to spawn
 
-**--compiler <PRESET | COMMAND>**
+--compiler <ID | CMD>
   specify the compiler to spawn
 
-**-v, --verbose**
+-v, --verbose
   enable verbose logging mode
+```
 
 You must have a client already listening on the remote debugging port when launching, or specified via the **client** option.
 
