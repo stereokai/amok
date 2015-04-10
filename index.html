@@ -49,7 +49,7 @@ title: Live Editing for JavaScript
     <div class="columns">
       <div class="one-half column">
         <h2>What Is It?</h2>
-          <p>Amok is a free, cross-platform, open source standalone command line tool for rapid prototyping, development and debugging of JavaScript applications.</p>
+          <p>Amok is a free, cross-platform, open source standalone command line tool for rapid prototyping, development and debugging of JavaScript web applications.</p>
 
           <p>Amok itself written in JavaScript, runs on <a href="https://nodejs.org/">node</a> and is distributed via <a href="https://www.npmjs.com/">npm</a></p>
       </div>
@@ -64,32 +64,79 @@ title: Live Editing for JavaScript
 <div class="featurette">
   <div class="container">
     <h2>What Does It Do?</h2>
-
-    <div class="embed-responsive">
+    <p>
+      <div class="embed-responsive">
         <iframe src="https://www.youtube.com/embed/YuwPi59Oig0?rel=0&amp;controls=1&amp;showinfo=0" frameborder="0" allowfullscreen=""></iframe>
       </div>
+    </p>
+  </div>
+
+  <div class="container">
+    <div class="columns">
+      <div class="one-third column">
+        <h3>
+          <i class="fa fa-fw fa-server"></i>
+          Zero Configuration Server
+        </h3>
+
+        <p>
+          Simple http server, serves scripts, resources and generates a default index.html response if the file does not exist.
+        </p>
+      </div>
+
+      <div class="one-third column">
+        <h3>
+          <i class="fa fa-fw fa-magic"></i>
+          Automatic Preprocessing
+        </h3>
+
+        <p>
+          Monitors the file system, automatically preprocess source files through a variety of compilers and bundlers.
+        </p>
+      </div>
+
+      <div class="one-third column">
+        <h3>
+          <i class="fa fa-fw fa-code"></i>
+          Live Code Editing
+        </h3>
+
+        <p>
+          Upon detection of a loaded script being changed, it gets sourced in the client without interrupting execution, executing side effects or loosing state.
+        </p>
+      </div>
+    </div>
 
     <div class="columns">
       <div class="one-third column">
-        <h3>Live Code Editing</h3>
+        <h3>
+          <i class="fa fa-fw fa-repeat"></i>
+          Console Mirroring
+        </h3>
+
         <p>
-          Amok monitors changes in the file system. As soon as you save a file, it is then preprocessed, compiled and bundled as needed, and reloaded in the browser session without refreshing or executing side effects, keeping your application state as it was while doing live editing.
+          Output from client's console <em>log</em>, <em>info</em>, <em>error</em>, <em>trace</em> and so on gets mirrored and written to the calling processes stdout and stderr.
         </p>
       </div>
 
       <div class="one-third column">
-        <h3>Zero Configuration Server</h3>
+        <h3>
+          <i class="fa fa-fw fa-terminal"></i>
+          Interactive Mode
+        </h3>
+
         <p>
-          Amok comes with a simple to use zero configuration http development server built-in for
-          rapid development and prototyping.
+          Interactive mode enables inspection of the client environment as it is running through a read-eval-print-loop.
         </p>
       </div>
 
       <div class="one-third column">
-        <h3>Interactive Mode</h3>
-        <p>
-          Amok can be launched in an interactive mode (read-eval-print-loop) which connects through the remote session and executes in the context of the browser.
-        </p>
+        <h3>
+          <i class="fa fa-fw fa-file"></i>
+          File Notifications
+        </h3>
+
+        <p>Notifications are sent to the global object in the client environment, enabling domain specific processing of changes.</p>
       </div>
     </div>
   </div>
