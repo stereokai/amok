@@ -18,11 +18,11 @@ npm install amok -g
 Amok standalone remote debugging command line tool that enables rapid
 prototyping and development of JavaScript based web applications.
 
-Given a script as the entry point, it will start a zero
-configuration http development server, which may be configured to
-incrementally watch and compile the scripts through preprocessors,
-compilers and bundlers such as typescript, coffeescript, browserify,
-webpack and babel.
+Given a script as the entry point, it will start a zero configuration
+http development server with a default overridable generated index.html,
+which may be configured to incrementally watch and compile the scripts
+through preprocessors, compilers and bundlers such as typescript,
+coffeescript, browserify, webpack and babel.
 
 Alternatively a url may be specified as the entry point, in which case
 it will connect to the client directly without starting the development
