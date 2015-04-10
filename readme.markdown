@@ -83,6 +83,37 @@ options following the option parsing terminator **--**, will be passed
 as extra options to the compiler. The specified compiler must have its
 executable available via **PATH**.
 
+
+## Example
+1. `git clone https://gist.github.com/d58c3eecb72ba3dd0846.git examples`
+2. `cd examples`
+3. `amok --client chrome canvas.js`
+
+### Webpack
+```sh
+amok --client chrome --compiler webpack canvas.js
+```
+
+### Browserify
+```sh
+amok --client chrome --compiler browserify canvas.js
+```
+
+### Babel
+```sh
+amok --client chrome --compiler babel canvas.js
+```
+
+### TypeScript
+```sh
+amok --client chrome --compiler typescript canvas.ts
+```
+
+### CoffeeScript
+```sh
+amok --client chrome --compiler coffeescript canvas.coffee
+```
+
 ## Client Environment
 Events get emitted to aid with domain specific requirements.
 These events are emitted on the global object,
@@ -148,33 +179,3 @@ Dispatched when the contents of a file changes, `event` is a `CustomEvent` with
 
 Dispatched when a loaded script gets its source re-compiled, `event` is a `CustomEvent` with
 `detail` containing the filename.
-
-## Example
-1. `git clone https://gist.github.com/d58c3eecb72ba3dd0846.git examples`
-2. `cd examples`
-3. `amok --client chrome canvas.js`
-
-### Webpack
-```sh
-amok --client chrome --compiler webpack canvas.js
-```
-
-### Browserify
-```sh
-amok --client chrome --compiler browserify canvas.js
-```
-
-### Babel
-```sh
-amok --client chrome --compiler babel canvas.js
-```
-
-### TypeScript
-```sh
-amok --client chrome --compiler typescript canvas.ts
-```
-
-### CoffeeScript
-```sh
-amok --client chrome --compiler coffeescript canvas.coffee
-```
