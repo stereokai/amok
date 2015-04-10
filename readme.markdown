@@ -89,7 +89,7 @@ executable available via **PATH**.
 amok --client chrome canvas.js
 amok --client chrome http://localhost:9090
 amok --client chrome --compiler webpack canvas.js
-``
+```
 
 ## Client Environment
 Events get emitted to aid with domain specific requirements.
