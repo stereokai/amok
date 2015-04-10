@@ -14,9 +14,9 @@ npm install amok -g
 ```
 
 ## Description
-
-Amok standalone remote debugging command line tool that enables rapid
-prototyping and development of JavaScript based web applications.
+Amok standalone command line tool that enables rapid prototyping and
+development of JavaScript based web applications through the client's
+remote debugging interface.
 
 Given a script as the entry point, it will start a zero configuration
 http development server with a default overridable generated index.html,
