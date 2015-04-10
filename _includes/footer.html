@@ -13,17 +13,16 @@
 $(function() {
   $('a[href^=https]').each(function() {
     $(this).click(function(e) {
-      e.preventDefault();
+      var params = { };
+      if (e.target.attr('target') !== '_blank') {
+        e.preventDefault();
 
-      var redirect = function() {
-        document.location = this.href;
-      }.bind(e.target);
+        params['hitCallback'] = function() {
+          document.location = target.href;
+        };
+      }
 
-      ga('send', 'event', 'outbound', 'click', e.target.href, { 'hitCallback': redirect });
-
-      setTimeout(function() {
-        redirect();
-      }, 1000);
+      ga('send', 'event', 'outbound', 'click', e.target.href, params);
     });
   });
 });
