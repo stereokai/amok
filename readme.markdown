@@ -85,34 +85,11 @@ executable available via **PATH**.
 
 
 ## Example
-1. `git clone https://gist.github.com/d58c3eecb72ba3dd0846.git examples`
-2. `cd examples`
-3. `amok --client chrome canvas.js`
-
-### Webpack
 ```sh
+amok --client chrome canvas.js
+amok --client chrome http://localhost:9090
 amok --client chrome --compiler webpack canvas.js
-```
-
-### Browserify
-```sh
-amok --client chrome --compiler browserify canvas.js
-```
-
-### Babel
-```sh
-amok --client chrome --compiler babel canvas.js
-```
-
-### TypeScript
-```sh
-amok --client chrome --compiler typescript canvas.ts
-```
-
-### CoffeeScript
-```sh
-amok --client chrome --compiler coffeescript canvas.coffee
-```
+``
 
 ## Client Environment
 Events get emitted to aid with domain specific requirements.
