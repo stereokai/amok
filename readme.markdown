@@ -83,6 +83,72 @@ options following the option parsing terminator **--**, will be passed
 as extra options to the compiler. The specified compiler must have its
 executable available via **PATH**.
 
+## Client Environment
+Events get emitted to aid with domain specific requirements.
+These events are emitted on the global object,
+if both window and process are available, events will be emitted on both objects.
+
+### process
+#### Event: 'add'
+```js
+  function (filename) { }
+```
+
+Emitted when a file is added.
+
+#### Event: 'remove'
+```js
+  function (filename) { }
+```
+Emitted when a file is removed.
+
+#### Event: 'change'
+```js
+  function (filename) { }
+```
+
+Emitted when the contents of a file is changed.
+
+#### Event: 'source'
+```js
+  function (filename) { }
+```
+
+Emitted when a loaded script gets its source re-compiled.
+
+### window
+#### Event: 'add'
+```js
+  function (event) { }
+```
+
+Dispatched when a file is added, `event` is a `CustomEvent` with
+`detail` containing the filename.
+
+#### Event: 'remove'
+```js
+  function (event) { }
+```
+
+Dispatched when a file is removed, `event` is a `CustomEvent` with
+`detail` containing the filename.
+
+#### Event: 'change'
+```js
+  function (event) { }
+```
+
+Dispatched when the contents of a file changes, `event` is a `CustomEvent` with
+`detail` containing the filename.
+
+#### Event: 'source'
+```js
+  function (event) { }
+```
+
+Dispatched when a loaded script gets its source re-compiled, `event` is a `CustomEvent` with
+`detail` containing the filename.
+
 ## Example
 1. `git clone https://gist.github.com/d58c3eecb72ba3dd0846.git examples`
 2. `cd examples`
