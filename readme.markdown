@@ -131,7 +131,7 @@ Emitted when a loaded script gets its source re-compiled.
 ```
 
 Dispatched when a file is added, `event` is a `CustomEvent` with
-`detail` containing the filename.
+`detail` containing the filename relative to the current working directory.
 
 #### Event: 'remove'
 ```js
@@ -139,7 +139,7 @@ Dispatched when a file is added, `event` is a `CustomEvent` with
 ```
 
 Dispatched when a file is removed, `event` is a `CustomEvent` with
-`detail` containing the filename.
+`detail` containing the filename relative to the current working directory.
 
 #### Event: 'change'
 ```js
@@ -147,7 +147,7 @@ Dispatched when a file is removed, `event` is a `CustomEvent` with
 ```
 
 Dispatched when the contents of a file changes, `event` is a `CustomEvent` with
-`detail` containing the filename.
+`detail` containing the filename relative to the current working directory.
 
 #### Event: 'source'
 ```js
@@ -155,4 +155,4 @@ Dispatched when the contents of a file changes, `event` is a `CustomEvent` with
 ```
 
 Dispatched when a loaded script gets its source re-compiled, `event` is a `CustomEvent` with
-`detail` containing the filename.
+`detail` containing the filename relative to the current working directory.

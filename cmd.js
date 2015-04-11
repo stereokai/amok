@@ -7,6 +7,7 @@ var fs = require('fs');
 var path = require('path');
 var repl = require('repl');
 var util = require('util');
+var url = require('url');
 
 var bole = require('bole');
 var bistre = require('bistre');
@@ -108,8 +109,6 @@ function watcher(callback, data) {
   });
 
   var emit = function(event, filename) {
-    filename = path.relative(process.cwd(), filename);
-
     var source = 'if (typeof(window) !== \'undefined\') {'
                + '  var e = new CustomEvent(\''+ event + '\','
                + '    { detail: \'' + filename +'\' });'
@@ -128,33 +127,42 @@ function watcher(callback, data) {
     });
   };
 
+  var relative = function(filename) {
+    var dirname = data.program.cwd;
+
+    if (data.compiler) {
+      if (path.dirname(filename) === path.dirname(data.compiler.output)) {
+        dirname = path.dirname(data.compiler.output);
+      }
+    }
+
+    return path.relative(dirname, filename);
+  };
+
   watcher.on('add', function(filename) {
-    log.info('add', { filename: filename });
+    var pathname = relative(filename);
+
+    log.info('add', { filename: filename, pathname: filename });
     emit('add', filename);
   });
 
   watcher.on('unlink', function(filename) {
-    log.info('remove', { filename: filename });
-    emit('remove', filename);
+    var pathname = relative(filename);
+
+    log.info('remove', { filename: filename, pathname: filename });
+    emit('remove', pathname);
   });
 
   watcher.on('change', function(filename) {
-    log.info('change', { filename: filename });
+    var pathname = relative(filename);
+
+    log.info('change', { filename: filename, pathname: pathname });
     emit('change', filename);
 
-    var script = Object.keys(data.program.scripts).filter(function(key) {
-      return data.program.scripts[key] === filename;
-    }).pop();
-
-    if (script == undefined) {
-      var scripts = data.bugger._scripts.map(function(obj) {
-        return path.basename(obj.url);
-      });
-
-      script = scripts.filter(function(basename) {
-        return path.resolve(basename) == filename;
-      })[0];
-    }
+    var script = data.bugger._scripts.filter(function(script) {
+      var location = url.parse(script.url);
+      return path.relative('/', location.path || '') === pathname;
+    })[0];
 
     if (script) {
       log.info('re-compile', { filename: filename });
@@ -164,13 +172,13 @@ function watcher(callback, data) {
           log.error(error);
         }
 
-        data.bugger.source(script, contents, function(error) {
+        data.bugger.source(pathname, contents, function(error) {
           if (error) {
             return log.error(error);
           }
 
-          log.info('ok', { filename: filename, length: contents.length });
-          emit('source', filename);
+          log.info('ok', { filename: filename, pathname: pathname, length: contents.length });
+          emit('source', pathname);
         });
       });
     }
