@@ -10,7 +10,9 @@ var temp = require('temp');
 var which = require('which');
 
 function serve(options, callback) {
-  var server = http.createServer(function(request, response) {
+  var server = http.createServer();
+
+  server.on('request', function(request, response) {
     var url = (request.url === '/') ? '/index.html' : request.url;
     var filename = options.scripts[path.basename(url)];
 
