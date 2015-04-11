@@ -8,16 +8,17 @@ var rdbg = require('rdbg');
 var util = require('util');
 var temp = require('temp');
 var which = require('which');
+var url = require('url');
 
 function serve(options, callback) {
   var server = http.createServer();
 
   server.on('request', function(request, response) {
-    var url = (request.url === '/') ? '/index.html' : request.url;
+    var location = url.parse((request.url === '/') ? '/index.html' : request.url);
     var filename = options.scripts[path.basename(url)];
 
     if (filename === undefined) {
-      filename = path.join(options.cwd, url);
+      filename = path.join(options.cwd, location.pathname);
     }
 
     fs.exists(filename, function(exists) {
@@ -27,7 +28,7 @@ function serve(options, callback) {
 
         var file = fs.createReadStream(filename);
         file.pipe(response);
-      } else if (url === '/index.html') {
+      } else if (location.pathname === '/index.html') {
         response.setHeader('content-type', 'text/html');
         response.write('<!doctype html><head><meta charset="utf-8"></head><body>');
 
