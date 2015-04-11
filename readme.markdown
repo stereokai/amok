@@ -19,9 +19,9 @@ development of JavaScript based web applications through the client's
 remote debugging interface.
 
 Given a script as the entry point, it will start a zero configuration
-http development server with a default overridable generated index.html,
-which may be configured to incrementally watch and compile the scripts
-through preprocessors, compilers and bundlers such as typescript,
+http development server with a default overridable generated index.html.
+The server may be configured to incrementally watch and compile the scripts
+through preprocessors, compilers and bundlers. Such as typescript,
 coffeescript, browserify, webpack and babel.
 
 Alternatively a url may be specified as the entry point, in which case
@@ -32,12 +32,12 @@ If the client option is enabled, the executable of that client is
 located and opened with the correct settings to allow it to accept
 remote debugging connections.
 
-Once connected to a client it monitors changes in the file system,
-emitting events on the global object in the client environment when such
-changes occur, when a change to the source of a script currently loaded
+Once connected to a client it monitors changes in the file system.
+Eitting events on the global object in the client environment when such
+changes occur. When a change to the source of a script currently loaded
 in the client is detected, it gets re-compiled and refreshed in the
 client without reloading, restarting, interrupting execution, loosing
-any state, or executing side effects in the client application, output
+any state, or executing side effects in the client application. Output
 from the client's console calls gets mirrored into stdout and stderr.
 
 
