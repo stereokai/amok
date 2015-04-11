@@ -28,7 +28,7 @@ function serve(options, callback) {
 
         var file = fs.createReadStream(filename);
         file.pipe(response);
-      } else if (location.pathname === '/index.html') {
+      } else if (filename === '/index.html') {
         response.setHeader('content-type', 'text/html');
         response.write('<!doctype html><head><meta charset="utf-8"></head><body>');
 
