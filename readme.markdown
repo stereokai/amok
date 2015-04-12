@@ -156,3 +156,7 @@ Dispatched when the contents of a file changes, `event` is a `CustomEvent` with
 
 Dispatched when a loaded script gets its source re-compiled, `event` is a `CustomEvent` with
 `detail` containing the filename relative to the current working directory.
+
+# See Also
+
+[amok-examples](https://github.com/caspervonb/amok-examples)
