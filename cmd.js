@@ -49,7 +49,7 @@ function program(callback, data) {
   }).pop();
 
   cmd.scripts = scripts.reduce(function(object, value, key) {
-    object[value] = path.resolve(value);
+    object[path.resolve(value)] = value;
     return object;
   }, {});
 
@@ -84,7 +84,7 @@ function compiler(callback, data) {
     log.info('ok', { pid: compiler.pid });
 
     data.program.scripts = {};
-    data.program.scripts[path.basename(compiler.output)] = compiler.output;
+    data.program.scripts[compiler.output] = path.basename(compiler.output);
 
     callback(null, compiler);
   });
@@ -102,86 +102,24 @@ function watcher(callback, data) {
   var log = bole('watch');
 
   log.info('start');
+
+  data.program.bugger = data.bugger;
   var watcher = amok.watch(data.program, function() {
     log.info('ok');
 
     callback(null, watcher);
   });
 
-  var emit = function(event, filename) {
-    var source = 'if (typeof(window) !== \'undefined\') {'
-               + '  var e = new CustomEvent(\''+ event + '\','
-               + '    { detail: \'' + filename +'\' });'
-               + ''
-               + '  window.dispatchEvent(e);'
-               + '}';
-               + ''
-               + 'if (typeof(process) !== \'undefined\') {'
-               + '  process.emit(\'' + event + '\', \'' + filename + '\');'
-               + '}';
-
-    data.bugger.evaluate(source, function(error, result) {
-      if (error) {
-        log.error(error);
-      }
-    });
-  };
-
-  var relative = function(filename) {
-    var dirname = data.program.cwd;
-
-    if (data.compiler) {
-      if (path.dirname(filename) === path.dirname(data.compiler.output)) {
-        dirname = path.dirname(data.compiler.output);
-      }
-    }
-
-    return path.relative(dirname, filename);
-  };
-
   watcher.on('add', function(filename) {
-    var pathname = relative(filename);
-
-    log.info('add', { filename: filename, pathname: filename });
-    emit('add', filename);
+    log.info('add', { filename: filename });
   });
 
   watcher.on('unlink', function(filename) {
-    var pathname = relative(filename);
-
     log.info('remove', { filename: filename, pathname: filename });
-    emit('remove', pathname);
   });
 
   watcher.on('change', function(filename) {
-    var pathname = relative(filename);
-
-    log.info('change', { filename: filename, pathname: pathname });
-    emit('change', filename);
-
-    var script = data.bugger._scripts.filter(function(script) {
-      var location = url.parse(script.url);
-      return path.relative('/', location.path || '') === pathname;
-    })[0];
-
-    if (script) {
-      log.info('re-compile', { filename: filename });
-
-      fs.readFile(filename, 'utf-8', function(error, contents) {
-        if (error) {
-          log.error(error);
-        }
-
-        data.bugger.source(pathname, contents, function(error) {
-          if (error) {
-            return log.error(error);
-          }
-
-          log.info('ok', { filename: filename, pathname: pathname, length: contents.length });
-          emit('source', pathname);
-        });
-      });
-    }
+    log.info('change', { filename: filename });
   });
 
   watcher.on('error', function(error) {
@@ -261,6 +199,10 @@ function bugger(callback, data) {
     }
 
     callback(null, bugger);
+  });
+
+  bugger.on('source', function(script) {
+    log.info('source', { url: script.url });
   });
 
   bugger.on('attach', function(target) {

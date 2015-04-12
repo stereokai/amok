@@ -13,12 +13,24 @@ var url = require('url');
 function serve(options, callback) {
   var server = http.createServer();
 
-  server.on('request', function(request, response) {
-    var location = url.parse((request.url === '/') ? '/index.html' : request.url);
-    var filename = options.scripts[path.basename(url)];
+  var scripts = options.scripts || {};
+  var cwd = options.cwd | process.cwd()
 
-    if (filename === undefined) {
-      filename = path.join(options.cwd, location.pathname);
+  server.on('request', function(request, response) {
+    if (request.url === '/') {
+      request.url = '/index.html';
+    }
+
+    var location = url.parse(request.url);
+    var filename = path.join(options.cwd, location.pathname);
+
+    for (var name in options.scripts) {
+      if (options.scripts.hasOwnProperty(name)) {
+        if (options.scripts[name] === location.pathname) {
+          filename = name;
+          break;
+        }
+      }
     }
 
     fs.exists(filename, function(exists) {
@@ -32,8 +44,10 @@ function serve(options, callback) {
         response.setHeader('content-type', 'text/html');
         response.write('<!doctype html><head><meta charset="utf-8"></head><body>');
 
-        for (var key in options.scripts) {
-          response.write('<script src="' + key + '"></script>');
+        for (var name in options.scripts) {
+          if (options.scripts.hasOwnProperty(name)) {
+            response.write('<script src="' + options.scripts[name] + '"></script>');
+          }
         }
 
         response.end('</body>');
@@ -121,19 +135,89 @@ function compile(options, callback) {
 }
 
 function watch(options, callback) {
+  var scripts = options.scripts || {};
+  var cwd = options.cwd || process.cwd();
+
   var watcher = chokidar.watch(options.watch, {
     persistent: true
   });
 
-  if (options.scripts) {
-    var directories = Object.keys(options.scripts).filter(function(path, index, paths) {
-      return paths.indexOf(path) == index;
-    }).map(function(key) {
-      return path.dirname(options.scripts[key]);
+  for (var name in scripts) {
+    if (scripts.hasOwnProperty(name)) {
+      var basename = path.basename(name);
+      watcher.add(basename);
+    }
+  }
+
+  var bugger = options.bugger;
+  if (bugger) {
+    var resolve = function(filename) {
+      console.log(filename);
+      console.log(scripts);
+
+      if (scripts[filename]) {
+        return scripts[filename];
+      }
+
+    };
+
+    var emit = function(event, filename) {
+      var source = 'if (typeof(window) !== \'undefined\') {'
+                 + '  var e = new CustomEvent(\''+ event + '\','
+                 + '    { detail: \'' + filename +'\' });'
+                 + ''
+                 + '  window.dispatchEvent(e);'
+                 + '}';
+                 + ''
+                 + 'if (typeof(process) !== \'undefined\') {'
+                 + '  process.emit(\'' + event + '\', \'' + filename + '\');'
+                 + '}';
+
+      bugger.evaluate(source, function(error, result) {
+        if (error) {
+          bugger.emit('error', error);
+        }
+      });
+    };
+
+    watcher.on('add', function(filename) {
+      var pathname = resolve(filename);
+      emit('add', pathname);
     });
 
-    directories.forEach(function(path) {
-      watcher.add(path);
+    watcher.on('remove', function(filename) {
+      var pathname = resolve(filename);
+      emit('remove', pathname);
+    });
+
+    watcher.on('change', function(filename) {
+      var pathname = resolve(filename);
+      emit('change', filename);
+
+      bugger.scripts(function(scripts) {
+        var script = scripts.filter(function(script) {
+          var location = url.parse(script.url);
+          return path.relative('/', location.path || '') === pathname;
+        })[0];
+
+        if (script === undefined) {
+          return;
+        }
+
+        fs.readFile(filename, 'utf-8', function(error, contents) {
+          if (error) {
+            return bugger.emit('error', error);
+          }
+
+          bugger.source(script, contents);
+        });
+      });
+    });
+
+    bugger.on('source', function(script) {
+      var location = url.parse(script.url);
+      var pathname = path.relative('/', location.pathname || '');
+      emit('source', pathname);
     });
   }
 
