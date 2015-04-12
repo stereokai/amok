@@ -40,7 +40,7 @@ function serve(options, callback) {
 
         var file = fs.createReadStream(filename);
         file.pipe(response);
-      } else if (filename === '/index.html') {
+      } else if (path.basename(filename) === 'index.html') {
         response.setHeader('content-type', 'text/html');
         response.write('<!doctype html><head><meta charset="utf-8"></head><body>');
 
