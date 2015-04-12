@@ -26,7 +26,7 @@ function serve(options, callback) {
 
     for (var name in scripts) {
       if (scripts.hasOwnProperty(name)) {
-        if (scripts[name] === location.pathname) {
+        if (scripts[name] === path.relative('/', location.pathname)) {
           filename = name;
           break;
         }
