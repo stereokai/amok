@@ -64,7 +64,7 @@ function serve(options, callback) {
 
 function compile(options, callback) {
   var dirpath = temp.mkdirSync('amok-output');
-  options.output = path.join(dirpath, options.args[0].replace(/\.[^\.]+$/, '.js'));
+  options.output = path.join(dirpath, path.basename(options.args[0].replace(/\.[^\.]+$/, '.js')));
 
   var args = options.compiler.match(/'[^"]*'|"[^"]*"|\S+/g);
   var command = args.shift();
