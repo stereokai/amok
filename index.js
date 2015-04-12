@@ -156,6 +156,7 @@ function watch(options, callback) {
         return scripts[filename];
       }
 
+      return path.relative(cwd, filename);
     };
 
     var emit = function(event, filename) {
