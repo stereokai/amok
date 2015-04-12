@@ -144,8 +144,8 @@ function watch(options, callback) {
 
   for (var name in scripts) {
     if (scripts.hasOwnProperty(name)) {
-      var basename = path.basename(name);
-      watcher.add(basename);
+      var dirname = path.dirname(name);
+      watcher.add(dirname);
     }
   }
 
