@@ -152,9 +152,6 @@ function watch(options, callback) {
   var bugger = options.bugger;
   if (bugger) {
     var resolve = function(filename) {
-      console.log(filename);
-      console.log(scripts);
-
       if (scripts[filename]) {
         return scripts[filename];
       }
