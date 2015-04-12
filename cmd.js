@@ -124,7 +124,6 @@ function watcher(callback, data) {
 
   watcher.on('error', function(error) {
     log.error(error);
-    process.exit(error.errno);
   });
 }
 
@@ -152,7 +151,6 @@ function server(callback, data) {
 
   server.on('error', function(error) {
     log.error(error);
-    process.exit(error.errno);
   });
 }
 
@@ -215,7 +213,6 @@ function bugger(callback, data) {
 
   bugger.on('error', function(error) {
     log.error(error);
-    process.exit(error.errno);
   });
 
   bugger.console.on('data', function(message) {
