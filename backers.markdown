@@ -5,3 +5,4 @@ Amok has been backed and funded by the following awesome individuals
 - Martin Katrenik
 - Joey Baker
 - Eryk Napierała
+- Barney Carrol
