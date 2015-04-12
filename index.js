@@ -24,9 +24,9 @@ function serve(options, callback) {
     var location = url.parse(request.url);
     var filename = path.join(options.cwd, location.pathname);
 
-    for (var name in options.scripts) {
-      if (options.scripts.hasOwnProperty(name)) {
-        if (options.scripts[name] === location.pathname) {
+    for (var name in scripts) {
+      if (scripts.hasOwnProperty(name)) {
+        if (scripts[name] === location.pathname) {
           filename = name;
           break;
         }
@@ -44,9 +44,9 @@ function serve(options, callback) {
         response.setHeader('content-type', 'text/html');
         response.write('<!doctype html><head><meta charset="utf-8"></head><body>');
 
-        for (var name in options.scripts) {
-          if (options.scripts.hasOwnProperty(name)) {
-            response.write('<script src="' + options.scripts[name] + '"></script>');
+        for (var name in scripts) {
+          if (scripts.hasOwnProperty(name)) {
+            response.write('<script src="' + scripts[name] + '"></script>');
           }
         }
 
