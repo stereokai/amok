@@ -34,11 +34,17 @@ remote debugging connections.
 
 Once connected to a client it monitors changes in the file system.
 Eitting events on the global object in the client environment when such
-changes occur. When a change to the source of a script currently loaded
-in the client is detected, it gets re-compiled and refreshed in the
-client without reloading, restarting, interrupting execution, loosing
-any state, or executing side effects in the client application. Output
-from the client's console calls gets mirrored into stdout and stderr.
+changes occur.
+
+When a change to the source of a script currently loaded in the client is
+detected, it gets refreshed in the client without restarting the application.
+No state is lost, execution is not interrupted and no side effects are executed.
+
+Nearly all code can be refreshed while the application is running,
+including top level functions, object prototypes,
+classes, event handlers and other types of anonymous closures.
+
+Output from the client's console calls gets mirrored into stdout and stderr.
 
 
 ## Options
