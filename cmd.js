@@ -248,7 +248,7 @@ function prompt(callback, data) {
     },
 
     eval: function(cmd, context, filename, write) {
-      data.bugger.evaluate(data.program, function(error, result) {
+      data.bugger.evaluate(cmd, function(error, result) {
         write(error, result);
       });
     },
