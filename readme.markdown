@@ -90,12 +90,14 @@ as extra options to the compiler. The specified compiler must have its
 executable available via **PATH**.
 
 
-## Example
+## Examples
 ```sh
 amok --client chrome canvas.js
 amok --client chrome http://localhost:9090
 amok --client chrome --compiler webpack canvas.js
 ```
+
+See also [amok-examples](https://github.com/caspervonb/amok-examples)
 
 ## Client Environment
 Events get emitted to aid with domain specific requirements.
@@ -163,6 +165,6 @@ Dispatched when the contents of a file changes, `event` is a `CustomEvent` with
 Dispatched when a loaded script gets its source re-compiled, `event` is a `CustomEvent` with
 `detail` containing the filename relative to the current working directory.
 
-# See Also
+## See Also
 
 [amok-examples](https://github.com/caspervonb/amok-examples)
