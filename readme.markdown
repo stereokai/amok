@@ -3,6 +3,8 @@
 [![chat](https://img.shields.io/badge/gitter-join%20chat-green.svg?style=flat-square)](https://gitter.im/caspervonb/amok)
 [![npm](https://img.shields.io/npm/v/amok.svg?style=flat-square)](https://www.npmjs.org/package/amok)
 
+![out](https://cloud.githubusercontent.com/assets/157787/7122192/4aa2b03e-e24c-11e4-886a-5f58181b5dbd.gif)
+
 ## Synopsis
 ```sh
 amok [options] <SCRIPT | URL>
