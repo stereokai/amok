@@ -5,10 +5,10 @@ var http = require('http');
 var mime = require('mime');
 var path = require('path');
 var rdbg = require('rdbg');
-var util = require('util');
 var temp = require('temp');
-var which = require('which');
 var url = require('url');
+var util = require('util');
+var which = require('which');
 
 function serve(options, callback) {
   var server = http.createServer();
