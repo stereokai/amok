@@ -16,38 +16,36 @@ npm install amok -g
 ```
 
 ## Description
-Amok standalone command line tool that enables rapid prototyping and
-development of JavaScript based web applications through the client's
-remote debugging interface.
+Amok standalone command line tool that enables rapid prototyping and development
+of JavaScript based web applications through the client's remote debugging
+interface.
 
-Given a script as the entry point, it will start a zero configuration
-http development server with a default overridable generated index.html.
-The server may be configured to incrementally watch and compile the scripts
-through preprocessors, compilers and bundlers. Such as typescript,
-coffeescript, browserify, webpack and babel.
+Given a *SCRIPT* as the entry point, it will start a zero configuration http
+development server with a default generated index.html that may be overriden by having a file called index.html. The server
+may be configured to incrementally watch and compile the scripts through
+preprocessors, compilers and bundlers. Such as typescript, coffeescript,
+browserify, webpack and babel.
 
-Alternatively a url may be specified as the entry point, in which case
-it will connect to the client directly without starting the development
-server.
+Alternatively a *URL* may be specified as the entry point, in which case it will
+connect to the client directly without starting the development server.
 
-If the client option is enabled, the executable of that client is
-located and opened with the correct settings to allow it to accept
-remote debugging connections.
+If the client option is enabled, the executable of that client is located and
+opened with the correct settings to allow it to accept remote debugging
+connections.
 
-Once connected to a client it monitors changes in the file system.
-Eitting events on the global object in the client environment when such
-changes occur.
+Once connected to a client it mirrors the console output and monitors changes in
+the file system.
 
 When a change to the source of a script currently loaded in the client is
-detected, it gets refreshed in the client without restarting the application.
-No state is lost, execution is not interrupted and no side effects are executed.
+detected, it gets refreshed in the client without restarting the application,
+keeping the application running without interruption or loosing state.
 
-Nearly all code can be refreshed while the application is running,
-including top level functions, object prototypes,
-classes, event handlers and other types of anonymous closures.
+This refresh changes the source and re-compiles the code in the client, and is
+applicable to prototypes, classes and closures.
 
-Output from the client's console calls gets mirrored into stdout and stderr.
-
+Take note however that the script itself is does not evaluate again as this would
+corrupt the state, no side effects will occur but notifications are sent to the
+client as events to enable  further processing and evaluation.
 
 ## Options
 ```
@@ -85,11 +83,11 @@ Output from the client's console calls gets mirrored into stdout and stderr.
 A client must already listening on the same remote debugging port when
 launching, or specified with the **client** option.
 
-A compiler may be specified to process script sources served via the
-http server with the **compiler** option, Any extra arguments and
-options following the option parsing terminator **--**, will be passed
-as extra options to the compiler. The specified compiler must have its
-executable available via **PATH**.
+A compiler may be specified to process script sources served via the http server
+with the **compiler** option, Any extra arguments and options following the
+option parsing terminator **--**, will be passed as extra options to the
+compiler. The specified compiler must have its executable available via
+**PATH**.
 
 
 ## Examples
@@ -140,16 +138,16 @@ Emitted when a loaded script gets its source re-compiled.
   function (event) { }
 ```
 
-Dispatched when a file is added, `event` is a `CustomEvent` with
-`detail` containing the filename relative to the current working directory.
+Dispatched when a file is added, `event` is a `CustomEvent` with `detail`
+containing the filename relative to the current working directory.
 
 #### Event: 'remove'
 ```js
   function (event) { }
 ```
 
-Dispatched when a file is removed, `event` is a `CustomEvent` with
-`detail` containing the filename relative to the current working directory.
+Dispatched when a file is removed, `event` is a `CustomEvent` with `detail`
+containing the filename relative to the current working directory.
 
 #### Event: 'change'
 ```js
@@ -164,8 +162,9 @@ Dispatched when the contents of a file changes, `event` is a `CustomEvent` with
   function (event) { }
 ```
 
-Dispatched when a loaded script gets its source re-compiled, `event` is a `CustomEvent` with
-`detail` containing the filename relative to the current working directory.
+Dispatched when a loaded script gets its source re-compiled, `event` is a
+`CustomEvent` with `detail` containing the filename relative to the current
+working directory.
 
 ## See Also
 
