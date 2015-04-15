@@ -258,13 +258,11 @@ function debug(options, callback) {
 }
 
 function open(options, callback) {
-  var args = options.client.match(/'[^"]*'|"[^"]*"|\S+/g);
-  var command = args.shift();
-
-  switch (options.client) {
-    case 'chrome':
-      command = (function() {
-        if (process.platform === 'win32') {
+  var clients = {
+    chrome: function chrome(options) {
+      var command = (function() {
+        switch (process.platform) {
+        case 'win32':
           var suffix = '\\Google\\Chrome\\Application\\chrome.exe';
           var prefixes = [
             process.env['LOCALAPPDATA'],
@@ -277,15 +275,18 @@ function open(options, callback) {
           }).filter(function(path) {
             return fs.existsSync(path);
           });
+
           return executables[0];
-        } else if (process.platform === 'darwin') {
+
+        case 'darwin':
           return '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
-        } else {
+
+        default:
           return which.sync('google-chrome');
         }
       }());
 
-      args = [
+      var args = [
         '--remote-debugging-port=' + options.debuggerPort,
         '--no-first-run',
         '--no-default-browser-check',
@@ -295,17 +296,35 @@ function open(options, callback) {
         '--disable-zero-browsers-open-for-tests',
         '--user-data-dir=' + temp.mkdirSync('amok-chrome'),
       ];
-      break;
+
+      args.push(options.url);
+
+      return { command: command, args: args };
+    },
+  };
+
+  var client = null;
+  if (clients[options.client]) {
+    client = clients[options.client].call(null, options);
+  } else {
+    var args = options.match(/'[^"]*'|"[^"]*"|\S+/g);
+    var command = args.shift();
+
+    args.push(options.url);
+
+    client = {
+      args: args,
+      command: command
+    };
   }
 
-  args.push(options.url);
+  var exe = child.spawn(client.command, client.args);
 
-  var client = child.spawn(command, args);
   setTimeout(function() {
-    callback(null, client.stdout, client.stderr);
+    callback(null, exe);
   }, 1000);
 
-  return client;
+  return exe;
 }
 
 module.exports.serve = serve;
