@@ -3,62 +3,44 @@ layout: page
 title: FAQ
 permalink: /faq/
 ---
+
 <div class="container">
   <dl clas="faq" id="faq">
     <dt class="faq-question">
-      <h3>What editors does it support?</h3>
+      <h3 id="what-editors-are-supported">What editors are supported?</h3>
     </dt>
 
     <dd class="faq-answer">
       <p>
-        Amok is a command line tool, so it is editor agnostic and
-        works regardless of what editor you choose.
-      </p>
-
-      <p>There are <em>plans</em> for integration with various editors for a better editing experience, but this is pretty far in the future</p>
-
-      <p>It should integrate easily into the build settings of your favorite editor however</p>
-    </dd>
-
-    <dt class="faq-question">
-      <h3>What frameworks does it support?</h3>
-    </dt>
-
-    <dd class="faq-answer">
-      <p>Amok is framework agnostic, if it runs on the client and
-      does not get collected it can be re-compiled.
+        As a command line tool, it works independent of the editor.
+        Currently there are no direct editor integrations.
       </p>
     </dd>
 
     <dt class="faq-question">
-      <h3>What does it mean if a script has been collected?</h3>
+      <h3 id="what-frameworks-are-supported">What frameworks are supported?</h3>
     </dt>
 
     <dd class="faq-answer">
       <p>
-      A script can be collected by the virtual machine if it is a top to bottom,
-      linearly executing script without any callbacks,
-      for example, lets say we have a script called hello.js that contains the following source code.
-      </p>
-
-      <pre class="highlight"><code>console.log('hello world');</code></pre>
-
-      <p>
-      This sort of script would run from top to bottom, and because there are no callbacks or
-      other code that is recurring, it gets collected by the runtime.
+        There are no direct ties with any frameworks, it should work regardless
+        of the framework.
       </p>
     </dd>
 
     <dt class="faq-question">
-      <h3>How is this different from live-reload?</h3>
+      <h3 id="why-isnt-my-code-updating">Why isn't my code updating?</h3>
     </dt>
 
     <dd class="faq-answer">
       <p>
-      Amok does <em>re-compilation</em> of source code through the runtime, where-as live reload just does a simple page *reload* which is the equivalent of hitting the refresh button in your web browser.
+        Scripts will not be re-evaluated, that is it will not be executed again
+        because that would cause side-effects to occur, and corrupt the state of the application.
       </p>
+
       <p>
-        Doing re-compilation lets us edit our algorithms, event handlers and other types of closures while the application is running without having it restart no loosing state.
+        There are events available to further process source changes
+        and apply side effects.
       </p>
     </dd>
   </dl>
