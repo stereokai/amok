@@ -92,9 +92,10 @@ compiler. The specified compiler must have its executable available via
 
 ## Examples
 ```sh
-amok --client chrome canvas.js
+amok --client chrome app.js
 amok --client chrome http://localhost:9090
 amok --client chrome --compiler webpack canvas.js
+amok --client chrome --compiler browserify canvas.js -- --transform babelify
 ```
 
 See also [amok-examples](https://github.com/caspervonb/amok-examples)
