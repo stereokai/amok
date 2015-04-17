@@ -1,13 +1,12 @@
 var test = require('tape');
 var child = require('child_process');
 
-test('--client chrome', function(t) {
-  var exe = child.spawn('node', ['./bin/cmd.js', '--client', 'chrome', 'fixture/console.js']);
-  exe.on('close', function() {
-    t.end();
-  });
+var bin = './bin/cmd.js';
+test('amok --client chrome fixture/console.js', function(t) {
+  t.plan(1);
 
-  exe.stdout.on('data', function(data) {
+  var exe = child.spawn('node', [bin, '--client', 'chrome', 'test/fixture/console.js']);
+  exe.stdout.once('data', function(data) {
     t.equal(data.toString(), 'ok\n');
     exe.kill();
   });
