@@ -37,7 +37,7 @@
     "tape": "^4.0.0"
   },
   "scripts": {
-    "test": "node test/test.js"
+    "test": "node test"
   },
   "author": "Casper Beyer <caspervonb@qup.io>",
   "license": "MIT",
