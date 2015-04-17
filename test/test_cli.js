@@ -8,7 +8,7 @@ test('--client chrome', function(t) {
   });
 
   exe.stdout.on('data', function(data) {
-    t.ok(data.toString(), 'ok\n');
+    t.equal(data.toString(), 'ok\n');
     exe.kill();
   });
 });
