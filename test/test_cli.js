@@ -1,23 +1,38 @@
 var test = require('tape');
 var child = require('child_process');
+var util = require('util');
 
 var bin = './bin/cmd.js';
-test('amok --client chrome fixture/console.js', function(t) {
-  t.plan(1);
+var clients = [
+  'chrome'
+];
 
-  var exe = child.spawn('node', [bin, '--client', 'chrome', 'test/fixture/console.js']);
-  exe.stdout.once('data', function(data) {
-    t.equal(data.toString(), 'ok\n');
-    exe.kill();
-  });
-});
+var variants = [
+  ['test/fixture/console.js'],
+  ['--compiler', 'browserify', 'test/fixture/babel.js', '--', '--transform', 'babelify'],
+];
 
-test('amok --client chrome --compiler browserify fixture/babel.js -- --transform babelify', function(t) {
-  t.plan(1);
+clients.forEach(function(client) {
+  var args = [
+    '--client',
+    client
+  ];
 
-  var exe = child.spawn('node', [bin, '--client', 'chrome', '--compiler', 'browserify', 'test/fixture/babel.js', '--', '--transform', 'babelify']);
-  exe.stdout.once('data', function(data) {
-    t.equal(data.toString(), 'ok\n');
-    exe.kill();
+  variants.forEach(function(variant) {
+    var exeArgs = args.concat(variant);
+
+    test(util.format('cli %s', exeArgs.join(' ')), function(t) {
+      t.plan(1);
+
+      var exe = child.spawn('node', [bin].concat(exeArgs));
+      exe.stderr.on('data', function() {
+        t.fail();
+      });
+
+      exe.stdout.once('data', function(data) {
+        t.equal(data.toString(), 'ok\n');
+        exe.kill();
+      });
+    });
   });
 });
