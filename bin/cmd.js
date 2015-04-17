@@ -59,7 +59,7 @@ function program(callback, data) {
   transform.pipe(process.stdout);
 
   bole.output({
-    level: cmd.verbose ? 'info' : 'error',
+    level: cmd.verbose ? 'debug' : 'error',
     stream: transform
   });
 
