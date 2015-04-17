@@ -2,10 +2,10 @@
   "name": "amok",
   "version": "0.13.10",
   "description": "No Reload, Live Editing for JavaScript",
-  "main": "index.js",
+  "main": "lib/index.js",
   "files": [
-    "index.js",
-    "cmd.js"
+    "lib/index.js",
+    "bin/cmd.js"
   ],
   "keywords": [
     "realtime",
@@ -20,7 +20,7 @@
     "server"
   ],
   "bin": {
-    "amok": "cmd.js"
+    "amok": "bin/cmd.js"
   },
   "dependencies": {
     "async": "^0.9.0",
@@ -37,7 +37,7 @@
     "tape": "^4.0.0"
   },
   "scripts": {
-    "test": "node test.js"
+    "test": "node test/test.js"
   },
   "author": "Casper Beyer <caspervonb@qup.io>",
   "license": "MIT",
