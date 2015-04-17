@@ -8,7 +8,7 @@ var clients = [
 ];
 
 var variants = [
-  ['test/fixture/console.js'],
+  ['test/fixture/plain.js'],
   ['--compiler', 'browserify', 'test/fixture/babel.js', '--', '--transform', 'babelify'],
 ];
 
