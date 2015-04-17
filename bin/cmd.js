@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var amok = require('./');
+var amok = require('../');
 var async = require('async');
 
 var fs = require('fs');
@@ -14,7 +14,7 @@ var bistre = require('bistre');
 
 function program(callback, data) {
   var cmd = require('commander');
-  var pkg = require('./package.json');
+  var pkg = require('../package.json');
 
   cmd.usage('[options] <script | url>');
   cmd.version(pkg.version);
