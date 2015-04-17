@@ -199,11 +199,7 @@ function bugger(callback, data) {
 
   log.info('connect');
 
-  var bugger = amok.debug(data.program, function(error, target) {
-    if (error) {
-      return callback(error);
-    }
-
+  var bugger = amok.debug(data.program, function() {
     callback(null, bugger);
   });
 
