@@ -96,6 +96,10 @@ function compiler(callback, data) {
   compiler.stderr.on('data', function(data) {
     log.error(data.toString());
   });
+
+  process.on('exit', function() {
+    compiler.kill('SIGTERM');
+  });
 }
 
 function watcher(callback, data) {
@@ -184,6 +188,10 @@ function client(callback, data) {
   client.stderr.on('data', function(data) {
     log.warn(data.toString());
   });
+
+  process.on('exit', function() {
+    client.kill('SIGTERM');
+  });
 }
 
 function bugger(callback, data) {
@@ -257,6 +265,14 @@ function prompt(callback, data) {
   var prompt = repl.start(options);
   callback(null, prompt);
 }
+
+process.on('SIGTERM', function() {
+  process.exit(0);
+});
+
+process.on('SIGINT', function() {
+  process.exit(0);
+});
 
 async.auto({
   'program': [program],
