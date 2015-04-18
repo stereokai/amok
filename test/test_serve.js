@@ -103,7 +103,6 @@ test('serve generated index', function(t) {
       });
 
       response.on('end', function() {
-        console.log(body);
         t.notEqual(body.indexOf('<script src="entry.js">'), -1);
         t.notEqual(body.indexOf('<script src="library.js">'), -1);
 
