@@ -271,13 +271,13 @@ process.on('SIGINT', function() {
 });
 
 async.auto({
-  'program': [program],
-  'compiler': ['program', compiler],
-  'server': ['program', 'compiler', server],
-  'client': ['program', 'server', client],
-  'bugger': ['program', 'client', bugger],
-  'watcher': ['program', 'bugger', watcher],
-  'prompt': ['program', 'bugger', prompt],
+  program: [program],
+  compiler: ['program', compiler],
+  server: ['program', 'compiler', server],
+  client: ['program', 'server', client],
+  bugger: ['program', 'client', bugger],
+  watcher: ['program', 'bugger', watcher],
+  prompt: ['program', 'bugger', prompt]
 }, function(error, data) {
   if (error) {
     console.error(error);
