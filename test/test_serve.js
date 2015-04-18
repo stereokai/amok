@@ -79,6 +79,44 @@ test('serve alias script', function(t) {
   });
 });
 
+
+test('serve file index', function(t) {
+  var options = {
+    cwd: 'test/fixture',
+    scripts: {
+      'main.js': 'entry.js',
+      'lib.js': 'library.js'
+    }
+  };
+
+  var server = amok.serve(options, function(err) {
+    t.error(err);
+
+    http.get({
+      host: 'localhost',
+      port: 9966,
+      path: '/index.html'
+    }, function(response) {
+      t.equal(response.statusCode, 200);
+
+      var body = '';
+      response.on('data', function(data) {
+        body += data;
+      });
+
+      response.on('end', function() {
+        t.notEqual(body.indexOf('<script src="plain.js">'), -1);
+        server.close();
+      });
+    });
+
+    server.on('close', function() {
+      t.end();
+    });
+  });
+});
+
+
 test('serve generated index', function(t) {
   var options = {
     scripts: {
