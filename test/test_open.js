@@ -12,7 +12,8 @@ test('open chrome', function(t) {
     client.kill();
   });
 
-  client.on('close', function() {
+  client.on('close', function(code) {
+    t.equal(code, 0);
     t.end();
   });
 });
