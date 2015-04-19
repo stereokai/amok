@@ -73,3 +73,27 @@ test('cli chrome, server with browserify and babelify transform', function(t) {
     t.end();
   });
 });
+
+test('cli chrome, server with webpack', function(t) {
+  t.plan(1);
+
+  var exe = child.spawn('node', [
+    './bin/cmd.js',
+    '--client',
+    'chrome',
+    '--compiler',
+    'webpack',
+    'test/fixture/bundle.js'
+  ]);
+
+  exe.stdout.once('data', function(data) {
+    data = data.toString();
+
+    t.equal(data, 'ok\n');
+    exe.kill();
+  });
+
+  exe.on('close', function(code) {
+    t.end();
+  });
+});
