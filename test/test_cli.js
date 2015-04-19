@@ -1,8 +1,9 @@
 var test = require('tape');
 var child = require('child_process');
+var touch = require('touch');
 
 test('cli chrome, server without compiler', function(t) {
-  t.plan(1);
+  t.plan(4);
 
   var exe = child.spawn('node', [
     './bin/cmd.js',
@@ -13,9 +14,26 @@ test('cli chrome, server without compiler', function(t) {
 
   exe.stdout.once('data', function(data) {
     data = data.toString();
-
     t.equal(data, 'ok\n');
-    exe.kill();
+
+    exe.stdout.once('data', function(data) {
+      data = data.toString();
+      t.equal(data, 'add test/fixture/plain.js\n');
+
+      exe.stdout.once('data', function(data) {
+        data = data.toString();
+        t.equal(data, 'change test/fixture/plain.js\n');
+
+        exe.stdout.once('data', function(data) {
+          data = data.toString();
+          t.equal(data, 'source test/fixture/plain.js\n');
+
+          exe.kill();
+        });
+      });
+
+      touch('test/fixture/plain.js');
+    });
   });
 
   exe.on('close', function(code) {
@@ -24,7 +42,7 @@ test('cli chrome, server without compiler', function(t) {
 });
 
 test('cli chrome, server with browserify', function(t) {
-  t.plan(1);
+  t.plan(4);
 
   var exe = child.spawn('node', [
     './bin/cmd.js',
@@ -37,9 +55,26 @@ test('cli chrome, server with browserify', function(t) {
 
   exe.stdout.once('data', function(data) {
     data = data.toString();
-
     t.equal(data, 'ok\n');
-    exe.kill();
+
+    exe.stdout.once('data', function(data) {
+      data = data.toString();
+      t.equal(data, 'add test/fixture/bundle.js\n');
+
+      exe.stdout.once('data', function(data) {
+        data = data.toString();
+        t.equal(data, 'change test/fixture/bundle.js\n');
+
+        exe.stdout.once('data', function(data) {
+          data = data.toString();
+          t.equal(data, 'source test/fixture/bundle.js\n');
+
+          exe.kill();
+        });
+      });
+
+      touch('test/fixture/bundle.js');
+    });
   });
 
   exe.on('close', function(code) {
@@ -48,7 +83,7 @@ test('cli chrome, server with browserify', function(t) {
 });
 
 test('cli chrome, server with browserify and babelify transform', function(t) {
-  t.plan(1);
+  t.plan(4);
 
   var exe = child.spawn('node', [
     './bin/cmd.js',
@@ -64,9 +99,26 @@ test('cli chrome, server with browserify and babelify transform', function(t) {
 
   exe.stdout.once('data', function(data) {
     data = data.toString();
-
     t.equal(data, 'ok\n');
-    exe.kill();
+
+    exe.stdout.once('data', function(data) {
+      data = data.toString();
+      t.equal(data, 'add test/fixture/bundle-babel.js\n');
+
+      exe.stdout.once('data', function(data) {
+        data = data.toString();
+        t.equal(data, 'change test/fixture/bundle-babel.js\n');
+
+        exe.stdout.once('data', function(data) {
+          data = data.toString();
+          t.equal(data, 'source test/fixture/bundle-babel.js\n');
+
+          exe.kill();
+        });
+      });
+
+      touch('test/fixture/bundle-babel.js');
+    });
   });
 
   exe.on('close', function(code) {
@@ -75,7 +127,7 @@ test('cli chrome, server with browserify and babelify transform', function(t) {
 });
 
 test('cli chrome, server with webpack', function(t) {
-  t.plan(1);
+  t.plan(4);
 
   var exe = child.spawn('node', [
     './bin/cmd.js',
@@ -88,9 +140,26 @@ test('cli chrome, server with webpack', function(t) {
 
   exe.stdout.once('data', function(data) {
     data = data.toString();
-
     t.equal(data, 'ok\n');
-    exe.kill();
+
+    exe.stdout.once('data', function(data) {
+      data = data.toString();
+      t.equal(data, 'add test/fixture/bundle.js\n');
+
+      exe.stdout.once('data', function(data) {
+        data = data.toString();
+        t.equal(data, 'change test/fixture/bundle.js\n');
+
+        exe.stdout.once('data', function(data) {
+          data = data.toString();
+          t.equal(data, 'source test/fixture/bundle.js\n');
+
+          exe.kill();
+        });
+      });
+
+      touch('test/fixture/bundle.js');
+    });
   });
 
   exe.on('close', function(code) {
