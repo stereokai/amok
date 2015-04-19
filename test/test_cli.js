@@ -1,38 +1,75 @@
 var test = require('tape');
 var child = require('child_process');
-var util = require('util');
 
-var bin = './bin/cmd.js';
-var clients = [
-  'chrome'
-];
+test('cli chrome, server without compiler', function(t) {
+  t.plan(1);
 
-var variants = [
-  ['test/fixture/plain.js'],
-  ['--compiler', 'browserify', 'test/fixture/babel.js', '--', '--transform', 'babelify'],
-];
-
-clients.forEach(function(client) {
-  var args = [
+  var exe = child.spawn('node', [
+    './bin/cmd.js',
     '--client',
-    client
-  ];
+    'chrome',
+    'test/fixture/plain.js'
+  ]);
 
-  variants.forEach(function(variant) {
-    var exeArgs = args.concat(variant);
+  exe.stdout.once('data', function(data) {
+    data = data.toString();
 
-    test(util.format('cli %s', exeArgs.join(' ')), function(t) {
-      t.plan(1);
+    t.equal(data, 'ok\n');
+    exe.kill();
+  });
 
-      var exe = child.spawn('node', [bin].concat(exeArgs));
-      exe.stderr.on('data', function() {
-        t.fail();
-      });
+  exe.on('close', function(code) {
+    t.end();
+  });
+});
 
-      exe.stdout.once('data', function(data) {
-        t.equal(data.toString(), 'ok\n');
-        exe.kill();
-      });
-    });
+test('cli chrome, server with browserify', function(t) {
+  t.plan(1);
+
+  var exe = child.spawn('node', [
+    './bin/cmd.js',
+    '--client',
+    'chrome',
+    '--compiler',
+    'browserify',
+    'test/fixture/bundle.js'
+  ]);
+
+  exe.stdout.once('data', function(data) {
+    data = data.toString();
+
+    t.equal(data, 'ok\n');
+    exe.kill();
+  });
+
+  exe.on('close', function(code) {
+    t.end();
+  });
+});
+
+test('cli chrome, server with browserify and babelify transform', function(t) {
+  t.plan(1);
+
+  var exe = child.spawn('node', [
+    './bin/cmd.js',
+    '--client',
+    'chrome',
+    '--compiler',
+    'browserify',
+    'test/fixture/bundle-babel.js',
+    '--',
+    '--transform',
+    'babelify'
+  ]);
+
+  exe.stdout.once('data', function(data) {
+    data = data.toString();
+
+    t.equal(data, 'ok\n');
+    exe.kill();
+  });
+
+  exe.on('close', function(code) {
+    t.end();
   });
 });
