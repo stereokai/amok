@@ -56,7 +56,7 @@ function program(callback, data) {
   cmd.url = url;
 
   var transform = bistre.createStream();
-  transform.pipe(process.stdout);
+  transform.pipe(process.stderr);
 
   bole.output({
     level: cmd.verbose ? 'debug' : 'error',
