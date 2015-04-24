@@ -164,7 +164,7 @@ function client(callback, data) {
   }
 
   log.info('spawn');
-  var client = amok.open(data.program, function(error, stdout, stderr) {
+  var client = amok.open(data.program.client, [data.program.url], data.program, function(error, stdout, stderr) {
     if (error) {
       return callback(error);
     }
