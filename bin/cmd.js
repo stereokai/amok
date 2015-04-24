@@ -79,6 +79,8 @@ function compiler(callback, data) {
   compiler.on('ready', function(scripts) {
     log.info('ok', { pid: compiler.pid });
 
+    data.program.scripts = scripts;
+
     callback(null, compiler);
   });
 
