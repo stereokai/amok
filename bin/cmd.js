@@ -77,10 +77,6 @@ function compiler(callback, data) {
   log.info('spawn');
   var compiler = amok.compile(data.program.compiler, data.program.args, data.program);
   compiler.on('ready', function(scripts) {
-    if (error) {
-      return callback(error);
-    }
-
     log.info('ok', { pid: compiler.pid });
 
     callback(null, compiler);
