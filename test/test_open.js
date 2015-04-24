@@ -2,10 +2,8 @@ var amok = require('../');
 var test = require('tape');
 
 test('open chrome', function(t) {
-  var options = {
-  };
-
-  var client = amok.open('chrome', ['about:blank'], options, function() {
+  var client = amok.open('chrome', ['about:blank'], options);
+  client.on('ready', function() {
     t.ok(client.pid);
     client.kill();
   });

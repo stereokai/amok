@@ -164,11 +164,8 @@ function client(callback, data) {
   }
 
   log.info('spawn');
-  var client = amok.open(data.program.client, [data.program.url], data.program, function(error, stdout, stderr) {
-    if (error) {
-      return callback(error);
-    }
-
+  var client = amok.open(data.program.client, [data.program.url], data.program);
+  client.on('ready', function() {
     log.info('ok', { pid: client.pid });
     callback(null, client);
   });
