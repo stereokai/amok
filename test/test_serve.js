@@ -4,6 +4,8 @@ var http = require('http');
 var test = require('tape');
 
 test('serve html', function(t) {
+  t.plan(3);
+
   var options = {
     cwd: 'test/fixture/serve-index'
   };
@@ -26,19 +28,19 @@ test('serve html', function(t) {
         fs.readFile('test/fixture/serve-index/index.html', 'utf-8', function(error, expect) {
           t.error(error, 'file read');
           t.equal(actual, expect, 'served file matches read file');
-
-          server.close();
         });
       });
     });
   });
 
-  server.on('close', function() {
-    t.end();
+  t.on('end', function() {
+    server.close();
   });
 });
 
 test('serve script', function(t) {
+  t.plan(3);
+
   var options = {
     cwd: 'test/fixture/serve-scripts',
     scripts: {
@@ -64,20 +66,19 @@ test('serve script', function(t) {
         fs.readFile('test/fixture/serve-index/index.js', 'utf-8', function(error, expect) {
           t.error(error, 'file read');
           t.equal(actual, expect, 'served file matches read file');
-
-          server.close();
         });
       });
     });
   });
 
-  server.on('close', function() {
-    t.end();
+  t.on('end', function() {
+    server.close();
   });
 });
 
-
 test('serve index', function(t) {
+  t.plan(2);
+
   var options = {
     cwd: 'test/fixture/serve-scripts',
     scripts: {
@@ -101,12 +102,11 @@ test('serve index', function(t) {
 
       response.on('end', function() {
         t.notEqual(actual.indexOf('<script src="index.js">'), -1);
-        server.close();
       });
     });
   });
 
-  server.on('close', function() {
-    t.end();
+  t.on('end', function() {
+    server.close();
   });
 });
