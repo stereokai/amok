@@ -59,10 +59,7 @@ test('compile to temporary file', function(t) {
   compilers.forEach(function(compiler) {
     t.test(compiler.name + ' ' + compiler.args.join(' '), function(t) {
       var exe = amok.compile(compiler.name, compiler.args, compiler.options);
-      exe.stderr.on('data', function(data) {
-        data = data.toString();
-        t.fail(data);
-      });
+      var pathname = compiler.args[0].replace(/\.[^.]*$/, '.js');
 
       exe.on('error', function(error) {
         t.error(error);
@@ -70,30 +67,25 @@ test('compile to temporary file', function(t) {
 
       exe.on('ready', function(scripts) {
         var filenames = Object.keys(scripts);
-        t.equal(filenames.length, 1);
+        var pathnames = filenames.map(function(filename) {
+          return scripts[filename];
+        });
+
+        t.equal(filenames.length, 1, 'compile has one script');
+        t.equal(pathnames[0], pathname, 'script pathname is equal to input pathname');
 
         var filename = filenames[0];
         fs.readFile(filename, 'utf-8', function(error, actual) {
-          t.error(error);
+          t.error(error, 'read script source');
 
           var dirname = path.dirname(compiler.args[0]);
           var filename = path.join(dirname, 'expect.js');
 
           fs.readFile(filename, 'utf-8', function(error, expect) {
-            t.error(error);
-            t.equal(expect, actual);
+            t.error(error, 'read expected script source');
+            t.equal(expect, actual, 'script source is equal to expected script source');
           });
         });
-
-        var stats = fs.statSync(filenames[0]);
-        t.ok(stats.size > 1);
-
-        var pathnames = filenames.map(function(filename) {
-          return scripts[filename];
-        });
-
-        t.equal(pathnames.length, 1);
-        t.equal(pathnames[0], compiler.args[0].replace(/\.[^.]*$/, '.js'));
 
         exe.kill();
       });
