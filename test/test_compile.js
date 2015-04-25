@@ -1,25 +1,27 @@
 var amok = require('../');
 var test = require('tape');
 var fs = require('fs');
+var path = require('path');
 
 test('compile to temporary file', function(t) {
   var compilers = [
     {
       name: 'babel',
       args: [
-        'test/fixture/bundle.js'
+        'test/fixture/compile-babel/index.js',
+        'test/fixture/compile-babel/lib.js'
       ]
     },
     {
       name: 'browserify',
       args: [
-        'test/fixture/bundle.js'
+        'test/fixture/compile-browserify/index.js'
       ]
     },
     {
       name: 'browserify',
       args: [
-        'test/fixture/bundle-babel.js',
+        'test/fixture/compile-browserify-babel/index.js',
         '--transform',
         'babelify'
       ]
@@ -27,19 +29,27 @@ test('compile to temporary file', function(t) {
     {
       name: 'coffeescript',
       args: [
-        'test/fixture/coffeescript.coffee'
+        'test/fixture/compile-coffeescript/index.coffee',
+        'test/fixture/compile-coffeescript/lib.coffee'
+      ]
+    },
+    {
+      name: 'typescript',
+      args: [
+        'test/fixture/compile-typescript/index.ts',
+        'test/fixture/compile-typescript/lib.ts'
       ]
     },
     {
       name: 'webpack',
       args: [
-        'test/fixture/bundle.js'
+        'test/fixture/compile-webpack/index.js'
       ]
     },
     {
       name: 'webpack',
       args: [
-        'test/fixture/bundle-babel.js',
+        'test/fixture/compile-webpack-babel/index.js',
         '--module-bind',
         'js=babel'
       ]
@@ -61,6 +71,19 @@ test('compile to temporary file', function(t) {
       exe.on('ready', function(scripts) {
         var filenames = Object.keys(scripts);
         t.equal(filenames.length, 1);
+
+        var filename = filenames[0];
+        fs.readFile(filename, 'utf-8', function(error, actual) {
+          t.error(error);
+
+          var dirname = path.dirname(compiler.args[0]);
+          var filename = path.join(dirname, 'expect.js');
+
+          fs.readFile(filename, 'utf-8', function(error, expect) {
+            t.error(error);
+            t.equal(expect, actual);
+          });
+        });
 
         var stats = fs.statSync(filenames[0]);
         t.ok(stats.size > 1);
