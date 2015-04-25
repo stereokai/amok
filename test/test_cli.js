@@ -23,11 +23,10 @@ test('cli script events', function(t) {
 
     argv.unshift('./bin/cmd.js', '--client', 'chrome');
     t.test(argv.join(' '), function(t) {
-      t.plan(6);
+      t.plan(5);
       t.timeoutAfter(5000);
 
       var exe = child.spawn('node', argv);
-
       exe.stdout.on('error', function(error) {
         t.error(error);
       });
@@ -46,12 +45,11 @@ test('cli script events', function(t) {
             exe.stdout.once('data', function(data) {
               data = data.toString();
               t.equal(data, util.format('source %s\n', pathname), 'script source event');
-
-              fs.writeFile(filename, contents, function(error) {
-                t.error(error, 'write original script source');
-                exe.kill();
-              });
             });
+          });
+
+          t.on('end', function() {
+            fs.writeFileSync(filename, contents);
           });
 
           var touched = contents.replace('false', 'true');
@@ -61,8 +59,8 @@ test('cli script events', function(t) {
         });
       });
 
-      exe.on('close', function(code) {
-        t.end();
+      t.on('end', function() {
+        exe.kill();
       });
     });
   });

@@ -58,6 +58,8 @@ test('compile to temporary file', function(t) {
 
   compilers.forEach(function(compiler) {
     t.test(compiler.name + ' ' + compiler.args.join(' '), function(t) {
+      t.plan(5);
+
       var exe = amok.compile(compiler.name, compiler.args, compiler.options);
       var pathname = compiler.args[0].replace(/\.[^.]*$/, '.js');
 
@@ -86,12 +88,10 @@ test('compile to temporary file', function(t) {
             t.equal(expect, actual, 'script source is equal to expected script source');
           });
         });
-
-        exe.kill();
       });
 
-      exe.on('close', function(code, signal) {
-        t.end();
+      t.on('end', function() {
+        exe.kill();
       });
     });
   });
