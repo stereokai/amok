@@ -5,14 +5,14 @@ var util = require('util');
 
 test('cli script events', function(t) {
   var arguments = [
-    'test/fixture/events-plain/index.js',
-    'test/fixture/events-babel/index.js --compiler babel',
-    'test/fixture/events-babel/index.js --compiler browserify -- --transform babelify',
-    'test/fixture/events-babel/index.js --compiler webpack -- --module-bind js=babel',
-    'test/fixture/events-coffeescript/index.coffee --compiler coffeescript',
-    'test/fixture/events-plain/index.js --compiler webpack',
-    'test/fixture/events-plain/index.js --compiler browserify',
-    'test/fixture/events-typescript/index.ts --compiler typescript',
+    'test/fixture/cli-events-plain/index.js',
+    'test/fixture/cli-events-babel/index.js --compiler babel',
+    'test/fixture/cli-events-babel/index.js --compiler browserify -- --transform babelify',
+    'test/fixture/cli-events-babel/index.js --compiler webpack -- --module-bind js=babel',
+    'test/fixture/cli-events-coffeescript/index.coffee --compiler coffeescript',
+    'test/fixture/cli-events-plain/index.js --compiler webpack',
+    'test/fixture/cli-events-plain/index.js --compiler browserify',
+    'test/fixture/cli-events-typescript/index.ts --compiler typescript',
   ];
 
   arguments.forEach(function(args) {
