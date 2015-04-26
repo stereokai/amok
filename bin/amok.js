@@ -19,19 +19,15 @@ function program(callback, data) {
   cmd.usage('[options] <script | url>');
   cmd.version(pkg.version);
 
-  cmd.option('--host <HOST>', 'specify http host', 'localhost');
-  cmd.option('--port <PORT>', 'specify http port', 9966);
-
-  cmd.option('--debugger-host <HOST>', 'specify debugger host', 'localhost');
-  cmd.option('--debugger-port <PORT>', 'specify debugger port', 9222);
-
-  cmd.option('-i, --interactive', 'enable interactive mode');
+  cmd.option('-s, --debugger-host <HOST>', 'specify debugger host', 'localhost');
+  cmd.option('-r, --debugger-port <PORT>', 'specify debugger port', 9222);
+  cmd.option('-b, --browser <BROWSER>', 'specify browser');
+  cmd.option('-c, --compiler <COMPILER>', 'specify compiler');
+  cmd.option('-a, --host <HOST>', 'specify http host', 'localhost');
+  cmd.option('-p, --port <PORT>', 'specify http port', 9966);
   cmd.option('-w, --watch <GLOB>', 'specify watch pattern', null);
-
-  cmd.option('--browser <IDENTIFIER>', 'specify the browser to spawn');
-  cmd.option('--compiler <CMD>', 'specify the compiler to spawn');
-
-  cmd.option('-v, --verbose', 'enable verbose logging mode');
+  cmd.option('-i, --interactive', 'enable interactive mode');
+  cmd.option('-v, --verbose', 'enable verbose mode');
 
   cmd.parse(process.argv);
   cmd.cwd = process.cwd();
