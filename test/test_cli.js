@@ -19,7 +19,7 @@ test('cli script events', function(t) {
     var argv = args.split(' ');
 
     var filename = argv[0];
-    var pathname = filename.replace(/\.[^.]*$/, '.js')
+    var pathname = filename.replace(/\.[^.]*$/, '.js');
 
     argv.unshift('./bin/cmd.js', '--client', 'chrome');
     t.test(argv.join(' '), function(t) {
