@@ -103,7 +103,8 @@ function watcher(callback, data) {
   log.info('start');
 
   data.program.bugger = data.bugger;
-  var watcher = amok.watch(data.program, function() {
+  var watcher = amok.watch(data.program);
+  watcher.on('ready', function() {
     log.info('ok');
 
     callback(null, watcher);
