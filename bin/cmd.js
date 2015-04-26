@@ -102,11 +102,19 @@ function watcher(callback, data) {
 
   log.info('start');
 
-  data.program.bugger = data.bugger;
-  var watcher = amok.watch(data.program);
+  var patterns = [];
+  if (data.program.watch) {
+    patterns.push(data.program.watch);
+  }
+
+  var filenames = Object.keys(data.program.scripts);
+  if (filenames.length > 0) {
+    patterns.push(path.dirname(filenames[0]));
+  }
+
+  var watcher = amok.watch(patterns);
   watcher.on('ready', function() {
     log.info('ok');
-
     callback(null, watcher);
   });
 
