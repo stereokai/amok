@@ -20,7 +20,7 @@
     "server"
   ],
   "bin": {
-    "amok": "bin/cmd.js"
+    "amok": "bin/amok.js"
   },
   "dependencies": {
     "async": "^0.9.0",

@@ -21,7 +21,7 @@ test('cli script events', function(t) {
     var filename = argv[0];
     var pathname = filename.replace(/\.[^.]*$/, '.js');
 
-    argv.unshift('./bin/cmd.js', '--client', 'chrome');
+    argv.unshift('./bin/amok.js', '--client', 'chrome');
     t.test(argv.join(' '), function(t) {
       t.plan(5);
       t.timeoutAfter(5000);
