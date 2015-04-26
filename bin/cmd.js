@@ -192,6 +192,7 @@ function bugger(callback, data) {
 
   log.info('connect');
 
+  data.program.watcher = data.watcher;
   var bugger = amok.debug(data.program, function() {
     callback(null, bugger);
   });
@@ -266,10 +267,10 @@ process.on('SIGINT', function() {
 async.auto({
   program: [program],
   compiler: ['program', compiler],
+  watcher: ['program', 'compiler', watcher],
   server: ['program', 'compiler', server],
   client: ['program', 'server', client],
-  bugger: ['program', 'client', bugger],
-  watcher: ['program', 'bugger', watcher],
+  bugger: ['program', 'client', 'watcher', bugger],
   prompt: ['program', 'bugger', prompt]
 }, function(error, data) {
   if (error) {
