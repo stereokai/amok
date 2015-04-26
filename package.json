@@ -4,8 +4,8 @@
   "description": "No Reload, Live Editing for JavaScript",
   "main": "lib/index.js",
   "files": [
-    "lib/index.js",
-    "bin/cmd.js"
+    "lib/",
+    "bin/"
   ],
   "keywords": [
     "realtime",
