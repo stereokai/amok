@@ -28,7 +28,7 @@ function program(callback, data) {
   cmd.option('-i, --interactive', 'enable interactive mode');
   cmd.option('-w, --watch <GLOB>', 'specify watch pattern', null);
 
-  cmd.option('--client <CMD>', 'specify the client to spawn');
+  cmd.option('--browser <IDENTIFIER>', 'specify the browser to spawn');
   cmd.option('--compiler <CMD>', 'specify the compiler to spawn');
 
   cmd.option('-v, --verbose', 'enable verbose logging mode');
@@ -163,36 +163,36 @@ function server(callback, data) {
   });
 }
 
-function client(callback, data) {
-  var log = bole('client');
+function browser(callback, data) {
+  var log = bole('browser');
 
-  if (data.program.client === undefined) {
+  if (data.program.browser === undefined) {
     log('skip');
     return callback(null, null);
   }
 
   log.info('spawn');
-  var client = amok.open(data.program.client, [data.program.url], data.program);
-  client.on('ready', function() {
-    log.info('ok', { pid: client.pid });
-    callback(null, client);
+  var browser = amok.browse(data.program.browser, [data.program.url], data.program);
+  browser.on('ready', function() {
+    log.info('ok', { pid: browser.pid });
+    callback(null, browser);
   });
 
-  client.on('error', function(error) {
+  browser.on('error', function(error) {
     log.error(error);
     process.exit(error.errno);
   });
 
-  client.stdout.on('data', function(data) {
+  browser.stdout.on('data', function(data) {
     log.info(data.toString());
   });
 
-  client.stderr.on('data', function(data) {
+  browser.stderr.on('data', function(data) {
     log.warn(data.toString());
   });
 
   process.on('exit', function() {
-    client.kill('SIGTERM');
+    browser.kill('SIGTERM');
   });
 }
 
@@ -278,8 +278,8 @@ async.auto({
   compiler: ['program', compiler],
   watcher: ['program', 'compiler', watcher],
   server: ['program', 'compiler', server],
-  client: ['program', 'server', client],
-  bugger: ['program', 'client', 'watcher', bugger],
+  browser: ['program', 'server', browser],
+  bugger: ['program', 'browser', 'watcher', bugger],
   prompt: ['program', 'bugger', prompt]
 }, function(error, data) {
   if (error) {
