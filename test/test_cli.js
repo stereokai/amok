@@ -27,7 +27,7 @@ test('cli script events', function(t) {
       t.timeoutAfter(5000);
 
       var exe = child.spawn('node', argv);
-      exe.stdout.on('error', function(error) {
+      exe.on('error', function(error) {
         t.error(error);
       });
 
