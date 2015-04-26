@@ -85,7 +85,7 @@ test('compile to temporary file', function(t) {
 
           fs.readFile(filename, 'utf-8', function(error, expect) {
             t.error(error, 'read expected script source');
-            t.equal(expect, actual, 'script source is equal to expected script source');
+            t.equal(actual, expect, 'script source is equal to expected script source');
           });
         });
       });
