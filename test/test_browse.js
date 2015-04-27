@@ -3,7 +3,7 @@ var test = require('tape');
 
 var browsers = ['chrome'];
 browsers.forEach(function(browser) {
-  test('browse about:blank (' + browser + ')', function(t) {
+  test('browse about:blank with ' + browser, function(t) {
     t.plan(1);
 
     var exe = amok.browse('chrome', ['about:blank']);
