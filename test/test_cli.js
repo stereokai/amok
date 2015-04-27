@@ -1,7 +1,42 @@
-var test = require('tape');
 var child = require('child_process');
 var fs = require('fs');
+var pkg = require('../package.json');
+var test = require('tape');
 var util = require('util');
+
+test('cli print version', function(t) {
+  t.plan(4);
+  var options = ['-V', '--version'];
+  options.forEach(function(option) {
+    var exe = child.spawn('node', ['./bin/amok.js', option]);
+
+    exe.stdout.on('data', function(data) {
+      var message = data.toString();
+      t.equal(message, pkg.version + '\n');
+    });
+
+    exe.on('close', function(code) {
+      t.equal(code, 0);
+    });
+  });
+});
+
+test('cli print help', function(t) {
+  t.plan(4);
+  var options = ['-h', '--help'];
+  options.forEach(function(option) {
+    var exe = child.spawn('node', ['./bin/amok.js', option]);
+
+    exe.stdout.on('data', function(data) {
+      var message = data.toString();
+      t.ok(message.indexOf('Usage:') > -1);
+    });
+
+    exe.on('close', function(code) {
+      t.equal(code, 0);
+    });
+  });
+});
 
 test('cli script events', function(t) {
   var arguments = [
