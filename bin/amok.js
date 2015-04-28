@@ -18,8 +18,8 @@ var package = require('../package.json');
 program.usage('[options] <script | url>');
 program.version(package.version);
 
-program.option('-s, --debugger-host <HOST>', 'specify debugger host', 'localhost');
-program.option('-r, --debugger-port <PORT>', 'specify debugger port', 9222);
+program.option('-s, --debug-host <HOST>', 'specify debug host', 'localhost');
+program.option('-r, --debug-port <PORT>', 'specify debug port', 9222);
 program.option('-b, --browser <BROWSER>', 'specify browser');
 program.option('-c, --compiler <COMPILER>', 'specify compiler');
 program.option('-a, --host <HOST>', 'specify http host', 'localhost');
@@ -94,7 +94,7 @@ async.auto({
     var log = bole('debugger');
     log.info('connect');
 
-    var bugger = amok.debug(program.debuggerPort, program.debuggerHost, {
+    var bugger = amok.debug(program.debugPort, program.debugHost, {
       scripts: program.scripts,
       url: program.url,
       watcher: data.watcher
@@ -143,7 +143,7 @@ async.auto({
 
     log.info('spawn');
     var browser = amok.browse(program.browser, [program.url], {
-      debuggerPort: program.debuggerPort,
+      debuggerPort: program.debugPort,
     });
 
     browser.on('ready', function() {
