@@ -67,7 +67,10 @@ async.auto({
     var log = bole('compiler');
     log.info('spawn');
 
-    var compiler = amok.compile(program.compiler, program.args, program);
+    var compiler = amok.compile(program.compiler, program.args, {
+      cwd: program.cwd,
+    });
+
     compiler.on('ready', function(scripts) {
       log.info('ok', { pid: compiler.pid });
 
