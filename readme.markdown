@@ -55,29 +55,35 @@ client as events to enable  further processing and evaluation.
 -V, --version
   output the version number
 
---host <HOST>
+-s, --debug-host <HOST>
+  specify debug host
+
+-r, --debug-port <PORT>
+  specify debug port
+
+-b, --browser <BROWSER>
+  specify browser
+
+-c, --compiler <COMPILER>
+  specify compiler
+
+-a, --host <HOST>
   specify http host
 
---port <PORT>
+-p, --port <PORT>
   specify http port
 
---debugger-host <HOST>
-  specify debugger host
-
---debugger-port <PORT>
-  specify debugger port
+-w, --watch <GLOB>
+  specify watch pattern
 
 -i, --interactive
   enable interactive mode
 
---client <PRESET | COMMAND>
-  specify the client to spawn
-
---compiler <PRESET | COMMAND>
-  specify the compiler to spawn
-
 -v, --verbose
-  enable verbose logging mode
+  enable verbose mode
+
+-d, --cwd <DIR>
+  change working directory
 ```
 
 A client must already listening on the same remote debugging port when
@@ -89,6 +95,9 @@ option parsing terminator **--**, will be passed as extra options to the
 compiler. The specified compiler must have its executable available via
 **PATH**.
 
+# Environment Variables
+CHROME_BIN
+  Set to override the executable used for chrome
 
 ## Examples
 ```sh
