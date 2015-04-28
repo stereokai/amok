@@ -95,7 +95,9 @@ async.auto({
       scripts: program.scripts,
       url: program.url,
       watcher: data.watcher
-    }, function() {
+    });
+
+    bugger.once('attach', function() {
       callback(null, bugger);
     });
 
