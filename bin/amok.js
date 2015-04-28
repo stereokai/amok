@@ -91,8 +91,11 @@ async.auto({
     var log = bole('debugger');
     log.info('connect');
 
-    program.watcher = data.watcher;
-    var bugger = amok.debug(program.debuggerPort, program.debuggerHost, program, function() {
+    var bugger = amok.debug(program.debuggerPort, program.debuggerHost, {
+      scripts: program.scripts,
+      url: program.url,
+      watcher: data.watcher
+    }, function() {
       callback(null, bugger);
     });
 
