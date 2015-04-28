@@ -92,7 +92,7 @@ async.auto({
     log.info('connect');
 
     program.watcher = data.watcher;
-    var bugger = amok.debug(program, function() {
+    var bugger = amok.debug(program.debuggerPort, program.debuggerHost, program, function() {
       callback(null, bugger);
     });
 
