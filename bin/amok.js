@@ -173,7 +173,11 @@ async.auto({
 
     log.info('starting');
 
-    var server = amok.serve(program.port, program.host, program);
+    var server = amok.serve(program.port, program.host, {
+      cwd: program.cwd,
+      scripts: program.scripts
+    });
+
     server.on('listening', function() {
       var address = server.address();
       log.info('listening', { host: address.address, port: address.port });
