@@ -27,9 +27,9 @@ program.option('-p, --port <PORT>', 'specify http port', 9966);
 program.option('-w, --watch <GLOB>', 'specify watch pattern', null);
 program.option('-i, --interactive', 'enable interactive mode');
 program.option('-v, --verbose', 'enable verbose mode');
+program.option('-d, --cwd <DIR>', 'change working directory', process.cwd());
 
 program.parse(process.argv);
-program.cwd = process.cwd();
 
 if (program.args.length < 1) {
   program.help();
