@@ -5,6 +5,8 @@
 
 ![out](https://cloud.githubusercontent.com/assets/157787/7122192/4aa2b03e-e24c-11e4-886a-5f58181b5dbd.gif)
 
+Note this documentation refers to master, for the current release [npm](https://www.npmjs.org/package/amok).
+
 ## Synopsis
 ```sh
 amok [options] <SCRIPT | URL>
@@ -101,10 +103,10 @@ CHROME_BIN
 
 ## Examples
 ```sh
-amok --client chrome app.js
-amok --client chrome http://localhost:9090
-amok --client chrome --compiler webpack canvas.js
-amok --client chrome --compiler browserify canvas.js -- --transform babelify
+amok --browser chrome app.js
+amok --browser chrome http://localhost:9090
+amok --browser chrome --compiler webpack canvas.js
+amok --browser chrome --compiler browserify canvas.js -- --transform babelify
 ```
 
 See also [amok-examples](https://github.com/caspervonb/amok-examples)
