@@ -2,32 +2,40 @@ var amok = require('../');
 var fs = require('fs');
 var http = require('http');
 var test = require('tape');
+var path = require('path');
+var url = require('url');
 
-test('serve html', function(t) {
-  t.plan(3);
+test('serve file', function(t) {
+  t.plan(6);
 
   var options = {
-    cwd: 'test/fixture/serve-index'
+    cwd: 'test/fixture/console',
+    scripts: {
+      'test/fixture/console/index.js': 'alias.js'
+    }
   };
 
   var server = amok.serve(8888, 'localhost', options);
   server.on('listening', function() {
-    http.get({
-      host: 'localhost',
-      port: 8888,
-      path: '/index.html'
-    }, function(response) {
-      t.equal(response.statusCode, 200, 'status code 200');
+    var pathnames = ['index.js', 'index.html', 'alias.js'];
+    pathnames.forEach(function(pathname) {
+      http.get('http://localhost:8888/' + pathname, function(response) {
+        t.equal(response.statusCode, 200);
 
-      var actual = '';
-      response.on('data', function(data) {
-        actual += data;
-      });
+        var body = '';
+        response.on('data', function(chunk) {
+          body += chunk;
+        });
 
-      response.on('end', function() {
-        fs.readFile('test/fixture/serve-index/index.html', 'utf-8', function(error, expect) {
-          t.error(error, 'file read');
-          t.equal(actual, expect, 'served file matches read file');
+        response.on('end', function() {
+          var filename = path.join(options.cwd, pathname);
+          for (key in options.scripts) {
+            if (options.scripts[key] === pathname) {
+              filename = key;
+            }
+          }
+
+          t.equal(body, fs.readFileSync(filename, 'utf-8'));
         });
       });
     });
@@ -38,70 +46,34 @@ test('serve html', function(t) {
   });
 });
 
-test('serve script', function(t) {
-  t.plan(3);
+test('serve generated index', function(t) {
+  t.plan(4);
 
   var options = {
-    cwd: 'test/fixture/serve-scripts',
     scripts: {
-      'test/fixture/serve-index/index.js': 'other.js'
+      'test/fixture/console/index.js': 'alias.js'
     }
   };
 
-  var server = amok.serve(8888, 'localhost', options);
-  server.on('listening', function() {
-    http.get({
-      host: 'localhost',
-      port: 8888,
-      path: '/other.js'
-    }, function(response) {
-      t.equal(response.statusCode, 200, 'status code 200');
+  var server = amok.serve(6666, 'localhost', options);
+  server.on('error', function(error) {
+    t.fail(error);
+  });
 
-      var actual = '';
-      response.on('data', function(data) {
-        actual += data;
-      });
+  server.on('listening', function(pathname) {
+    var pathnames = ['/', '/index.html'];
+    pathnames.forEach(function(pathname) {
+      http.get('http://localhost:6666' + pathname, function(response) {
+        t.equal(response.statusCode, 200);
 
-      response.on('end', function() {
-        fs.readFile('test/fixture/serve-index/index.js', 'utf-8', function(error, expect) {
-          t.error(error, 'file read');
-          t.equal(actual, expect, 'served file matches read file');
+        var body = '';
+        response.on('data', function(chunk) {
+          body += chunk;
         });
-      });
-    });
-  });
 
-  t.on('end', function() {
-    server.close();
-  });
-});
-
-test('serve index', function(t) {
-  t.plan(2);
-
-  var options = {
-    cwd: 'test/fixture/serve-scripts',
-    scripts: {
-      'test/fixture/serve-index/index.js': 'index.js'
-    }
-  };
-
-  var server = amok.serve(8888, 'localhost', options);
-  server.on('listening', function() {
-    http.get({
-      host: 'localhost',
-      port: 8888,
-      path: '/index.html'
-    }, function(response) {
-      t.equal(response.statusCode, 200, 'status code 200');
-
-      var actual = '';
-      response.on('data', function(data) {
-        actual += data;
-      });
-
-      response.on('end', function() {
-        t.notEqual(actual.indexOf('<script src="index.js">'), -1);
+        response.on('end', function() {
+          t.notEqual(body.indexOf('<script src="alias.js">'), -1);
+        });
       });
     });
   });

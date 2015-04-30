@@ -3,6 +3,7 @@ var fs = require('fs');
 var pkg = require('../package.json');
 var test = require('tape');
 var util = require('util');
+var path = require('path');
 
 test('cli print version', function(t) {
   t.plan(4);
@@ -23,7 +24,11 @@ test('cli print version', function(t) {
 
 test('cli print help', function(t) {
   t.plan(4);
-  var options = ['-h', '--help'];
+  var options = [
+    '-h',
+    '--help'
+  ];
+
   options.forEach(function(option) {
     var exe = child.spawn('node', ['./bin/amok.js', option]);
 
@@ -38,13 +43,21 @@ test('cli print help', function(t) {
   });
 });
 
-var browsers = ['chrome'];
+var browsers = [
+  'chrome'
+];
+
 browsers.forEach(function(browser) {
   test('cli print browser console from ' + browser, function(t) {
     t.plan(2);
 
-    var exe = child.spawn('node', ['./bin/amok.js', '--browser', browser, 'test/fixture/console/index.js']);
+    var args = [
+      '--browser',
+      browser,
+      'test/fixture/console/index.js'
+    ];
 
+    var exe = child.spawn('node', ['./bin/amok.js'].concat(args));
     exe.stderr.on('data', function(data) {
       var stderr = [
         'error\n'
@@ -67,65 +80,87 @@ browsers.forEach(function(browser) {
       exe.kill();
     });
   });
-});
 
-test('cli script events', function(t) {
-  var arguments = [
-    'test/fixture/cli-events-plain/index.js',
-    'test/fixture/cli-events-babel/index.js --compiler babel',
-    'test/fixture/cli-events-babel/index.js --compiler browserify -- --transform babelify',
-    'test/fixture/cli-events-babel/index.js --compiler webpack -- --module-bind js=babel',
-    'test/fixture/cli-events-coffeescript/index.coffee --compiler coffeescript',
-    'test/fixture/cli-events-plain/index.js --compiler webpack',
-    'test/fixture/cli-events-plain/index.js --compiler browserify',
-    'test/fixture/cli-events-typescript/index.ts --compiler typescript',
+  test('cli refresh script source in ' + browser, function(t) {
+    t.plan(10);
+
+    var args = [
+      '--browser',
+      browser,
+      'test/fixture/source/index.js'
+    ];
+
+    var exe = child.spawn('node', ['./bin/amok.js'].concat(args));
+    var original = fs.readFileSync('test/fixture/source/index.js', 'utf-8');
+
+    var values = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+    var source = original.concat();
+
+    exe.stdout.on('data', function(data) {
+      var value = parseInt(data.toString());
+
+      if (value === values[0]) {
+        t.equal(values.shift(), value);
+
+        source = source.replace(value, values[0]);
+        fs.writeFileSync('test/fixture/source/index.js', source, 'utf-8');
+      }
+    });
+
+    t.on('end', function() {
+      fs.writeFileSync('test/fixture/source/index.js', original);
+      exe.kill();
+    });
+  });
+
+  var compilers = [
+    'babel',
+    'browserify',
+    'coffeescript',
+    'typescript',
+    'coffeescript',
+    'webpack',
   ];
 
-  arguments.forEach(function(args) {
-    var argv = args.split(' ');
+  compilers.forEach(function(compiler) {
+    test('cli refresh script source compiled with ' + compiler + ' in ' + browser, function(t) {
+      t.plan(10);
+      t.timeoutAfter(30000);
 
-    var filename = argv[0];
-    var pathname = filename.replace(/\.[^.]*$/, '.js');
+      var dirname = path.join('test/fixture/', compiler);
+      var index = fs.readdirSync(dirname).filter(function(filename) {
+        return filename.indexOf('index') > -1;
+      })[0];
 
-    argv.unshift('./bin/amok.js', '--browser', 'chrome');
-    t.test(argv.join(' '), function(t) {
-      t.plan(5);
-      t.timeoutAfter(5000);
+      var filename = path.join(dirname, index);
 
-      var exe = child.spawn('node', argv);
-      exe.on('error', function(error) {
-        t.error(error);
-      });
+      var args = [
+        '--browser',
+        browser,
+        '--compiler',
+        compiler,
+        filename
+      ];
 
-      exe.stdout.once('data', function(data) {
-        data = data.toString();
-        t.equal(data, 'ok\n', 'script loaded');
+      var exe = child.spawn('node', ['./bin/amok.js'].concat(args));
+      var original = fs.readFileSync(filename, 'utf-8');
 
-        fs.readFile(filename, 'utf-8', function(error, contents) {
-          t.error(error, 'read script source');
+      var values = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+      var source = original.concat();
 
-          exe.stdout.once('data', function(data) {
-            data = data.toString();
-            t.equal(data, util.format('change %s\n', pathname), 'script change event');
+      exe.stdout.on('data', function(data) {
+        var value = parseInt(data.toString());
 
-            exe.stdout.once('data', function(data) {
-              data = data.toString();
-              t.equal(data, util.format('source %s\n', pathname), 'script source event');
-            });
-          });
+        if (value === values[0]) {
+          t.equal(values.shift(), value);
 
-          t.on('end', function() {
-            fs.writeFileSync(filename, contents);
-          });
-
-          var touched = contents.replace('false', 'true');
-          fs.writeFile(filename, touched, function(error) {
-            t.error(error, 'write modified script source');
-          });
-        });
+          source = source.replace(value, values[0]);
+          fs.writeFileSync(filename, source, 'utf-8');
+        }
       });
 
       t.on('end', function() {
+        fs.writeFileSync(filename, original);
         exe.kill();
       });
     });

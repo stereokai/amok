@@ -44,16 +44,10 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(1);
-
-	console.log('test/fixture/compile-browserify/index.js');
-
-
-/***/ },
-/* 1 */
-/***/ function(module, exports, __webpack_require__) {
-
-	console.log('test/fixture/compile-browserify/lib.js');
+	console.log('ready');
+	setInterval(function() {
+	  console.log('0');
+	}, 1000);
 
 
 /***/ }
