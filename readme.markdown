@@ -19,13 +19,13 @@ npm install amok -g
 
 ## Description
 Amok standalone command line tool that enables rapid prototyping and development
+preprocessors, compilers and bundlers. Such as typescript, coffeescript,
 of JavaScript based web applications through the client's remote debugging
 interface.
 
 Given a *SCRIPT* as the entry point, it will start a zero configuration http
 development server with a default generated index.html that may be overriden by having a file called index.html. The server
 may be configured to incrementally watch and compile the scripts through
-preprocessors, compilers and bundlers. Such as typescript, coffeescript,
 browserify, webpack and babel.
 
 Alternatively a *URL* may be specified as the entry point, in which case it will
@@ -98,11 +98,13 @@ compiler. The specified compiler must have its executable available via
 **PATH**.
 
 # Environment Variables
+```
 CHROME_BIN
   Set to override the executable used for chrome
+```
 
 ## Examples
-```sh
+```
 amok --browser chrome app.js
 amok --browser chrome http://localhost:9090
 amok --browser chrome --compiler webpack canvas.js
