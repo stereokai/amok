@@ -8,7 +8,6 @@ var compilers = [
   'browserify',
   'coffeescript',
   'typescript',
-  'coffeescript',
   'webpack',
 ];
 
