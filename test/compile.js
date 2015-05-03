@@ -36,7 +36,7 @@ compilers.forEach(function(name) {
         return filename.indexOf('output') > -1;
       })[0];
 
-      t.equal(fs.readFileSync(files[0], 'utf-8'), fs.readFileSync(path.join(dirname, result), 'utf-8'));
+      t.equal(fs.readFileSync(path.join(dirname, result), 'utf-8'), fs.readFileSync(files[0], 'utf-8'));
     });
 
     t.on('end', function() {
