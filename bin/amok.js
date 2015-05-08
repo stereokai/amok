@@ -143,7 +143,7 @@ async.auto({
 
     log.info('spawn');
     var browser = amok.browse(program.browser, [program.url], {
-      debuggerPort: program.debugPort,
+      debugPort: program.debugPort,
     });
 
     browser.on('ready', function() {
