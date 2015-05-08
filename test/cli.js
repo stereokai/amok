@@ -44,7 +44,8 @@ test('cli print help', function(t) {
 });
 
 var browsers = [
-  'chrome'
+  'chrome',
+  'chromium'
 ];
 
 browsers.forEach(function(browser) {

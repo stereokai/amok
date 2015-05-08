@@ -2,7 +2,8 @@ var amok = require('../');
 var test = require('tape');
 
 var browsers = [
-  'chrome'
+  'chrome',
+  'chromium',
 ];
 
 browsers.forEach(function(name) {
