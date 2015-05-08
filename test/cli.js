@@ -118,7 +118,6 @@ browsers.forEach(function(browser) {
     'browserify',
     'coffeescript',
     'typescript',
-    'coffeescript',
     'webpack',
   ];
 
