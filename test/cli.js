@@ -116,8 +116,8 @@ browsers.forEach(function(browser) {
   var compilers = [
     'babel',
     'browserify',
-    'coffeescript',
-    'typescript',
+    'coffee',
+    'tsc',
     'webpack',
   ];
 

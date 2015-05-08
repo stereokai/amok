@@ -6,8 +6,8 @@ var path = require('path');
 var compilers = [
   'babel',
   'browserify',
-  'coffeescript',
-  'typescript',
+  'coffee',
+  'tsc',
   'webpack',
 ];
 

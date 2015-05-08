@@ -1,6 +1,6 @@
 # amok(1)
 ## SYNOPSIS
-`amok` [OPTION...] <FILE>... [-- COMPILER OPTION...]  
+`amok` [OPTION...] <FILE>... [-- COMPILER OPTION...]
 
 `amok` [OPTION...] <URL>
 
@@ -10,7 +10,7 @@
 With one or more <FILE> arguments `amok` connects to the browser, watches and serves the input <FILES> via a http server alongside the contents of the working directory. If no `index.html` file is available in the working directory when a http request to `/` or `/index.html` is made, a default generated index will be served with the appropriate tags referencing the script files. The http server port and host may be configured via the `--port` and `--host` options respectivly.
 
 The `--compiler` may be specified to incrementally preprocess the input <FILES> with a compiler or bundler in its watch mode, the compilation output will be mapped and served instead of the input <FILES>, any arguments succeeding `--` will be passed directly as arguments to the compiler upon spawning the compiler process.
-  
+
 With a single <URL> argument, `amok` connects to the browser and watches the files specified with the `--watch` option.
 
 The `--browser` option may be used to specify a browser process which should be used to open the server URL, the browser will be spawned with the appropriate connection settings for accepting remote debugging sessions.
@@ -29,7 +29,7 @@ When the `--interactive` option is provided, `amok` will enter an interactive `r
 
 * `-d`, `--cwd` <DIR>:
   Change working directory
-  
+
 * `-s`, `--debug-host` <HOST>:
   Specify the remote debugging host, default HOST is `localhost`
 
@@ -40,7 +40,7 @@ When the `--interactive` option is provided, `amok` will enter an interactive `r
   Specify a web browser to open with remote debugging enabled and accepting connections on `--debug-port` and `--debug-host`. BROWSER must be one of the following values: `chrome` or `chromium`.
 
 * `-c`, `--compiler` <COMPILER>:
-  Specify a compiler to preprocess input source files. COMPILER must be one of the following values: `babel`, `browserify`, `coffeescript`, `typescript` or `webpack`.
+  Specify a compiler to preprocess input source files. COMPILER must be one of the following values: `babel`, `browserify`, `coffee`, `tsc` or `webpack`.
 
 * `-a`, `--host` <HOST>:
   Specify the host of the http server, default HOST is `localhost`
