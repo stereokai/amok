@@ -119,18 +119,6 @@ async.auto({
     bugger.on('error', function(error) {
       log.error(error);
     });
-
-    bugger.console.on('data', function(message) {
-      if (message.parameters) {
-        var parameters = message.parameters.map(function(parameter) {
-          return parameter.value;
-        });
-
-        if (console[message.level]) {
-          console[message.level].apply(console, parameters);
-        }
-      }
-    });
   }],
 
   browser: ['server', function(callback, data) {
