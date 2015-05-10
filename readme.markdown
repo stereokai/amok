@@ -19,7 +19,7 @@
   Amok will refresh source definitions without reloading the page in the browser when the source files change, execution will remain uninterrupted and no side effects will take place, preserving the application state.
 
 * Console Mirroring:
-  Amok t the browser's `console.log`, `console.info`, `console.error`, `console.trace` output stream to `stdout`
+  Amok mirrors the browser's `console.log`, `console.info`, `console.error`, `console.trace` output stream to `stdout`
 
 * Interactive Mode:
   Amok has an interactive mode, inspect and modify the browser environment or application state through the terminal in a read-eval-print-loop.
@@ -28,12 +28,17 @@
   Amok emits file notifications as events on the global window and process objects, allowing for further domain specific live editing and hot reloading specialization.
 
 ## INSTALLATION
-1. Download and install [node]
-2. Open a terminal prompt
-3. Run `npm install -g amok`
+* Download and install [node](http://nodejs.com)
+* Run the following command:
+
+```
+$ npm install amok
+```
 
 ## USAGE
-`amok --browser chrome app.js`
+```
+$ amok --browser chrome app.js
+```
 
 ## DOCUMENTATION
 See the [manpage](man/amok.1.markdown)
