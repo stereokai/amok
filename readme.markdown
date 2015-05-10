@@ -19,7 +19,7 @@
   Amok will refresh source definitions without reloading the page in the browser when the source files change, execution will remain uninterrupted and no side effects will take place, preserving the application state.
 
 * Console Mirroring:
-  Amok mirrors the browser's `console.log`, `console.info`, `console.error`, `console.trace` output stream to `stdout`
+  Amok t the browser's `console.log`, `console.info`, `console.error`, `console.trace` output stream to `stdout`
 
 * Interactive Mode:
   Amok has an interactive mode, inspect and modify the browser environment or application state through the terminal in a read-eval-print-loop.

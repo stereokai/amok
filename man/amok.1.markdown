@@ -1,22 +1,24 @@
 # amok(1) -- Live editing, testing and debugging for JavaScript
 ## SYNOPSIS
-`amok` [OPTION...] <FILE>... [-- COMPILER OPTION...]
+**amok** [OPTION...] <FILE>... [-- COMPILER OPTION...]
 
-`amok` [OPTION...] <URL>
+**amok** [OPTION...] <URL>
 
 ## DESCRIPTION
-**Amok** enables a rapid workflow for developing web applications.
+**Amok** enables a live editing, testing and debugging for JavaScript applications.
 
-With one or more <FILE> arguments `amok` connects to the browser, watches and serves the input <FILES> via a http server alongside the contents of the working directory. If no `index.html` file is available in the working directory when a http request to `/` or `/index.html` is made, a default generated index will be served with the appropriate tags referencing the script files. The http server port and host may be configured via the `--port` and `--host` options respectivly.
+With one or more <FILE> arguments **amok** connects to the browser, watches and serves the input <FILES> via a http server alongside the contents of the working directory. If no *index.html* file is available in the working directory when a http request to */* or */index.html* is made, a default generated index will be served with the appropriate tags referencing the script files. The http server port and host may be configured via the `--port` and `--host` options respectivly.
 
-The `--compiler` may be specified to incrementally preprocess the input <FILES> with a compiler or bundler in its watch mode, the compilation output will be mapped and served instead of the input <FILES>, any arguments succeeding the argument seperator (**--**) will be passed directly as arguments to the compiler upon spawning the compiler process.
+The `--compiler` option may be specified enable incremental preprocessing of the input <FILES> with a compiler or bundler in its watch mode, the compilation output will be mapped and served instead of the input <FILES>, any arguments succeeding the argument seperator (**--**) will be passed directly as arguments to the compiler upon spawning the compiler process.
 
 With a single <URL> argument, **amok** connects to the browser and watches the files specified with the `--watch` option.
 
 The `--browser` option may be used to specify a browser process which should be used to open the server URL, the browser will be spawned with the appropriate connection settings for accepting remote debugging sessions.
 If the browser option is omitted a compatible browser must already be ready and accepting connections on the address configurable via the `--debug-port` and `--debug-host` options.
 
-Once a remote debugging connection to a client (browser) has been established, **amok** will mirror the client's console output stream to stdout. Changes to monitored files will be broadcast as events on the global `window` and `process` objects.
+Once a remote debugging connection to a client (browser) has been established, **amok** will mirror the client's console output stream to stdout.
+
+Changes to monitored files will be broadcast as events on the global `window` and `process` objects.
 
 Changes to the source of a script file that is active in the client will result in its source definitions being refreshed without reloading, note that no execution will take place therefore there will be no side effects, execution will continue uninterrupted and the runtime state will be preserved.
 
