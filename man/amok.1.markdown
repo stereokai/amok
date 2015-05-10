@@ -16,7 +16,7 @@ With a single <URL> argument, **amok** connects to the browser and watches the f
 The `--browser` option may be used to specify a browser process which should be used to open the server URL, the browser will be spawned with the appropriate connection settings for accepting remote debugging sessions.
 If the browser option is omitted a compatible browser must already be ready and accepting connections on the address configurable via the `--debug-port` and `--debug-host` options.
 
-Once a remote debugging connection to a client (browser) has been established, **amok** will mirror the client's console output to stderr and stdout. Changes to monitored files will be broadcast as events on the global `window` and `process` objects.
+Once a remote debugging connection to a client (browser) has been established, **amok** will mirror the client's console output stream to stdout. Changes to monitored files will be broadcast as events on the global `window` and `process` objects.
 
 Changes to the source of a script file that is active in the client will result in its source definitions being refreshed without reloading, note that no execution will take place therefore there will be no side effects, execution will continue uninterrupted and the runtime state will be preserved.
 

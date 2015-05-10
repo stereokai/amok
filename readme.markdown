@@ -13,13 +13,13 @@
   **Amok** has a zero configuration http development server built in that serves static scripts and static files, when no index.html is present, a default index will be generated on demand.
 
 * Script Preprocessing:
-  **Amok** can incrementally rebuild scripts with a variety of compilers that have a watch mode, including babel, browserify, coffeescript, typescript and webpack. 
+  **Amok** can incrementally rebuild scripts with a variety of compilers that have a watch mode, including babel, browserify, coffeescript, typescript and webpack.
 
 * Live Code Editing:
   Amok will refresh source definitions without reloading the page in the browser when the source files change, execution will remain uninterrupted and no side effects will take place, preserving the application state.
 
 * Console Mirroring:
-  Amok mirrors the browser's `console.log`, `console.info`, `console.error`, `console.trace` output to `stderr` and `stdout`
+  Amok mirrors the browser's `console.log`, `console.info`, `console.error`, `console.trace` output stream to `stdout`
 
 * Interactive Mode:
   Amok has an interactive mode, inspect and modify the browser environment or application state through the terminal in a read-eval-print-loop.

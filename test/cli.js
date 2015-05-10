@@ -50,7 +50,7 @@ var browsers = [
 
 browsers.forEach(function(browser) {
   test('cli print browser console from ' + browser, function(t) {
-    t.plan(2);
+    t.plan(4);
 
     var args = [
       '--browser',
@@ -59,22 +59,20 @@ browsers.forEach(function(browser) {
     ];
 
     var exe = child.spawn('node', ['./bin/amok.js'].concat(args));
-    exe.stderr.on('data', function(data) {
-      var stderr = [
-        'error\n'
-      ];
 
-      var message = data.toString();
-      t.notEqual(stderr.indexOf(message), -1);
-    });
+    var messages = [
+      'error\n',
+      'info\n',
+      'log\n',
+      'warn\n',
+    ];
 
     exe.stdout.on('data', function(data) {
-      var stdout = [
-        'log\n'
-      ];
-
       var message = data.toString();
-      t.notEqual(stdout.indexOf(message), -1);
+      var index = messages.indexOf(message);
+
+      t.notEqual(index, -1);
+      messages.splice(index, 1);
     });
 
     t.on('end', function() {
