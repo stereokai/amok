@@ -92,7 +92,7 @@ Open chrome with a bundle preprocessed by browserify and served via http at <htt
 
 ## BUGS
 
-`Google Chrome` and `Chromium` only allow a single connection to the remote debugging protocol at any given time, and the `Chrome Developer Tools` are given priority so opening them will cause `amok` to disconnect (see http://crbug.com/)
+`Google Chrome` and `Chromium` only allow a single connection to the remote debugging protocol at any given time, and the `Chrome Developer Tools` are given priority so opening them will cause `amok` to disconnect (see http://crbug.com/129539)
 
 ## COPYRIGHT
 
