@@ -97,7 +97,8 @@ async.auto({
     var bugger = amok.debug(program.debugPort, program.debugHost, {
       scripts: program.scripts,
       url: program.url,
-      watcher: data.watcher
+      watcher: data.watcher,
+      interactive: program.interactive
     });
 
     bugger.once('attach', function() {
