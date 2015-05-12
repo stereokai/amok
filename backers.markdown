@@ -31,6 +31,6 @@ The project has been backed and funded by the following awesome individuals
 
 And the following generous organizations
 
-* Webflow
-* Apperson Labs
-* Daft Developers
+* [Webflow](http://webflow.com)
+* [Apperson Labs](http://appersonlabs.com)
+* [Daft Developers](http://daftdevelopers.com)
