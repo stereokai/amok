@@ -47,6 +47,7 @@
     "webpack": "^1.8.9"
   },
   "scripts": {
+    "man": "ronn -s toc -r5 man/*.markdown",
     "test": "node test"
   },
   "author": "Casper Beyer <caspervonb@qup.io>",
