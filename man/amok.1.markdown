@@ -1,72 +1,103 @@
-# amok(1) -- Live editing, testing and debugging for JavaScript
+# amok(1) -- Live editing, testing and debugging for the browser
 ## SYNOPSIS
-**amok** [OPTION...] <FILE>... [-- COMPILER OPTION...]
 
-**amok** [OPTION...] <URL>
+`amok` [OPTION...] <URL>
+
+`amok` [OPTION...] <FILE>...
 
 ## DESCRIPTION
-**Amok** enables a live editing, testing and debugging for JavaScript applications.
 
-With one or more <FILE> arguments **amok** connects to the browser, watches and serves the input <FILES> via a http server alongside the contents of the working directory. If no *index.html* file is available in the working directory when a http request to */* or */index.html* is made, a default generated index will be served with the appropriate tags referencing the script files. The http server port and host may be configured via the `--port` and `--host` options respectivly.
+**Amok** enables live editing, testing and debugging for browsers through a remote debug connection.
 
-The `--compiler` option may be specified enable incremental preprocessing of the input <FILES> with a compiler or bundler in its watch mode, the compilation output will be mapped and served instead of the input <FILES>, any arguments succeeding the argument seperator (**--**) will be passed directly as arguments to the compiler upon spawning the compiler process.
+With a <URL>, **amok** will search for a page in the browser with a url matching that <URL> and connect to it.
 
-With a single <URL> argument, **amok** connects to the browser and watches the files specified with the `--watch` option.
+With one or more input <FILES>, **amok** will add the <FILES> to the file system monitor and start a http server that serves files from the working directory with a in-memory dynamically generated *index.html* that references the input <FILES> with HTML script tags in the index body, placing an *index.html* file in the working directory will override the dynamic index generation. **amok** will search for a page in the browser with a url matching the server url and connect to it.
 
-The `--browser` option may be used to specify a browser process which should be used to open the server URL, the browser will be spawned with the appropriate connection settings for accepting remote debugging sessions.
-If the browser option is omitted a compatible browser must already be ready and accepting connections on the address configurable via the `--debug-port` and `--debug-host` options.
+When **Amok** connects to the browser, it will mirror the console output stream to the standard output stream and refresh the source definitions of any scripts that are active in the browser runtime when the file system monitor detects a change to the source of the script.
 
-Once a remote debugging connection to a client (browser) has been established, **amok** will mirror the client's console output stream to stdout.
-
-Changes to monitored files will be broadcast as events on the global `window` and `process` objects.
-
-Changes to the source of a script file that is active in the client will result in its source definitions being refreshed without reloading, note that no execution will take place therefore there will be no side effects, execution will continue uninterrupted and the runtime state will be preserved.
-
-When the `--interactive` option is provided, `amok` will enter an interactive `read-eval-print-loop` once the debugging connection is established.
+Changes to the file system will also be available as events on the global object within the browser environment, see amok-events(3).
 
 ## OPTIONS
-* `-h`, `--help`:
-  Output usage information and exit
+These options control control how amok will interact with the file system.
 
-* `-V`, `--version`:
-  Output the version number and exit
+* `-d`, `--cwd`=<DIR>:
+  Change the working directory.
 
-* `-d`, `--cwd` <DIR>:
-  Change working directory
+* `-w`, `--watch`=<GLOB>:
+  The file pattern for additional files to be added to the file monitoring process, the default value for <GLOB> is *'.'*.
 
-* `-s`, `--debug-host` <HOST>:
-  Specify the remote debugging host, default HOST is `localhost`
+The options control how amok will establish a remote debug connection.
 
-* `-r`, `--debug-port` <PORT>:
-  Specify the remote debugging port, default PORT is `9222`
+* `-s`, `--debug-host`=<HOST>:
+  The hostname on which the remote debug connection will be established on,
+  the default <HOST> is *localhost*
 
-* `-b`, `--browser` <BROWSER>:
-  Specify a web browser to open with remote debugging enabled and accepting connections on `--debug-port` and `--debug-host`. BROWSER must be one of the following values: `chrome` or `chromium`.
+* `-r`, `--debug-port`=<PORT>:
+  The port number which the remote debug connection will be etablished on,
+  the default <PORT> is *9222*.
 
-* `-c`, `--compiler` <COMPILER>:
-  Specify a compiler to preprocess input source files. COMPILER must be one of the following values: `babel`, `browserify`, `coffee`, `tsc` or `webpack`.
-
-* `-a`, `--host` <HOST>:
-  Specify the host of the http server, default HOST is `localhost`
-
-* `-p`, `--port` <PORT>:
-  Specify the port number of the http server, default PORT is `9966`
-
-* `-w`, `--watch` <GLOB>:
-  Specify a file watch pattern, default GLOB is `'.'`.
+* `-b`, `--browser`=<BROWSER>:
+  The browser to open with options configured so that it will accept debug connections on the port set by the `-r` or `--debug-port` option, the value of <BROWSER> must be `chrome` or `chromium`
 
 * `-i`, `--interactive`:
-  Enable interactive mode (read-eval-print-loop)
+  Start in a read-eval-print-loop executing code in the remote context of the browser.
+
+These options control the behavior of the http server.
+
+* `-c`, `--compiler`=<COMPILER>:
+  Uses the <COMPILER> to incrementally watch and preprocess input <FILES>, serving the preprocessed output in-place of the input <FILES>
+
+  The value of BROWSER must be `babel`, `browserify`, `coffeescript`, `typescript` or `webpack`.
+
+* `-a`, `--host`=<HOST>:
+  The hostname which the http server will listen on,
+  the default HOST is *localhost*.
+
+* `-p`, `--port`=<PORT>:
+  The port number which the http server will listen on,
+  the default PORT is *9222*.
+
+Miscellaneous options:
 
 * `-v`, `--verbose`:
-  Enable verbose logging mode
+  Write verbose logging messages to standard error.
+
+* `-h`, `--help`:
+  Print **amok** usage information and exit.
+
+* `-V`, `--version`:
+  Print **amok** version information and exit.
 
 ## ENVIRONMENT
+
 * `CHROME_BIN`:
-  Path to the Google Chrome executable
+  The full path of the Google Chrome executable, this environment variable takes presedence when searching for the chrome executable on the file system.
 
 * `CHROMIUM_BIN`:
-  Path to the Chromium executable
+  The full path of the Chromium executable, this environment variable takes presedence when searching for the chrome executable on the file system.
+
+## EXAMPLES
+
+Open chrome with a local file system URL
+
+    amok --browser chrome file://index.html
+
+Open chrome with an external server URL
+
+    amok --browser chrome http://localhost:4000
+
+Open chrome with a bundle preprocessed by browserify and served via http at <http://localhost:9222/lib/index.js>
+
+    amok --browser chrome --compiler browserify lib/index.js
 
 ## BUGS
-* Chrome Developer Tools cannot be active at the same time as **amok**, this is a limitation of Chrome, it only allows a single debugging connection at any given time which the developer tools get first priority too, opening the inspector will cause **amok** to disconnect, it will try to reconnect at a steady interval which for the duration until the developer tools are closed.
+
+`Google Chrome` and `Chromium` only allow a single connection to the remote debugging protocol at any given time, and the `Chrome Developer Tools` are given priority so opening them will cause `amok` to disconnect (see http://crbug.com/)
+
+## COPYRIGHT
+
+Copyright (C) 2015 Casper Beyer <http://caspervonb.com>
+
+## SEE ALSO
+
+amok-browser(3)
