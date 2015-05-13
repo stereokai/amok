@@ -8,19 +8,15 @@ var browsers = [
 
 browsers.forEach(function(name) {
   test('browse about:blank with ' + name, function(t) {
-    t.plan(1);
+    t.plan(2);
 
-    var exe = amok.browse(name, ['about:blank']);
-    exe.on('ready', function() {
-      t.ok(exe.pid);
-    });
+    amok.browse(name, ['about:blank'], function(error, browser) {
+      t.error(error);
+      t.ok(browser.pid);
 
-    exe.on('error', function(error) {
-      t.fail(error);
-    });
-
-    t.on('end', function() {
-      exe.kill();
+      t.on('end', function() {
+        browser.kill();
+      });
     });
   });
 });

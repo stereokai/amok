@@ -131,30 +131,39 @@ async.auto({
     }
 
     log.info('spawn');
-    var browser = amok.browse(program.browser, [program.url], {
+    var args = [
+      program.url
+    ];
+
+    var options = {
       debugPort: program.debugPort,
-    });
+    };
 
-    browser.on('ready', function() {
+    amok.browse(program.browser, [program.url], options, function(error, browser) {
+      if (error) {
+        return callback(error);
+      }
+
       log.info('ok', { pid: browser.pid });
+
+      browser.on('error', function(error) {
+        log.error(error);
+        process.exit(error.errno);
+      });
+
+      browser.stdout.on('data', function(data) {
+        log.info(data.toString());
+      });
+
+      browser.stderr.on('data', function(data) {
+        log.warn(data.toString());
+      });
+
+      process.on('exit', function() {
+        browser.kill('SIGTERM');
+      });
+
       callback(null, browser);
-    });
-
-    browser.on('error', function(error) {
-      log.error(error);
-      process.exit(error.errno);
-    });
-
-    browser.stdout.on('data', function(data) {
-      log.info(data.toString());
-    });
-
-    browser.stderr.on('data', function(data) {
-      log.warn(data.toString());
-    });
-
-    process.on('exit', function() {
-      browser.kill('SIGTERM');
     });
   }],
 
