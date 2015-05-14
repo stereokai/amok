@@ -73,8 +73,14 @@ Miscellaneous options:
 * `CHROME_BIN`:
   The full path of the Google Chrome executable, this environment variable takes presedence when searching for the chrome executable on the file system.
 
+* `CHROME_FLAGS`:
+  Additional flags to pass when starting Google Chrome executable.
+
 * `CHROMIUM_BIN`:
   The full path of the Chromium executable, this environment variable takes presedence when searching for the chrome executable on the file system.
+
+* `CHROMIUM_FLAGS`:
+  Additional flags to pass when starting Chromium executable.
 
 ## EXAMPLES
 
