@@ -75,19 +75,20 @@ async.auto({
       log.info('ok', { pid: compiler.pid });
 
       program.scripts = scripts;
+
+      compiler.stdout.on('data', function(data) {
+        log.info(data.toString());
+      });
+
+      compiler.stderr.on('data', function(data) {
+        log.error(data.toString());
+      });
+
+      process.on('exit', function() {
+        compiler.kill('SIGTERM');
+      });
+
       callback(null, compiler);
-    });
-
-    compiler.stdout.on('data', function(data) {
-      log.info(data.toString());
-    });
-
-    compiler.stderr.on('data', function(data) {
-      log.error(data.toString());
-    });
-
-    process.on('exit', function() {
-      compiler.kill('SIGTERM');
     });
   },
   debugger: ['browser', 'watcher', function(callback, data) {

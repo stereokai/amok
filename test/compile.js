@@ -13,7 +13,7 @@ var compilers = [
 
 compilers.forEach(function(name) {
   test('compile to temporary file with ' + name, function(t) {
-    t.plan(2);
+    t.plan(4);
 
     var dirname = path.join('test/fixture', name);
     var index = fs.readdirSync(dirname).filter(function(filename) {
@@ -25,9 +25,10 @@ compilers.forEach(function(name) {
       filename
     ];
 
-    var compiler = amok.compile(name, args);
+    amok.compile(name, args, function(error, compiler, scripts) {
+      t.error(error);
+      t.ok(compiler.pid);
 
-    compiler.on('ready', function(scripts) {
       var files = Object.keys(scripts);
       t.equal(files.length, 1);
 
@@ -36,10 +37,10 @@ compilers.forEach(function(name) {
       })[0];
 
       t.equal(fs.readFileSync(path.join(dirname, result), 'utf-8'), fs.readFileSync(files[0], 'utf-8'));
-    });
 
-    t.on('end', function() {
-      compiler.kill();
+      t.on('end', function() {
+        compiler.kill();
+      });
     });
   });
 });
