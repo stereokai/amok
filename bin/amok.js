@@ -2,18 +2,15 @@
 
 var amok = require('../');
 var async = require('async');
-
-var fs = require('fs');
-var path = require('path');
-var repl = require('repl');
-var util = require('util');
-var url = require('url');
-
-var bole = require('bole');
 var bistre = require('bistre');
-
-var program = require('commander');
+var bole = require('bole');
+var fs = require('fs');
 var package = require('../package.json');
+var path = require('path');
+var program = require('commander');
+var repl = require('repl');
+var url = require('url');
+var util = require('util');
 
 program.usage('[options] <script | url>');
 program.version(package.version);
