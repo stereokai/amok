@@ -140,7 +140,7 @@ async.auto({
       debugPort: program.debugPort,
     };
 
-    amok.browse(program.browser, [program.url], options, function(error, browser) {
+    amok.browse(program.browser, program.url, options, function(error, browser) {
       if (error) {
         return callback(error);
       }
