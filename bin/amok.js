@@ -211,26 +211,26 @@ async.auto({
       patterns.push(path.dirname(filenames[0]));
     }
 
-    var watcher = amok.watch(patterns);
-    watcher.on('ready', function() {
+    var watcher = amok.watch(patterns, function(error, watcher) {
       log.info('ok');
+
+      watcher.on('add', function(filename) {
+        log.info('add', { filename: filename });
+      });
+
+      watcher.on('unlink', function(filename) {
+        log.info('remove', { filename: filename, pathname: filename });
+      });
+
+      watcher.on('change', function(filename) {
+        log.info('change', { filename: filename });
+      });
+
+      watcher.on('error', function(error) {
+        log.error(error);
+      });
+
       callback(null, watcher);
-    });
-
-    watcher.on('add', function(filename) {
-      log.info('add', { filename: filename });
-    });
-
-    watcher.on('unlink', function(filename) {
-      log.info('remove', { filename: filename, pathname: filename });
-    });
-
-    watcher.on('change', function(filename) {
-      log.info('change', { filename: filename });
-    });
-
-    watcher.on('error', function(error) {
-      log.error(error);
     });
   }],
 });

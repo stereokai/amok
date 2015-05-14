@@ -6,7 +6,7 @@ var path = require('path');
 var chokidar = require('chokidar');
 
 test('watch two different tempdirs', function(t) {
-  t.plan(30);
+  t.plan(32);
 
   var dirname1 = temp.mkdirSync('watch-dir');
   var dirname2 = temp.mkdirSync('watch-files');
@@ -24,28 +24,30 @@ test('watch two different tempdirs', function(t) {
     path.join(dirname2, '5.js'),
   ];
 
-  var watcher = amok.watch([dirname1, dirname2]);
-  watcher.on('ready', function() {
+  var watcher = amok.watch([dirname1, dirname2], function(error, watcher) {
+    t.error(error);
+    t.ok(watcher);
+
     files.forEach(function(filename) {
       fs.writeFileSync(filename, 'add');
     });
-  });
 
-  watcher.on('add', function(filename) {
-    t.notEqual(files.indexOf(filename), -1, 'file added');
-    fs.writeFileSync(filename, 'changed');
-  });
+    watcher.on('add', function(filename) {
+      t.notEqual(files.indexOf(filename), -1, 'file added');
+      fs.writeFileSync(filename, 'changed');
+    });
 
-  watcher.on('change', function(filename) {
-    t.notEqual(files.indexOf(filename), -1, 'file changed');
-    fs.unlinkSync(filename);
-  });
+    watcher.on('change', function(filename) {
+      t.notEqual(files.indexOf(filename), -1, 'file changed');
+      fs.unlinkSync(filename);
+    });
 
-  watcher.on('unlink', function(filename) {
-    t.notEqual(files.indexOf(filename), -1, 'file removed');
-  });
+    watcher.on('unlink', function(filename) {
+      t.notEqual(files.indexOf(filename), -1, 'file removed');
+    });
 
-  t.on('end', function() {
-    watcher.close();
+    t.on('end', function() {
+      watcher.close();
+    });
   });
 });
