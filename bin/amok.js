@@ -177,26 +177,25 @@ async.auto({
     }
 
     log.info('starting');
-
-    var server = amok.serve(program.port, program.host, {
+    var options = {
       cwd: program.cwd,
       scripts: program.scripts
-    });
+    };
 
-    server.on('listening', function() {
+    var server = amok.serve(program.port, program.host, options, function(error, server) {
       var address = server.address();
       log.info('listening', { host: address.address, port: address.port });
 
+      server.on('request', function(request, response) {
+        log.info(request);
+      });
+
+      server.on('error', function(error) {
+        log.error(error);
+      });
+
       program.url = util.format('http://%s:%d', program.host, program.port);
       callback(null, server);
-    });
-
-    server.on('request', function(request, response) {
-      log.info(request);
-    });
-
-    server.on('error', function(error) {
-      log.error(error);
     });
   }],
 

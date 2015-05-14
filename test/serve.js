@@ -6,7 +6,7 @@ var path = require('path');
 var url = require('url');
 
 test('serve file', function(t) {
-  t.plan(6);
+  t.plan(7);
 
   var options = {
     cwd: 'test/fixture/console',
@@ -15,8 +15,9 @@ test('serve file', function(t) {
     }
   };
 
-  var server = amok.serve(8888, 'localhost', options);
-  server.on('listening', function() {
+  amok.serve(8888, 'localhost', options, function(error, server) {
+    t.error(error);
+
     var pathnames = ['index.js', 'index.html', 'alias.js'];
     pathnames.forEach(function(pathname) {
       http.get('http://localhost:8888/' + pathname, function(response) {
@@ -39,15 +40,15 @@ test('serve file', function(t) {
         });
       });
     });
-  });
 
-  t.on('end', function() {
-    server.close();
+    t.on('end', function() {
+      server.close();
+    });
   });
 });
 
 test('serve generated index', function(t) {
-  t.plan(4);
+  t.plan(5);
 
   var options = {
     scripts: {
@@ -55,12 +56,9 @@ test('serve generated index', function(t) {
     }
   };
 
-  var server = amok.serve(6666, 'localhost', options);
-  server.on('error', function(error) {
-    t.fail(error);
-  });
+  var server = amok.serve(6666, 'localhost', options, function(error, server) {
+    t.error(error);
 
-  server.on('listening', function(pathname) {
     var pathnames = ['/', '/index.html'];
     pathnames.forEach(function(pathname) {
       http.get('http://localhost:6666' + pathname, function(response) {
@@ -76,9 +74,9 @@ test('serve generated index', function(t) {
         });
       });
     });
-  });
 
-  t.on('end', function() {
-    server.close();
+    t.on('end', function() {
+      server.close();
+    });
   });
 });
