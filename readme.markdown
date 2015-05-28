@@ -44,7 +44,7 @@ $ amok --browser chrome app.js
 See the [manpage](man/amok.1.markdown)
 
 ## SUPPORT
-Join the [gitter chat](http://gitter.com/caspervonb/amok)
+Join the [gitter chat](http://gitter.im/caspervonb/amok)
 
 ## RELEASE HISTORY
 See the [changelog](changelog.markdown)
