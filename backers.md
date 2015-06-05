@@ -1,7 +1,13 @@
 # BACKERS
 
-![sponsor-logo-1] | ![sponsor-logo-2] | ![sponsor-logo-3]
- ---------------- | ----------------- | ----------------
+<table>
+  <tr>
+    <th><img src="https://cloud.githubusercontent.com/assets/157787/7907794/8407646a-0870-11e5-9231-281f54ec1365.png"/></th>
+    <th><img src="https://cloud.githubusercontent.com/assets/157787/7907792/83f849a8-0870-11e5-829b-f77c7b1ac4fa.png"\></th>
+    <th><img src="https://cloud.githubusercontent.com/assets/157787/7907793/840666e6-0870-11e5-8620-5e6473301aab.png"/></th>
+  </tr>
+</table>
+
 
 The project has been backed and funded by the following awesome individuals
 
