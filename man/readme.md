@@ -73,10 +73,10 @@ $ amok --browser chrome --compiler webpack app.js -- --module-bind js=babel
 
 ## MANUALS
 
-See the reference manuals for further information
+See the manual pages for further information
 
 * [amok(1)](amok.1.md)
-:   browser development tool
+:   browser development and debugging tool
 
 * [amok(3)](amok.3.md)
-:   browser development framework for node.js
+:   browser development and debugging framework for node.js
