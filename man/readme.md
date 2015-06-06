@@ -71,6 +71,32 @@ Additional command line options may be passed to the compiler by ending argument
 $ amok --browser chrome --compiler webpack app.js -- --module-bind js=babel
 ```
 
+## HOT PATCHING
+
+**Amok** supports monitoring source files and hot patching function definitions in active scripts when the source files change, scripts may become inactive and garbage collected when nothing is referencing them, for instance if there are no callbacks in a script.
+
+Patches will be applied without interrupting execution of the script, and no execution will take place therefore no side effects will occur.
+
+To enable hot patching, use the hot option and specify a glob of which source files to watch.
+
+```js
+$ amok --hot *.js http://localhost:4000
+```
+
+With a compiler, the glob is redundant, the compilation result will be monitored in-place of any input files.
+
+```sh
+$ amok --browser chrome --compiler tsc --hot app.ts
+```
+
+In the browser execution context, an event is dispatched on the window object after a successful patch has been applied, this can be used to perform certain actions like re-rendering with the knowledge there are new function definitions in action.
+
+```js
+window.on('patch', function(event) {
+  React.render(/*...*/);
+});
+```
+
 ## MANUALS
 
 See the manual pages for further information
