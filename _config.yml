@@ -1,4 +1,10 @@
-# Site settings
+defaults:
+  -
+    scope:
+      path: ""
+    values:
+      layout: "default"
+
 title: Amok
 tagline: No Reload Live Editing for JavaScript
 description: An open source tool for JavaScript, TypeScript, CoffeeScript and friends, it provides editor agnostic live editing, an interactive read-eval-print-loop, http development server, and more.
