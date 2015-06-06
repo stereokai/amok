@@ -1,4 +1,9 @@
 # DOCUMENTATION
+  * [INSTALLATION](#installation)
+  * [RUNNING](#running)
+  * [HOT PATCHING](#hot-patching)
+  * [MANUALS](#manuals)
+
 ## INSTALLATION
 
 **Amok** requires [node.js](http://nodejs.org) and [npm](http://npmjs.com) to run, if you're using Mac or Windows the best way to install node.js is to use one of the installers from [http://nodejs.org](http://nodejs.org), on Linux it should be available via the system package manager.
