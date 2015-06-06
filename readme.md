@@ -49,7 +49,7 @@ The project is free and open source, and has been backed by a number of
 [Daft Developers](http://daftdevelopers.com).
 
 If you would like to support development of the project consider contributing via [Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=E6AAA7DLLQU36&lc=NO&item_name=amok%2ejs&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted),
-**every a penny helps**.
+**every penny helps**.
 
 <table>
   <tr>
