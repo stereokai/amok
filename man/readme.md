@@ -11,7 +11,7 @@ $ npm install -g amok
 
 Depending on the system configuration, the command may need to be run with elevated user privileges.
 
-## USAGE
+## RUNNING
 
 **Amok** can either connect to an already running browser process or spawn a new browser process.
 
