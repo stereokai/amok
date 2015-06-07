@@ -82,7 +82,8 @@ The server port and hostname can be specified via the `http-port` and
 $ amok --http-port 4000 --browser chrome app.js
 ```
 
-The server can also preprocess scripts via `babel`, `coffee`, `tsc`, `watchify`
+## USING A PREPROCESSOR
+When using a server, **amok** can also preprocess scripts via `babel`, `coffee`, `tsc`, `watchify`
 or `webpack` with the `compiler` option, the resulting bundle will have the same
 name as the entry file.
 
