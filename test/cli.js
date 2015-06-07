@@ -124,6 +124,61 @@ browsers.forEach(function(browser) {
     });
   });
 
+  test('hot patch basic with server in ' + browser, function(test) {
+    test.plan(12);
+
+    var args = [
+      'bin/amok.js',
+      '--hot',
+      '--browser',
+      browser,
+      'test/fixture/hotpatch-basic/index.js'
+    ];
+
+    test.comment(args.join(' '));
+
+    var cli = child.spawn('node', args);
+    cli.stderr.pipe(process.stderr);
+
+    cli.on('close', function() {
+      test.pass('close');
+    });
+
+    var values = [
+      'step-0',
+      'step-1',
+      'step-2',
+      'step-3',
+      'step-4',
+      'step-5',
+      'step-6',
+      'step-7',
+      'step-8',
+      'step-9',
+      'step-0',
+    ];
+
+    var source = fs.readFileSync('test/fixture/hotpatch-basic/index.js', 'utf-8');
+    cli.stdout.setEncoding('utf-8');
+    cli.stdout.on('data', function(chunk) {
+      chunk.split('\n').forEach(function(line) {
+        if (line === '') {
+          return;
+        }
+
+        test.equal(line, values.shift(), line);
+
+        if (values[0] === undefined) {
+          return cli.kill('SIGTERM');
+        }
+
+        setTimeout(function() {
+          source = source.replace(line, values[0]);
+          fs.writeFileSync('test/fixture/hotpatch-basic/index.js', source, 'utf-8');
+        }, 50);
+      });
+    });
+  });
 
   compilers.forEach(function(compiler, index) {
     test('hot patch script compiled with ' + compiler + ' in ' + browser, function(test) {
