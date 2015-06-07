@@ -3,9 +3,9 @@
 <html lang="en">
   {% include head.html %}
 
-  <body class="site">
-    {% include header.html %}
+  <body data-url="{{ page.url }}">
+    {% include masthead.html %}
     {% include content.html %}
-    {% include footer.html %}
+    {% include colophon.html %}
   </body>
 </html>

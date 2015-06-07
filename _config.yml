@@ -5,18 +5,18 @@ defaults:
     values:
       layout: "default"
 
-title: Amok
-tagline: No Reload Live Editing for JavaScript
-description: An open source tool for JavaScript, TypeScript, CoffeeScript and friends, it provides editor agnostic live editing, an interactive read-eval-print-loop, http development server, and more.
-
 baseurl: ""
 url: "http://amokjs.com"
-
-npm: https://www.npmjs.com/package/amok
-github: https://github.com/caspervonb/amok
-gitter: https://gitter.im/caspervonb/amok
-
 analytics: UA-48351156-5
+
+highlight: pygments
+
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+embedly:
+  api_key: 4a6f19a3b7144d68bb3ef2c823d42ef5
 
 gems:
   - jekyll-sitemap
