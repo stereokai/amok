@@ -1,23 +1,4 @@
-$breakpoint-large: 64em;
-$breakpoint-medium: 42em;
-
-@mixin large {
-  @media screen and (min-width: #{$breakpoint-large}) {
-    @content;
-  }
-}
-
-@mixin medium {
-  @media screen and (min-width: #{$breakpoint-medium}) and (max-width: #{$breakpoint-large}) {
-    @content;
-  }
-}
-
-@mixin small {
-  @media screen and (max-width: #{$breakpoint-medium}) {
-    @content;
-  }
-}
+@import "breakpoints";
 
 * {
   box-sizing: border-box;
