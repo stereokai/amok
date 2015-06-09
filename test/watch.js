@@ -19,12 +19,13 @@ browsers.forEach(function(browser, index) {
     });
 
     runner.set('url', url.resolve('file://', path.join('/' + __dirname, '/fixture/watch-events/index.html')));
+    runner.set('port', 4000 + index);
 
     runner.set('cwd', 'test/fixture/watch-events');
     runner.use(amok.browser(browser));
     runner.use(amok.watch('*.txt'));
 
-    runner.connect(4000 + index, 'localhost', function(error, inspector, runner) {
+    runner.connect(runner.get('port'), 'localhost', function(error, inspector, runner) {
       test.error(error);
       test.ok(inspector, 'inspector');
       test.ok(runner, 'runner');

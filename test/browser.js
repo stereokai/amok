@@ -18,9 +18,10 @@ commands.forEach(function(command, index) {
     });
 
     runner.set('url', url.resolve('file://', path.join('/' + __dirname, '/fixture/basic/index.html')));
+    runner.set('port', 4000 + index);
 
     runner.use(amok.browser(command));
-    runner.connect(4000 + index, 'localhost', function(error, inspector, runner) {
+    runner.connect(runner.get('port'), 'localhost', function(error, inspector, runner) {
       test.error(error);
       test.ok(inspector);
       test.ok(runner);

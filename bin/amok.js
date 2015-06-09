@@ -39,6 +39,8 @@ program.option('-d, --cwd <DIR>', 'change working directory', process.cwd());
 program.parse(process.argv);
 
 amok.set('cwd', program.cwd);
+amok.set('port', program.debugPort);
+amok.set('host', program.debugHost);
 
 program.url = program.args.filter(function(arg) {
   return arg.match(/^(http|https|file|about:blank)/);
@@ -83,7 +85,7 @@ if (program.interactive) {
   amok.use(amok.print(process.stdout));
 }
 
-amok.connect(program.debugPort, program.debugHost, function(error) {
+amok.connect(amok.get('port'), amok.get('host'), function(error) {
   if (error) {
     process.stdout.write(error);
     process.exit(1);
