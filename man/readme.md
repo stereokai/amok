@@ -1,7 +1,9 @@
 # DOCUMENTATION
 
 **Amok** is first and foremost a command line debugging and development workflow
-tool for browsers, it works by connecting to a browser via a remote debugging
+tool for browsers, but also doubles as a framework for programmatic access.
+
+It works by connecting to a browser via a remote debugging
 protocol so there's no additional setup required beyond having the browser
 installed.
 
