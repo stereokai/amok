@@ -1,4 +1,7 @@
-# amok.browser -- spawn a local browser process
+## NAME
+
+amok.browser -- spawn a local browser process
+
 ## SYNOPSIS
 
 ```js

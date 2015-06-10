@@ -1,4 +1,7 @@
-# amok.Runner - debugging pipeline runner
+## NAME
+
+amok.Runner -- debugging pipeline runner
+
 ## SYNOPSIS
 ```js
 class Runner {
@@ -20,3 +23,7 @@ class Runner {
 :   emitted when the runner is closed.
 
 ## DESCRIPTION
+
+## SEE ALSO
+
+[amok.createRunner](amok.createRunner.3.md)

@@ -1,4 +1,7 @@
-# amok.Runner.connect
+## NAME
+
+amok.Runner.connect
+
 ## SYNOPSIS
 
 ```js

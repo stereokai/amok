@@ -1,4 +1,7 @@
-# amok.hotpatch -- watch source files and hot patch remote function definitions.
+## NAME
+
+amok.hotpatch -- watch source files and hot patch remote function definitions.
+
 ## SYNOPSIS
 
 ```js

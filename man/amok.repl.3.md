@@ -1,4 +1,7 @@
-# amok.print -- create a remote read-eval-print-loop
+## NAME
+
+amok.print -- create a remote read-eval-print-loop
+
 ## SYNOPSIS
 
 ```js

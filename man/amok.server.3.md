@@ -1,4 +1,7 @@
-# amok.server -- serve static files.
+## NAME
+
+amok.server -- serve static files.
+
 ## SYNOPSIS
 
 ```js

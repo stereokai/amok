@@ -1,4 +1,7 @@
-# amok.Runner.close -- detatch and signal closing
+## NAME
+
+amok.Runner.close -- close the runner
+
 ## SYNOPSIS
 
 ```js

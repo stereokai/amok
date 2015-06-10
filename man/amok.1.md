@@ -1,4 +1,7 @@
-# amok -- hot code patching, testing and debugging for browsers
+## NAME
+
+amok -- debugging and development tool for browsers
+
 ## SYNOPSIS
 
 **amok** [OPTION ...] _URL_ <br>

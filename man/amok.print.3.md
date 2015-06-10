@@ -1,4 +1,7 @@
-# amok.print -- redirect remote console to stream
+## NAME
+
+amok.print -- redirect remote console to stream
+
 ## SYNOPSIS
 
 ```js

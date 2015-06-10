@@ -1,4 +1,7 @@
-# amok.compiler -- watch and incrementally compile scripts.
+## NAME
+
+amok.compiler -- watch and incrementally compile scripts.
+
 ## SYNOPSIS
 
 ```js

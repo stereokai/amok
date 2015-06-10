@@ -1,4 +1,7 @@
-# amok.Runner.get
+## NAME
+
+amok.Runner.get -- get a setting value
+
 ## SYNOPSIS
 
 ```js

@@ -1,4 +1,7 @@
-# amok.createRunner -- creates a new instance of amok.Runner
+## NAME
+
+amok.createRunner -- creates a new instance of amok.Runner
+
 ## SYNOPSIS
 
 ```js
@@ -7,8 +10,7 @@ function createRunner();
 
 ## DESCRIPTION
 
-Creates a new instance of `amok.Runner`, equivalent with calling
-`new amok.Runner`.
+Creates a new instance of `amok.Runner`, equivalent with calling `new amok.Runner`.
 
 ## RETURN VALUE
 
@@ -24,3 +26,5 @@ var runner = amok.createRunner();
 ```
 
 ## SEE ALSO
+
+[amok.Runner](amok.Runner.3.md)

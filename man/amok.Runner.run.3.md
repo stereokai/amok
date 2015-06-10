@@ -1,4 +1,7 @@
-# amok.Runner.run
+## NAME
+
+amok.Runner.run -- run through the middleware stack
+
 ## SYNOPSIS
 
 ```js

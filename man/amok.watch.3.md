@@ -1,4 +1,7 @@
-# amok.watch -- watch files and dispatch events
+## NAME
+
+amok.watch -- watch files and dispatch events
+
 ## SYNOPSIS
 
 ```js
