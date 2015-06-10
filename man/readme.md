@@ -131,12 +131,35 @@ window.on('patch', function(event) {
 });
 ```
 
-## MANUALS
+## WATCHING THE FILE SYSTEM
+**Amok** can watch monitor the file system for changes with the `watch` option.
 
+```sh
+$ amok --watch *.css
+```
+Changes to files matching the pattern will be dispatched as events on the window
+object in the browser execution context, which could be used to perform domain
+specific actions like reloading assets.
+
+```js
+window.on('add', function(event) {
+  console.log('%s added', event.detail.filename);
+});
+
+window.on('change', function(event) {
+  console.log('%s changed', event.detail.filename);
+});
+
+window.on('unlink', function(event) {
+  console.log('%s removed', event.detail.filename);
+});
+```
+
+## MANUALS
 See the manual pages for further information
 
-* [amok(1)](amok.1.md)
+- [amok (1)](amok.1.md)
 :   browser development and debugging tool
 
-* [amok(3)](amok.3.md)
+- [amok (3)](amok.3.md)
 :   browser development and debugging framework for node.js
