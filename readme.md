@@ -18,7 +18,7 @@ $ npm install amok
 ## USAGE
 
 ```sh
-$ amok --browser --hot chrome index.js
+$ amok --hot --browser chrome index.js
 ```
 
 ## DOCUMENTATION
