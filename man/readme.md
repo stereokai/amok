@@ -25,9 +25,10 @@ Depending on the system configuration, the command may need to be run with
 elevated user privileges.
 
 ## CONNECTING TO A BROWSER
+
 To connect to a page in an existing browser process, run **amok** with the url
-in of the page, the existing browser has to be accepting debug connections on
-port 9222.
+in of the page, an existing browser process has to be accepting debug connections
+on port 9222.
 
 ```
 $ amok http://localhost:4000
@@ -40,26 +41,29 @@ $ amok http://localhost:4000 --debug-port 4000
 ```
 
 ## STARTING A BROWSER
-A new browser process can be spawned by specifying a type of browser for the
-browser option, the type of browser may be either `chrome` or `chromium`, this
-will search in `PATH` and vendor installation directories for a browser of that
-type.
+
+A browser be opened by specifying a type of browser for the browser option,
+the type of browser must be either `chrome` or `chromium`.
+
+**Amok** will search for the browser executable in `PATH` and default
+well-known vendor installation directories.
 
 ```sh
 $ amok --browser chrome http://localhost:4000
 ```
 
-An absolute path for the browser can be specified via environment variables, use
-this to specify the executable for alternative release channels or custom
-installation paths.
+An absolute path for the browser may be specified via a `*_BIN` environment
+variables, use this to specify the full executable path for alternative release
+channels like Chrome Canary.
 
 ```sh
 $ export CHROME_BIN="/absolute/path/to/executable"
 $ amok --browser chrome http://localhost:4000
 ```
 
-Additional command line arguments may also be specified via environment
-variables, use this to provide extra browser configuration.
+Additional command line arguments may also be specified via a `*_FLAGS`
+environment variables, use this to provide extra browser configuration,
+like providing a unique profile directory.
 
 ```sh
 $ export CHROME_FLAGS="--user-data-dir=/data_dir/"
@@ -67,7 +71,8 @@ $ amok --browser chrome http://localhost:4000
 ```
 
 ## STARTING A SERVER
-**Amok** can also spawn a server by providing a script file as the entry point,
+
+**Amok** can also start a server by providing a script file as the entry point,
 the server provides a generated index.html file if none is available with the
 script entries as script tags.
 
