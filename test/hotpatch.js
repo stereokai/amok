@@ -12,7 +12,7 @@ const browsers = [
 
 browsers.forEach(function(browser, index) {
   test('hot patch script in ' + browser, function(test) {
-    test.plan(15);
+    test.plan(13);
 
     var runner = amok.createRunner();
     runner.on('close', function() {
@@ -25,10 +25,8 @@ browsers.forEach(function(browser, index) {
     runner.use(amok.browser(browser));
     runner.use(amok.hotpatch('test/fixture/hotpatch-basic/*.js'));
 
-    runner.connect(runner.get('port'), 'localhost', function(error, inspector, runner) {
-      test.error(error);
-      test.ok(inspector, 'inspector');
-      test.ok(runner, 'runner');
+    runner.connect(runner.get('port'), 'localhost', function() {
+      test.pass('connect');
 
       var values = [
         'step-0',
@@ -45,7 +43,7 @@ browsers.forEach(function(browser, index) {
       ];
 
       var source = fs.readFileSync('test/fixture/hotpatch-basic/index.js', 'utf-8');
-      inspector.console.on('data', function(message) {
+      runner.inspector.console.on('data', function(message) {
         test.equal(message.text, values.shift(), message.text);
 
         if (values.length === 0) {
@@ -63,7 +61,7 @@ browsers.forEach(function(browser, index) {
 
 browsers.forEach(function(browser, index) {
   test('hot patch events in ' + browser, function(test) {
-    test.plan(5);
+    test.plan(3);
 
     var runner = amok.createRunner();
     runner.on('close', function() {
@@ -77,12 +75,10 @@ browsers.forEach(function(browser, index) {
     runner.use(amok.browser(browser));
     runner.use(amok.hotpatch('test/fixture/hotpatch-events/*.js'));
 
-    runner.connect(runner.get('port'), 'localhost', function(error, inspector, runner) {
-      test.error(error);
-      test.ok(inspector, 'inspector');
-      test.ok(runner, 'runner');
+    runner.connect(runner.get('port'), 'localhost', function() {
+      test.pass('connect');
 
-      inspector.console.on('data', function(message) {
+      runner.inspector.console.on('data', function(message) {
         test.equal(message.text, 'patch index.js');
         runner.close();
       });

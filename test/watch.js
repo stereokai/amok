@@ -11,7 +11,7 @@ const browsers = [
 
 browsers.forEach(function(browser, index) {
   test('watch events in ' + browser, function(test) {
-    test.plan(8);
+    test.plan(6);
 
     var runner = amok.createRunner();
     runner.on('close', function() {
@@ -25,10 +25,8 @@ browsers.forEach(function(browser, index) {
     runner.use(amok.browser(browser));
     runner.use(amok.watch('*.txt'));
 
-    runner.connect(runner.get('port'), 'localhost', function(error, inspector, runner) {
-      test.error(error);
-      test.ok(inspector, 'inspector');
-      test.ok(runner, 'runner');
+    runner.connect(runner.get('port'), 'localhost', function() {
+      test.pass('connect');
 
       var messages = [
         'ready',
@@ -37,7 +35,7 @@ browsers.forEach(function(browser, index) {
         'unlink file.txt'
       ];
 
-      inspector.console.on('data', function(message) {
+      runner.inspector.console.on('data', function(message) {
         test.equal(message.text, messages.shift(), message.text);
 
         if (message.text === 'ready') {

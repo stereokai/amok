@@ -85,12 +85,7 @@ if (program.interactive) {
   amok.use(amok.print(process.stdout));
 }
 
-amok.connect(amok.get('port'), amok.get('host'), function(error) {
-  if (error) {
-    process.stdout.write(error);
-    process.exit(1);
-  }
-});
+amok.connect(amok.get('port'), amok.get('host'));
 
 process.on('SIGTERM', function() {
   process.exit(0);

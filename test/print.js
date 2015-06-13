@@ -19,6 +19,7 @@ browsers.forEach(function(browser, index) {
     });
 
     runner.set('url', url.resolve('file://', path.join('/' + __dirname, '/fixture/basic/index.html')));
+    runner.set('port', 4000 + index);
 
     var output = new stream.Writable();
     output._write = function(chunk, encoding, callback) {
@@ -29,10 +30,8 @@ browsers.forEach(function(browser, index) {
     runner.use(amok.browser(browser));
     runner.use(amok.print(output));
 
-    runner.connect(4000 + index, 'localhost', function(error, inspector, runner) {
-      test.error(error);
-      test.ok(inspector);
-      test.ok(runner);
+    runner.connect(runner.get('port'), 'localhost', function() {
+      test.pass('connect');
     });
   });
 });
