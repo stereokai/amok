@@ -7,7 +7,7 @@ It features a zero configuration http server with default *index.html*
 generation, script preprocessing, console re-direction, hot patching functions
 in running code and a read-eval-print-loop.
 
-[See the demonstration video](http://www.youtube.com/watch?v=gOC2yQFsnnE).
+[Watch the video](http://www.youtube.com/watch?v=gOC2yQFsnnE).
 
 ## INSTALLATION
 
