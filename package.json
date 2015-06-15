@@ -23,7 +23,7 @@
     "amok": "bin/amok.js"
   },
   "dependencies": {
-    "browser_process": "git://github.com/caspervonb/node-browser_process.git",
+    "browser_process": "^1.0.0",
     "browserify": "^10.2.1",
     "chokidar": "^1.0.1",
     "commander": "^2.8.1",
