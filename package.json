@@ -27,7 +27,7 @@
     "browserify": "^10.2.1",
     "chokidar": "^1.0.1",
     "commander": "^2.8.1",
-    "compiler_process": "git://github.com/caspervonb/node-compiler_process.git",
+    "compiler_process": "^1.0.0",
     "mime": "^1.3.4",
     "rdbg": "git://github.com/caspervonb/node-rdbg.git",
     "temp": "^0.8.1",
