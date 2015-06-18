@@ -1,5 +1,5 @@
 # DOCUMENTATION
-
+## GETTING STARTED
 **Amok** is first and foremost a command line debugging and development workflow
 tool for browsers, but also doubles as a framework for programmatic access.
 
@@ -7,7 +7,7 @@ It works by connecting to a browser via a remote debugging
 protocol so there's no additional setup required beyond having the browser
 installed.
 
-## INSTALLING
+### INSTALLING
 
 Amok requires [node.js](http://nodejs.org) and [npm](http://npmjs.com) to run,
 if you're using Mac or Windows the best way to install node.js is to use one of
@@ -24,7 +24,7 @@ $ npm install -g amok
 Depending on the system configuration, the command may need to be run with
 elevated user privileges.
 
-## CONNECTING TO A BROWSER
+### CONNECTING TO A BROWSER
 
 To connect to a page in an existing browser process, run **amok** with the url
 in of the page, an existing browser process has to be accepting debug connections
@@ -40,7 +40,7 @@ The debugging port can be specified with the `debug-port` option.
 $ amok http://localhost:4000 --debug-port 4000
 ```
 
-## STARTING A BROWSER
+### STARTING A BROWSER
 
 A browser be opened by specifying a type of browser for the browser option,
 the type of browser must be either `chrome` or `chromium`.
@@ -87,7 +87,7 @@ The server port and hostname can be specified via the `http-port` and
 $ amok --http-port 4000 --browser chrome app.js
 ```
 
-## USING A PREPROCESSOR
+### USING A PREPROCESSOR
 When using a server, **amok** can also preprocess scripts via `babel`, `coffee`, `tsc`, `watchify`
 or `webpack` with the `compiler` option, the resulting bundle will have the same
 name as the entry file.
@@ -104,7 +104,7 @@ command line options to the compiler.
 $ amok --browser chrome --compiler webpack app.js -- --module-bind js=babel
 ```
 
-## HOT PATCHING SCRIPTS
+### HOT PATCHING SCRIPTS
 **Amok** supports monitoring source files and hot patching function definitions
 in active scripts when the source files change, scripts may become inactive and
 garbage collected when nothing is referencing them, for instance if there are no
@@ -138,7 +138,7 @@ window.on('patch', function(event) {
 });
 ```
 
-## WATCHING THE FILE SYSTEM
+### WATCHING THE FILE SYSTEM
 **Amok** can watch monitor the file system for changes with the `watch` option.
 
 ```sh
