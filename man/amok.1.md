@@ -43,26 +43,18 @@ by default this will be on port `9222`.
 by default this will be `localhost`.
 
 `-b`, `--browser` _BROWSER_
-:   Open the input or server url in the specified browser which must be either
-`chrome` or `chromium`. The `CHROME_BIN` and `CHROMIUM_BIN` environment
-variables specify the the location of   the executable, if left undefined amok
-will search in `PATH` and the default installation path of the browser for the
-executable.
-
-The `CHROME_FLAGS` and `CHROMIUM_FLAGS` can be used to specify a list of comma
-separated arguments to use when spawning the browser process.
+:   Open the url in the specified browser which must be either `chrome` or `chromium`.
 
 `-c`, `--cwd` _DIR_
 :   Change the working directory to the specified directory, this directory
 serves as the root from which the http server serves its files from;
 
 `-w`, `--watch` _GLOB_
-:   Enables monitoring of the given glob pattern in the file system,
-dispatching events on the window object
+:   Enables monitoring of files matching the given glob pattern,
+dispatching notifications in the forms of events on the window object
 
 `-t`, `--hot` _GLOB_
-:   Enables monitoring of input files and if specified the given glob pattern,
-hot patching functions without interrupting execution on file change.
+:   Enables monitoring of active script files matching the specified glob pattern, hot patching function definitions on source file changes.
 
 `--http-port` _PORT_
 :   The port number where the http server will listen on when serving input *files*,
@@ -74,8 +66,6 @@ by default this will be `localhost`.
 
 `-i`, `--interactive`
 :   Starts **amok** in a read-eval-print-loop.
-
-`-v`, `--verbose`
 :   Enables verbose output mode.
 
 `-h`, `--help`
@@ -116,20 +106,23 @@ addEventListener('patch', function(event) {
 ## ENVIRONMENT
 
 * `CHROME_BIN`
-:   The full path to a `Chromium` executable to use when opening a `chromium`
-    browser with the `--browser` option.
+:   Path to a chrome executable used when opening chrome.
 
 * `CHROME_FLAGS`
-:   List of comma separated command line flags to use then opening `Google Chrome` with the `--browser` option.
+:   List of command line flags used when opening chrome.
 
 * `CHROMIUM_BIN`
-:   The full path to a `Chromium` executable to use when using the `chromium`
-    browser with the `--browser` option.
+:   Path to a chromium executable used when opening chromium.
 
 * `CHROMIUM_FLAGS`
-:   List of comma separated command line flags to use then opening `chromium` with the `--browser` option.
+:   List of command line options used when opening chromium.
 
 ## EXAMPLES
+
+Connect to an existing browser tab
+```sh
+$ amok http://localhost:4000
+```
 
 Open chrome with a local file system URL
 
@@ -143,7 +136,7 @@ Open chrome with an external server URL
 $ amok --browser chrome http://localhost:4000
 ```
 
-Open chrome with a server and compiler
+Open chrome with an internal server and compiler
 
 ```sh
 $ amok --browser chrome --compiler watchify lib/index.js
@@ -151,10 +144,7 @@ $ amok --browser chrome --compiler watchify lib/index.js
 
 ## BUGS
 
-`Google Chrome` and `Chromium Browser` only allow a single client connection at any
-given time, and the `Chrome Developer Tools` count towards that limit and has
-priority access so inspecting the page in the browser will cause **amok** to
-disconnect, for more information see <http://crbug.com/129539>
+Chrome and Chromium only allow a connection at a time, the embedded developer tools will forcefully take away this connection when opened and disconnect amok, for more information see <http://crbug.com/129539>
 
 ## COPYRIGHT
 
