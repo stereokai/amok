@@ -11,7 +11,7 @@ const browsers = [
 
 browsers.forEach(function(browser, index) {
   test('open url in ' + browser, function(test) {
-    test.plan(2);
+    test.plan(3);
 
     var runner = amok.createRunner();
     runner.on('close', function() {

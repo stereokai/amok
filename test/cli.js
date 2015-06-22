@@ -68,7 +68,7 @@ test('cli print help', function(test) {
 
 browsers.forEach(function(browser) {
   test('hot patch basic with file url in ' + browser, function(test) {
-    test.plan(12);
+    test.plan(23);
 
     var args = [
       'bin/amok.js',
@@ -89,6 +89,7 @@ browsers.forEach(function(browser) {
     });
 
     var values = [
+      'ready',
       'step-0',
       'step-1',
       'step-2',
@@ -106,20 +107,24 @@ browsers.forEach(function(browser) {
     cli.stdout.setEncoding('utf-8');
     cli.stdout.on('data', function(chunk) {
       chunk.split('\n').forEach(function(line) {
-        if (line === '') {
+        if (line.length === 0) {
           return;
         }
 
+        test.comment(line);
         test.equal(line, values.shift(), line);
 
         if (values[0] === undefined) {
-          return cli.kill('SIGTERM');
-        }
-
-        setTimeout(function() {
+          cli.kill('SIGTERM')
+        } else if (line.match(/^step/)) {
           source = source.replace(line, values[0]);
-          fs.writeFileSync('test/fixture/hotpatch-basic/index.js', source, 'utf-8');
-        }, 50);
+
+          setTimeout(function() {
+            fs.writeFile('test/fixture/hotpatch-basic/index.js', source, 'utf-8', function(error) {
+              test.error(error);
+            });
+          }, 1000);
+        }
       });
     });
   });
@@ -127,7 +132,7 @@ browsers.forEach(function(browser) {
 
 browsers.forEach(function(browser) {
   test('hot patch basic with server in ' + browser, function(test) {
-    test.plan(12);
+    test.plan(13);
 
     var args = [
       'bin/amok.js',
@@ -147,6 +152,7 @@ browsers.forEach(function(browser) {
     });
 
     var values = [
+      'ready',
       'step-0',
       'step-1',
       'step-2',
@@ -164,20 +170,21 @@ browsers.forEach(function(browser) {
     cli.stdout.setEncoding('utf-8');
     cli.stdout.on('data', function(chunk) {
       chunk.split('\n').forEach(function(line) {
-        if (line === '') {
+        if (line.length === 0) {
           return;
         }
 
         test.equal(line, values.shift(), line);
 
         if (values[0] === undefined) {
-          return cli.kill('SIGTERM');
-        }
-
-        setTimeout(function() {
+          cli.kill('SIGTERM')
+        } else if (line.match(/^step/)) {
           source = source.replace(line, values[0]);
-          fs.writeFileSync('test/fixture/hotpatch-basic/index.js', source, 'utf-8');
-        }, 50);
+
+          setTimeout(function() {
+            fs.writeFileSync('test/fixture/hotpatch-basic/index.js', source, 'utf-8');
+          }, 1000);
+        }
       });
     });
   });
@@ -185,8 +192,8 @@ browsers.forEach(function(browser) {
 
 browsers.forEach(function(browser) {
   compilers.forEach(function(compiler, index) {
-    test('hot patch script compiled with ' + compiler + ' in ' + browser, function(test) {
-      test.plan(12);
+    test('hot patch basic compiled with ' + compiler + ' in ' + browser, function(test) {
+      test.plan(13);
 
       var dirname = 'test/fixture/hotpatch-' + compiler;
       var entries = fs.readdirSync(dirname).map(function(filename) {
@@ -217,6 +224,7 @@ browsers.forEach(function(browser) {
       });
 
       var values = [
+        'ready',
         'step-0',
         'step-1',
         'step-2',
@@ -241,13 +249,14 @@ browsers.forEach(function(browser) {
           test.equal(line, values.shift(), line);
 
           if (values[0] === undefined) {
-            return cli.kill('SIGTERM');
-          }
-
-          setTimeout(function() {
+            cli.kill('SIGTERM')
+          } else if (line.match(/step/)) {
             source = source.replace(line, values[0]);
-            fs.writeFileSync(entries[0], source, 'utf-8');
-          }, 1000);
+
+            setTimeout(function() {
+              fs.writeFileSync(entries[0], source, 'utf-8');
+            }, 1000);
+          }
         });
       });
     });
@@ -287,7 +296,7 @@ browsers.forEach(function(browser) {
     cli.stdout.setEncoding('utf-8');
     cli.stdout.on('data', function(chunk) {
       chunk.split('\n').forEach(function(line) {
-        if (line === '') {
+        if (line.length === 0) {
           return;
         }
 

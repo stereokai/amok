@@ -25,9 +25,9 @@ commands.forEach(function(command, index) {
     });
 
     runner.use(amok.compiler(command, entries));
-    runner.run(function(error, inspector, runner) {
+    runner.run(function(error, client, runner) {
       test.error(error);
-      test.ok(inspector, 'inspector');
+      test.ok(client, 'client');
       test.ok(runner, 'runner');
 
       var scripts = runner.get('scripts');

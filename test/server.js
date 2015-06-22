@@ -18,9 +18,9 @@ test('serve index.html', function(test) {
   runner.set('cwd', 'test/fixture/basic');
   runner.use(amok.server(9966, 'localhost'));
 
-  runner.run(function(error, inspector, runner) {
+  runner.run(function(error, client, runner) {
     test.error(error);
-    test.ok(inspector, 'inspector');
+    test.ok(client, 'client');
     test.ok(runner, 'runner');
 
     test.equal(runner.get('url'), url.format({
@@ -77,9 +77,9 @@ test('generate index.html', function(test) {
 
   runner.use(amok.server(9966, 'localhost'));
 
-  runner.run(function(error, inspector, runner) {
+  runner.run(function(error, client, runner) {
     test.error(error);
-    test.ok(inspector, 'inspector');
+    test.ok(client, 'client');
     test.ok(runner, 'runner');
 
     test.equal(runner.get('url'), url.format({
@@ -136,9 +136,9 @@ test('generate favicon.ico', function(test) {
 
   runner.use(amok.server(9966, 'localhost'));
 
-  runner.run(function(error, inspector, runner) {
+  runner.run(function(error, client, runner) {
     test.error(error);
-    test.ok(inspector, 'inspector');
+    test.ok(client, 'client');
     test.ok(runner, 'runner');
 
     test.equal(runner.get('url'), url.format({
@@ -185,9 +185,9 @@ test('generate index.html', function(test) {
 
   runner.use(amok.server(9966, 'localhost'));
 
-  runner.run(function(error, inspector, runner) {
+  runner.run(function(error, client, runner) {
     test.error(error);
-    test.ok(inspector, 'inspector');
+    test.ok(client, 'client');
     test.ok(runner, 'runner');
 
     test.equal(runner.get('url'), url.format({
@@ -249,9 +249,9 @@ test('serve scripts', function(test) {
 
   runner.use(amok.server(9966, 'localhost'));
 
-  runner.run(function(error, inspector, runner) {
+  runner.run(function(error, client, runner) {
     test.error(error);
-    test.ok(inspector, 'inspector');
+    test.ok(client, 'client');
     test.ok(runner, 'runner');
 
     test.equal(runner.get('url'), url.format({

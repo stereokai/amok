@@ -11,8 +11,8 @@ const browsers = [
 ];
 
 browsers.forEach(function(browser, index) {
-  test('hot patch script in ' + browser, function(test) {
-    test.plan(13);
+  test('hot patch basic script in ' + browser, function(test) {
+    test.plan(35);
 
     var runner = amok.createRunner();
     runner.on('close', function() {
@@ -29,6 +29,7 @@ browsers.forEach(function(browser, index) {
       test.pass('connect');
 
       var values = [
+        'ready',
         'step-0',
         'step-1',
         'step-2',
@@ -43,17 +44,26 @@ browsers.forEach(function(browser, index) {
       ];
 
       var source = fs.readFileSync('test/fixture/hotpatch-basic/index.js', 'utf-8');
-      runner.inspector.console.on('data', function(message) {
+
+      runner.client.console.on('data', function(message) {
         test.equal(message.text, values.shift(), message.text);
 
-        if (values.length === 0) {
-          return runner.close();
-        }
-
-        setTimeout(function() {
+        if (values[0] === undefined) {
+          runner.close();
+        } else if (message.text.match(/step/)) {
           source = source.replace(message.text, values[0]);
-          fs.writeFileSync('test/fixture/hotpatch-basic/index.js', source, 'utf-8');
-        }, 50);
+          test.notEqual(source, fs.readFileSync('test/fixture/hotpatch-basic/index.js'));
+
+          setTimeout(function() {
+            fs.writeFile('test/fixture/hotpatch-basic/index.js', source, 'utf-8', function(error) {
+              test.error(error);
+            });
+          }, 1000);
+        }
+      });
+
+      runner.client.console.enable(function(error) {
+        test.error(error);
       });
     });
   });
@@ -61,7 +71,7 @@ browsers.forEach(function(browser, index) {
 
 browsers.forEach(function(browser, index) {
   test('hot patch events in ' + browser, function(test) {
-    test.plan(3);
+    test.plan(6);
 
     var runner = amok.createRunner();
     runner.on('close', function() {
@@ -78,13 +88,30 @@ browsers.forEach(function(browser, index) {
     runner.connect(runner.get('port'), 'localhost', function() {
       test.pass('connect');
 
-      runner.inspector.console.on('data', function(message) {
-        test.equal(message.text, 'patch index.js');
-        runner.close();
+      var values = [
+        'ready',
+        'patch index.js',
+      ];
+
+      runner.client.console.on('data', function(message) {
+
+        test.equal(message.text, values.shift());
+
+        if (values[0] === undefined) {
+          runner.close();
+        } else if (message.text.match(/ready/)) {
+          var source = fs.readFileSync('test/fixture/hotpatch-events/index.js', 'utf-8');
+          setTimeout(function() {
+            fs.writeFile('test/fixture/hotpatch-events/index.js', source, 'utf-8', function(error) {
+              test.error(error);
+            });
+          }, 1000);
+        }
       });
 
-      var source = fs.readFileSync('test/fixture/hotpatch-events/index.js', 'utf-8');
-      fs.writeFileSync('test/fixture/hotpatch-events/index.js', source, 'utf-8');
+      runner.client.console.enable(function(error) {
+        test.error(error);
+      });
     });
   });
 });

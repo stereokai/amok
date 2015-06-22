@@ -10,7 +10,7 @@ const commands = [
 
 commands.forEach(function(command, index) {
   test('open url in ' + command, function(test) {
-    test.plan(2);
+    test.plan(3);
 
     var runner = amok.createRunner();
     runner.on('close', function() {
@@ -22,9 +22,16 @@ commands.forEach(function(command, index) {
 
     runner.use(amok.browser(command));
     runner.connect(runner.get('port'), 'localhost', function() {
-      runner.inspector.console.on('data', function(message) {
+      runner.client.console.on('data', function(message) {
         test.equal(message.text, 'ready');
-        runner.close();
+
+        setTimeout(function() {
+          runner.close();
+        }, 100);
+      });
+
+      runner.client.console.enable(function(error) {
+        test.error(error);
       });
     });
   });

@@ -11,7 +11,7 @@ const browsers = [
 
 browsers.forEach(function(browser, index) {
   test('watch events in ' + browser, function(test) {
-    test.plan(6);
+    test.plan(7);
 
     var runner = amok.createRunner();
     runner.on('close', function() {
@@ -28,27 +28,29 @@ browsers.forEach(function(browser, index) {
     runner.connect(runner.get('port'), 'localhost', function() {
       test.pass('connect');
 
-      var messages = [
+      var values = [
         'ready',
         'add file.txt',
         'change file.txt',
         'unlink file.txt'
       ];
 
-      runner.inspector.console.on('data', function(message) {
-        test.equal(message.text, messages.shift(), message.text);
+      runner.client.console.on('data', function(message) {
+        test.equal(message.text, values.shift(), message.text);
 
-        if (message.text === 'ready') {
+        if (values[0] === undefined) {
+          runner.close();
+        } if (message.text === 'ready') {
           fs.writeFileSync('test/fixture/watch-events/file.txt', 'hello', 'utf-8');
         } else if (message.text === 'add file.txt') {
           fs.writeFileSync('test/fixture/watch-events/file.txt', 'hello world', 'utf-8');
         } else if (message.text === 'change file.txt') {
           fs.unlinkSync('test/fixture/watch-events/file.txt');
         }
+      });
 
-        if (messages.length === 0) {
-          runner.close();
-        }
+      runner.client.console.enable(function(error) {
+        test.error(error);
       });
     });
   });
