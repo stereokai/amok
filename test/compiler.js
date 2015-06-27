@@ -1,9 +1,9 @@
-const amok = require('..');
-const test = require('tape');
-const fs = require('fs');
-const path = require('path');
+var amok = require('..');
+var test = require('tape');
+var fs = require('fs');
+var path = require('path');
 
-const commands = [
+var commands = [
   'babel',
   'coffee',
   'tsc',

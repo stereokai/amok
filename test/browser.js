@@ -1,9 +1,9 @@
-const amok = require('..');
-const test = require('tape');
-const url = require('url');
-const path = require('path');
+var amok = require('..');
+var test = require('tape');
+var url = require('url');
+var path = require('path');
 
-const commands = [
+var commands = [
   'chrome',
   'chromium',
 ];

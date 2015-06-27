@@ -1,9 +1,9 @@
-const amok = require('..');
-const test = require('tape');
-const url = require('url');
-const http = require('http');
-const fs = require('fs');
-const path = require('path');
+var amok = require('..');
+var test = require('tape');
+var url = require('url');
+var http = require('http');
+var fs = require('fs');
+var path = require('path');
 
 test('serve index.html', function(test) {
   test.plan(9);

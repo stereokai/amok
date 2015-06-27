@@ -1,5 +1,5 @@
-const amok = require('..');
-const test = require('tape');
+var amok = require('..');
+var test = require('tape');
 
 test('run plugins', function(test) {
   test.plan(4);

@@ -1,10 +1,10 @@
-const amok = require('..');
-const test = require('tape');
-const stream = require('stream');
-const url = require('url');
-const path = require('path');
+var amok = require('..');
+var test = require('tape');
+var stream = require('stream');
+var url = require('url');
+var path = require('path');
 
-const browsers = [
+var browsers = [
   'chrome',
   'chromium',
 ];

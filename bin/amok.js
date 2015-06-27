@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-const amok = require('..');
-const program = require('commander');
+var amok = require('..');
+var program = require('commander');
 
 program.version(require('../package.json').version);
 

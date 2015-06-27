@@ -1,16 +1,16 @@
-const child = require('child_process');
-const http = require('http');
-const test = require('tape');
-const fs = require('fs');
-const path = require('path');
-const url = require('url');
+var child = require('child_process');
+var http = require('http');
+var test = require('tape');
+var fs = require('fs');
+var path = require('path');
+var url = require('url');
 
-const browsers = [
+var browsers = [
   'chrome',
   'chromium',
 ];
 
-const compilers = [
+var compilers = [
   'babel',
   'coffee',
   'tsc',

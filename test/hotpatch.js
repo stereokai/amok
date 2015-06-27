@@ -1,11 +1,11 @@
-const amok = require('..');
-const fs = require('fs');
-const http = require('http');
-const test = require('tape');
-const url = require('url');
-const path = require('path');
+var amok = require('..');
+var fs = require('fs');
+var http = require('http');
+var test = require('tape');
+var url = require('url');
+var path = require('path');
 
-const browsers = [
+var browsers = [
   'chrome',
   'chromium',
 ];
