@@ -85,6 +85,12 @@ if (program.interactive) {
   amok.use(amok.print(process.stdout));
 }
 
+amok.on('connect', function() {
+  amok.client.on('error', function(error) {
+    process.stderr.write(error.description + '\n');
+  });
+});
+
 amok.connect(amok.get('port'), amok.get('host'));
 
 process.on('SIGTERM', function() {
