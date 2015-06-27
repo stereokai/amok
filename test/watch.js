@@ -9,12 +9,12 @@ var browsers = [
   'chromium',
 ];
 
-browsers.forEach(function(browser, index) {
-  test('watch events in ' + browser, function(test) {
+browsers.forEach(function (browser, index) {
+  test('watch events in ' + browser, function (test) {
     test.plan(7);
 
     var runner = amok.createRunner();
-    runner.on('close', function() {
+    runner.on('close', function () {
       test.pass('close');
     });
 
@@ -25,7 +25,7 @@ browsers.forEach(function(browser, index) {
     runner.use(amok.browser(browser));
     runner.use(amok.watch('*.txt'));
 
-    runner.connect(runner.get('port'), 'localhost', function() {
+    runner.connect(runner.get('port'), 'localhost', function () {
       test.pass('connect');
 
       var values = [
@@ -35,7 +35,7 @@ browsers.forEach(function(browser, index) {
         'unlink file.txt'
       ];
 
-      runner.client.console.on('data', function(message) {
+      runner.client.console.on('data', function (message) {
         test.equal(message.text, values.shift(), message.text);
 
         if (values[0] === undefined) {
@@ -49,7 +49,7 @@ browsers.forEach(function(browser, index) {
         }
       });
 
-      runner.client.console.enable(function(error) {
+      runner.client.console.enable(function (error) {
         test.error(error);
       });
     });

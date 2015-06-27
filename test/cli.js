@@ -18,56 +18,56 @@ var compilers = [
   'webpack',
 ];
 
-test('print version', function(test) {
+test('print version', function (test) {
   test.plan(4);
   var options = [
     '-V',
     '--version'
   ];
 
-  options.forEach(function(option) {
+  options.forEach(function (option) {
     var args = ['bin/amok.js', option];
     test.comment(args.join(' '));
 
     var cli = child.spawn('node', args);
 
-    cli.stdout.on('data', function(data) {
+    cli.stdout.on('data', function (data) {
       var message = data.toString();
       test.equal(message, require('../package.json').version + '\n');
     });
 
-    cli.on('close', function(code) {
+    cli.on('close', function (code) {
       test.equal(code, 0);
     });
   });
 });
 
-test('cli print help', function(test) {
+test('cli print help', function (test) {
   test.plan(4);
   var options = [
     '-h',
     '--help'
   ];
 
-  options.forEach(function(option) {
+  options.forEach(function (option) {
     var args = ['./bin/amok.js', option];
     test.comment(args.join(' '));
 
     var cli = child.spawn('node', args);
 
-    cli.stdout.on('data', function(data) {
+    cli.stdout.on('data', function (data) {
       var message = data.toString();
       test.ok(message.indexOf('Usage:') > -1);
     });
 
-    cli.on('close', function(code) {
+    cli.on('close', function (code) {
       test.equal(code, 0);
     });
   });
 });
 
-browsers.forEach(function(browser) {
-  test('hot patch basic with file url in ' + browser, function(test) {
+browsers.forEach(function (browser) {
+  test('hot patch basic with file url in ' + browser, function (test) {
     test.plan(23);
 
     var args = [
@@ -84,7 +84,7 @@ browsers.forEach(function(browser) {
     var cli = child.spawn('node', args);
     cli.stderr.pipe(process.stderr);
 
-    cli.on('close', function() {
+    cli.on('close', function () {
       test.pass('close');
     });
 
@@ -105,8 +105,8 @@ browsers.forEach(function(browser) {
 
     var source = fs.readFileSync('test/fixture/hotpatch-basic/index.js', 'utf-8');
     cli.stdout.setEncoding('utf-8');
-    cli.stdout.on('data', function(chunk) {
-      chunk.split('\n').forEach(function(line) {
+    cli.stdout.on('data', function (chunk) {
+      chunk.split('\n').forEach(function (line) {
         if (line.length === 0) {
           return;
         }
@@ -119,8 +119,8 @@ browsers.forEach(function(browser) {
         } else if (line.match(/^step/)) {
           source = source.replace(line, values[0]);
 
-          setTimeout(function() {
-            fs.writeFile('test/fixture/hotpatch-basic/index.js', source, 'utf-8', function(error) {
+          setTimeout(function () {
+            fs.writeFile('test/fixture/hotpatch-basic/index.js', source, 'utf-8', function (error) {
               test.error(error);
             });
           }, 1000);
@@ -130,8 +130,8 @@ browsers.forEach(function(browser) {
   });
 });
 
-browsers.forEach(function(browser) {
-  test('hot patch basic with server in ' + browser, function(test) {
+browsers.forEach(function (browser) {
+  test('hot patch basic with server in ' + browser, function (test) {
     test.plan(13);
 
     var args = [
@@ -147,7 +147,7 @@ browsers.forEach(function(browser) {
     var cli = child.spawn('node', args);
     cli.stderr.pipe(process.stderr);
 
-    cli.on('close', function() {
+    cli.on('close', function () {
       test.pass('close');
     });
 
@@ -168,8 +168,8 @@ browsers.forEach(function(browser) {
 
     var source = fs.readFileSync('test/fixture/hotpatch-basic/index.js', 'utf-8');
     cli.stdout.setEncoding('utf-8');
-    cli.stdout.on('data', function(chunk) {
-      chunk.split('\n').forEach(function(line) {
+    cli.stdout.on('data', function (chunk) {
+      chunk.split('\n').forEach(function (line) {
         if (line.length === 0) {
           return;
         }
@@ -181,7 +181,7 @@ browsers.forEach(function(browser) {
         } else if (line.match(/^step/)) {
           source = source.replace(line, values[0]);
 
-          setTimeout(function() {
+          setTimeout(function () {
             fs.writeFileSync('test/fixture/hotpatch-basic/index.js', source, 'utf-8');
           }, 1000);
         }
@@ -190,15 +190,15 @@ browsers.forEach(function(browser) {
   });
 });
 
-browsers.forEach(function(browser) {
-  compilers.forEach(function(compiler, index) {
-    test('hot patch basic compiled with ' + compiler + ' in ' + browser, function(test) {
+browsers.forEach(function (browser) {
+  compilers.forEach(function (compiler, index) {
+    test('hot patch basic compiled with ' + compiler + ' in ' + browser, function (test) {
       test.plan(13);
 
       var dirname = 'test/fixture/hotpatch-' + compiler;
-      var entries = fs.readdirSync(dirname).map(function(filename) {
+      var entries = fs.readdirSync(dirname).map(function (filename) {
         return path.join(dirname, filename);
-      }).filter(function(filename) {
+      }).filter(function (filename) {
         return filename.match(/(.js|.ts|.coffee)$/);
       });
 
@@ -219,7 +219,7 @@ browsers.forEach(function(browser) {
       var cli = child.spawn('node', args);
       cli.stderr.pipe(process.stderr);
 
-      cli.on('close', function() {
+      cli.on('close', function () {
         test.pass('close');
       });
 
@@ -240,8 +240,8 @@ browsers.forEach(function(browser) {
 
       var source = fs.readFileSync(entries[0], 'utf-8');
       cli.stdout.setEncoding('utf-8');
-      cli.stdout.on('data', function(chunk) {
-        chunk.split('\n').forEach(function(line) {
+      cli.stdout.on('data', function (chunk) {
+        chunk.split('\n').forEach(function (line) {
           if (line === '') {
             return;
           }
@@ -253,7 +253,7 @@ browsers.forEach(function(browser) {
           } else if (line.match(/step/)) {
             source = source.replace(line, values[0]);
 
-            setTimeout(function() {
+            setTimeout(function () {
               fs.writeFileSync(entries[0], source, 'utf-8');
             }, 1000);
           }
@@ -263,8 +263,8 @@ browsers.forEach(function(browser) {
   });
 });
 
-browsers.forEach(function(browser) {
-  test('print watch events with file url in ' + browser, function(test) {
+browsers.forEach(function (browser) {
+  test('print watch events with file url in ' + browser, function (test) {
     test.plan(5);
 
     var args = [
@@ -282,7 +282,7 @@ browsers.forEach(function(browser) {
 
     var cli = child.spawn('node', args);
     cli.stderr.pipe(process.stderr);
-    cli.on('close', function() {
+    cli.on('close', function () {
       test.pass('close');
     });
 
@@ -294,8 +294,8 @@ browsers.forEach(function(browser) {
     ];
 
     cli.stdout.setEncoding('utf-8');
-    cli.stdout.on('data', function(chunk) {
-      chunk.split('\n').forEach(function(line) {
+    cli.stdout.on('data', function (chunk) {
+      chunk.split('\n').forEach(function (line) {
         if (line.length === 0) {
           return;
         }
@@ -318,8 +318,8 @@ browsers.forEach(function(browser) {
   });
 });
 
-browsers.forEach(function(browser) {
-  test('print watch events with server in ' + browser, function(test) {
+browsers.forEach(function (browser) {
+  test('print watch events with server in ' + browser, function (test) {
     test.plan(5);
 
     var args = [
@@ -335,7 +335,7 @@ browsers.forEach(function(browser) {
 
     var cli = child.spawn('node', args);
     cli.stderr.pipe(process.stderr);
-    cli.on('close', function() {
+    cli.on('close', function () {
       test.pass('close');
     });
 
@@ -347,8 +347,8 @@ browsers.forEach(function(browser) {
     ];
 
     cli.stdout.setEncoding('utf-8');
-    cli.stdout.on('data', function(chunk) {
-      chunk.split('\n').forEach(function(line) {
+    cli.stdout.on('data', function (chunk) {
+      chunk.split('\n').forEach(function (line) {
         if (line === '') {
           return;
         }

@@ -8,12 +8,12 @@ var commands = [
   'chromium',
 ];
 
-commands.forEach(function(command, index) {
-  test('open url in ' + command, function(test) {
+commands.forEach(function (command, index) {
+  test('open url in ' + command, function (test) {
     test.plan(3);
 
     var runner = amok.createRunner();
-    runner.on('close', function() {
+    runner.on('close', function () {
       test.pass('close');
     });
 
@@ -21,16 +21,16 @@ commands.forEach(function(command, index) {
     runner.set('port', 4000 + index);
 
     runner.use(amok.browser(command));
-    runner.connect(runner.get('port'), 'localhost', function() {
-      runner.client.console.on('data', function(message) {
+    runner.connect(runner.get('port'), 'localhost', function () {
+      runner.client.console.on('data', function (message) {
         test.equal(message.text, 'ready');
 
-        setTimeout(function() {
+        setTimeout(function () {
           runner.close();
         }, 100);
       });
 
-      runner.client.console.enable(function(error) {
+      runner.client.console.enable(function (error) {
         test.error(error);
       });
     });

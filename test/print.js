@@ -9,12 +9,12 @@ var browsers = [
   'chromium',
 ];
 
-browsers.forEach(function(browser, index) {
-  test('open url in ' + browser, function(test) {
+browsers.forEach(function (browser, index) {
+  test('open url in ' + browser, function (test) {
     test.plan(3);
 
     var runner = amok.createRunner();
-    runner.on('close', function() {
+    runner.on('close', function () {
       test.pass('close');
     });
 
@@ -22,7 +22,7 @@ browsers.forEach(function(browser, index) {
     runner.set('port', 4000 + index);
 
     var output = new stream.Writable();
-    output._write = function(chunk, encoding, callback) {
+    output._write = function (chunk, encoding, callback) {
       test.assert(chunk, 'ready\n');
       runner.close();
     };
@@ -30,7 +30,7 @@ browsers.forEach(function(browser, index) {
     runner.use(amok.browser(browser));
     runner.use(amok.print(output));
 
-    runner.connect(runner.get('port'), 'localhost', function() {
+    runner.connect(runner.get('port'), 'localhost', function () {
       test.pass('connect');
     });
   });

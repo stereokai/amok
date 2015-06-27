@@ -5,11 +5,11 @@ var http = require('http');
 var fs = require('fs');
 var path = require('path');
 
-test('serve index.html', function(test) {
+test('serve index.html', function (test) {
   test.plan(9);
 
   var runner = amok.createRunner();
-  runner.on('close', function() {
+  runner.on('close', function () {
     test.pass('close');
   });
 
@@ -18,7 +18,7 @@ test('serve index.html', function(test) {
   runner.set('cwd', 'test/fixture/basic');
   runner.use(amok.server(9966, 'localhost'));
 
-  runner.run(function(error, client, runner) {
+  runner.run(function (error, client, runner) {
     test.error(error);
     test.ok(client, 'client');
     test.ok(runner, 'runner');
@@ -30,40 +30,40 @@ test('serve index.html', function(test) {
       pathname: '/'
     }));
 
-    pathnames.forEach(function(pathname) {
+    pathnames.forEach(function (pathname) {
       http.get({
         port: 9966,
         hostname: 'localhost',
         path: pathname
-      }, function(response) {
-        test.comment(pathname);
-        test.equal(response.statusCode, 200);
+      }, function (response) {
+          test.comment(pathname);
+          test.equal(response.statusCode, 200);
 
-        response.setEncoding('utf-8');
+          response.setEncoding('utf-8');
 
-        var body = '';
-        response.on('data', function(chunk) {
-          body += chunk;
+          var body = '';
+          response.on('data', function (chunk) {
+            body += chunk;
+          });
+
+          response.on('end', function () {
+            test.equal(body, fs.readFileSync('test/fixture/basic/index.html', 'utf-8'));
+
+            pathnames.splice(pathnames.indexOf(pathname), 1);
+            if (pathnames.length < 1) {
+              runner.close();
+            }
+          });
         });
-
-        response.on('end', function() {
-          test.equal(body, fs.readFileSync('test/fixture/basic/index.html', 'utf-8'));
-
-          pathnames.splice(pathnames.indexOf(pathname), 1);
-          if (pathnames.length < 1) {
-            runner.close();
-          }
-        });
-      });
     });
   });
 });
 
-test('generate index.html', function(test) {
+test('generate index.html', function (test) {
   test.plan(13);
 
   var runner = amok.createRunner();
-  runner.on('close', function() {
+  runner.on('close', function () {
     test.pass('close');
   });
 
@@ -77,7 +77,7 @@ test('generate index.html', function(test) {
 
   runner.use(amok.server(9966, 'localhost'));
 
-  runner.run(function(error, client, runner) {
+  runner.run(function (error, client, runner) {
     test.error(error);
     test.ok(client, 'client');
     test.ok(runner, 'runner');
@@ -89,42 +89,42 @@ test('generate index.html', function(test) {
       pathname: '/'
     }));
 
-    pathnames.forEach(function(pathname) {
+    pathnames.forEach(function (pathname) {
       http.get({
         port: 9966,
         hostname: 'localhost',
         path: pathname
-      }, function(response) {
-        test.comment(pathname);
-        test.equal(response.statusCode, 200);
+      }, function (response) {
+          test.comment(pathname);
+          test.equal(response.statusCode, 200);
 
-        response.setEncoding('utf-8');
+          response.setEncoding('utf-8');
 
-        var body = '';
-        response.on('data', function(chunk) {
-          body += chunk;
+          var body = '';
+          response.on('data', function (chunk) {
+            body += chunk;
+          });
+
+          response.on('end', function () {
+            test.ok(body.indexOf('<script src="a"></script>'));
+            test.ok(body.indexOf('<script src="b"></script>'));
+            test.ok(body.indexOf('<script src="c"></script>'));
+
+            pathnames.splice(pathnames.indexOf(pathname), 1);
+            if (pathnames.length < 1) {
+              runner.close();
+            }
+          });
         });
-
-        response.on('end', function() {
-          test.ok(body.indexOf('<script src="a"></script>'));
-          test.ok(body.indexOf('<script src="b"></script>'));
-          test.ok(body.indexOf('<script src="c"></script>'));
-
-          pathnames.splice(pathnames.indexOf(pathname), 1);
-          if (pathnames.length < 1) {
-            runner.close();
-          }
-        });
-      });
     });
   });
 });
 
-test('generate favicon.ico', function(test) {
+test('generate favicon.ico', function (test) {
   test.plan(6);
 
   var runner = amok.createRunner();
-  runner.on('close', function() {
+  runner.on('close', function () {
     test.pass('close');
   });
 
@@ -136,7 +136,7 @@ test('generate favicon.ico', function(test) {
 
   runner.use(amok.server(9966, 'localhost'));
 
-  runner.run(function(error, client, runner) {
+  runner.run(function (error, client, runner) {
     test.error(error);
     test.ok(client, 'client');
     test.ok(runner, 'runner');
@@ -152,26 +152,26 @@ test('generate favicon.ico', function(test) {
       port: 9966,
       hostname: 'localhost',
       path: '/favicon.ico'
-    }, function(response) {
-      test.equal(response.statusCode, 200);
+    }, function (response) {
+        test.equal(response.statusCode, 200);
 
-      var body = '';
-      response.on('data', function(chunk) {
-        body += chunk;
-      });
+        var body = '';
+        response.on('data', function (chunk) {
+          body += chunk;
+        });
 
-      response.on('end', function() {
-        runner.close();
+        response.on('end', function () {
+          runner.close();
+        });
       });
-    });
   });
 });
 
-test('generate index.html', function(test) {
+test('generate index.html', function (test) {
   test.plan(13);
 
   var runner = amok.createRunner();
-  runner.on('close', function() {
+  runner.on('close', function () {
     test.pass('close');
   });
 
@@ -185,7 +185,7 @@ test('generate index.html', function(test) {
 
   runner.use(amok.server(9966, 'localhost'));
 
-  runner.run(function(error, client, runner) {
+  runner.run(function (error, client, runner) {
     test.error(error);
     test.ok(client, 'client');
     test.ok(runner, 'runner');
@@ -197,42 +197,42 @@ test('generate index.html', function(test) {
       pathname: '/'
     }));
 
-    pathnames.forEach(function(pathname) {
+    pathnames.forEach(function (pathname) {
       http.get({
         port: 9966,
         hostname: 'localhost',
         path: pathname
-      }, function(response) {
-        test.comment(pathname);
-        test.equal(response.statusCode, 200);
+      }, function (response) {
+          test.comment(pathname);
+          test.equal(response.statusCode, 200);
 
-        response.setEncoding('utf-8');
+          response.setEncoding('utf-8');
 
-        var body = '';
-        response.on('data', function(chunk) {
-          body += chunk;
+          var body = '';
+          response.on('data', function (chunk) {
+            body += chunk;
+          });
+
+          response.on('end', function () {
+            test.ok(body.indexOf('<script src="a"></script>'));
+            test.ok(body.indexOf('<script src="b"></script>'));
+            test.ok(body.indexOf('<script src="c"></script>'));
+
+            pathnames.splice(pathnames.indexOf(pathname), 1);
+            if (pathnames.length < 1) {
+              runner.close();
+            }
+          });
         });
-
-        response.on('end', function() {
-          test.ok(body.indexOf('<script src="a"></script>'));
-          test.ok(body.indexOf('<script src="b"></script>'));
-          test.ok(body.indexOf('<script src="c"></script>'));
-
-          pathnames.splice(pathnames.indexOf(pathname), 1);
-          if (pathnames.length < 1) {
-            runner.close();
-          }
-        });
-      });
     });
   });
 });
 
-test('serve scripts', function(test) {
+test('serve scripts', function (test) {
   test.plan(13);
 
   var runner = amok.createRunner();
-  runner.on('close', function() {
+  runner.on('close', function () {
     test.pass('close');
   });
 
@@ -249,7 +249,7 @@ test('serve scripts', function(test) {
 
   runner.use(amok.server(9966, 'localhost'));
 
-  runner.run(function(error, client, runner) {
+  runner.run(function (error, client, runner) {
     test.error(error);
     test.ok(client, 'client');
     test.ok(runner, 'runner');
@@ -262,32 +262,32 @@ test('serve scripts', function(test) {
     }));
 
     var pathnames = Object.keys(scripts);
-    pathnames.forEach(function(pathname) {
+    pathnames.forEach(function (pathname) {
       http.get({
         port: 9966,
         hostname: 'localhost',
         path: url.resolve('/', pathname)
-      }, function(response) {
-        test.comment(pathname);
-        test.equal(response.statusCode, 200);
+      }, function (response) {
+          test.comment(pathname);
+          test.equal(response.statusCode, 200);
 
-        response.setEncoding('utf-8');
+          response.setEncoding('utf-8');
 
-        var body = '';
-        response.on('data', function(chunk) {
-          body += chunk;
+          var body = '';
+          response.on('data', function (chunk) {
+            body += chunk;
+          });
+
+          response.on('end', function () {
+            var filename = scripts[pathname];
+            test.equal(body, fs.readFileSync(path.join('test/fixture/basic', filename), 'utf-8'));
+
+            pathnames.splice(pathnames.indexOf(pathname), 1);
+            if (pathnames.length < 1) {
+              runner.close();
+            }
+          });
         });
-
-        response.on('end', function() {
-          var filename = scripts[pathname];
-          test.equal(body, fs.readFileSync(path.join('test/fixture/basic', filename), 'utf-8'));
-
-          pathnames.splice(pathnames.indexOf(pathname), 1);
-          if (pathnames.length < 1) {
-            runner.close();
-          }
-        });
-      });
     });
   });
 });

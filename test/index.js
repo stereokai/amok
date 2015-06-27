@@ -1,11 +1,11 @@
 var amok = require('..');
 var test = require('tape');
 
-test('run plugins', function(test) {
+test('run plugins', function (test) {
   test.plan(4);
 
   var runner = amok.createRunner();
-  runner.on('close', function() {
+  runner.on('close', function () {
     test.pass();
   });
 

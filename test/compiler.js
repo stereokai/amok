@@ -11,21 +11,21 @@ var commands = [
   'webpack'
 ];
 
-commands.forEach(function(command, index) {
-  test('compile with ' + command, function(test) {
+commands.forEach(function (command, index) {
+  test('compile with ' + command, function (test) {
     test.plan(5);
 
     var runner = amok.createRunner();
 
     var dirname = 'test/fixture/compile-' + command;
-    var entries = fs.readdirSync(dirname).map(function(filename) {
+    var entries = fs.readdirSync(dirname).map(function (filename) {
       return path.join(dirname, filename);
-    }).filter(function(filename) {
+    }).filter(function (filename) {
       return filename.search('out') === -1;
     });
 
     runner.use(amok.compiler(command, entries));
-    runner.run(function(error, client, runner) {
+    runner.run(function (error, client, runner) {
       test.error(error);
       test.ok(client, 'client');
       test.ok(runner, 'runner');

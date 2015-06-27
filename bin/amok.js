@@ -10,7 +10,7 @@ program.usage('[OPTION ...] <URL | FILE>');
 program.option('--debug-host <HOST>', 'specify debug host', 'localhost');
 program.option('--debug-port <PORT>', 'specify debug port', 9222);
 
-program.option('-b, --browser <BROWSER>', 'specify browser', function(value) {
+program.option('-b, --browser <BROWSER>', 'specify browser', function (value) {
   var args = process.env[value.toUpperCase() + '_FLAGS'];
   if (args) {
     args = args.split(' ');
@@ -42,18 +42,18 @@ amok.set('cwd', program.cwd);
 amok.set('port', program.debugPort);
 amok.set('host', program.debugHost);
 
-program.url = program.args.filter(function(arg) {
+program.url = program.args.filter(function (arg) {
   return arg.match(/^(http|https|file|about:blank)/);
 })[0];
 
-program.scripts = program.args.filter(function(arg) {
+program.scripts = program.args.filter(function (arg) {
   return arg.match(/(.js|.ts|.coffee)$/);
 });
 
 if (program.url) {
   amok.set('url', program.url);
 } else if (program.scripts.length > 0) {
-  amok.set('scripts', program.scripts.reduce(function(object, value, key) {
+  amok.set('scripts', program.scripts.reduce(function (object, value, key) {
     object[value] = value;
     return object;
   }, {}));
@@ -85,22 +85,22 @@ if (program.interactive) {
   amok.use(amok.print(process.stdout));
 }
 
-amok.on('connect', function() {
-  amok.client.on('error', function(error) {
+amok.on('connect', function () {
+  amok.client.on('error', function (error) {
     process.stderr.write(error.message + '\n');
   });
 });
 
 amok.connect(amok.get('port'), amok.get('host'));
 
-process.on('SIGTERM', function() {
+process.on('SIGTERM', function () {
   process.exit(0);
 });
 
-process.on('SIGINT', function() {
+process.on('SIGINT', function () {
   process.exit(0);
 });
 
-process.on('exit', function() {
+process.on('exit', function () {
   amok.close();
 });
