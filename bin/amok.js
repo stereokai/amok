@@ -87,7 +87,7 @@ if (program.interactive) {
 
 amok.on('connect', function() {
   amok.client.on('error', function(error) {
-    process.stderr.write(error.description + '\n');
+    process.stderr.write(error.message + '\n');
   });
 });
 
