@@ -1,33 +1,34 @@
 ## NAME
 
-amok -- debugging and development tool for browsers
+`amok` -- development workflow tool for browsers
 
 ## SYNOPSIS
 
-**amok** [OPTION ...] _URL_ <br>
-**amok** [OPTION ...] _FILE_ [-- COMPILER OPTION ...] <br>
+`amok` [*OPTION* ...] _URL_  
+`amok` [*OPTION* ...] _FILE_ [`--` *COMPILER OPTION* ...]  
 
 ## DESCRIPTION
 
-**Amok** is a debugging tool that enables editor agnostic hot code patching,
-testing and debugging for browsers through a remote connection.
+**Amok** enables editor agnostic workflow enhancements, including a zero
+configuration development server, hot code patching and console redirection.
 
- With a _url_, **amok** will connect to a tab with the given _url_, the
-`--browser` option may be used in order to open the _url_ in a new browser
-process.
+ With a _URL_, **amok** will connect to a browser tab with the given _url_, the
+`--browser` option may be used in order to open the _url_ in a browser.
 
-With a _file_ **amok** will start a http server and connect to a browser tab
-with the address of the server, the `--cwd`, `--port` and `--host` host options
-dictate the root directory and address of the server. If no index.html file is
-present one will be generated with the input files referenced as scripts in the
-body of the document.
+With a _FILE_ **amok** will start a http server, the `--cwd`, `--port` and `--host`
+host options dictate the root directory, port and address of the server.
+If no index.html file is present one will be generated with the input files
+referenced as scripts in the body of the document.
+
+The`--browser` option may be used to open the server _url_ in a browser.
 
 The `--compiler` option may be used in order to enable incremental preprocessing
 with a compiler, which will shadow the path of the input _file_.
 
 Output from the browser's console is redirected to standard output.
+
 The `--debug-port` and `--debug-host` options define the address where the
-remote debugging connection will be established.
+outbound remote debugging connection will be established.
 
 The `--hot`, `--watch` and `--interactive` options enable hot code patching,
 file system monitoring and an interactive read-eval-print-loop.
@@ -43,18 +44,19 @@ by default this will be on port `9222`.
 by default this will be `localhost`.
 
 `-b`, `--browser` _BROWSER_
-:   Open the url in the specified browser which must be either `chrome` or `chromium`.
+:   Opens the specified browser.
 
 `-c`, `--cwd` _DIR_
-:   Change the working directory to the specified directory, this directory
-serves as the root from which the http server serves its files from;
+:   Change the working directory to the specified directory.
 
 `-w`, `--watch` _GLOB_
-:   Enables monitoring of files matching the given glob pattern,
-dispatching notifications in the forms of events on the window object
+:   Enables monitoring of the file system, if a glob pattern is specified only files matching the pattern will be watched,
+otherwise all files in the working directory will be monitored.
 
-`-t`, `--hot` _GLOB_
-:   Enables monitoring of active script files matching the specified glob pattern, hot patching function definitions on source file changes.
+`-t`, `--hot`
+:   Enables monitoring of source files and hot patching of active scripts.
+Changes to scripts are only executed at evaluation time, meaning that modifications to code that is not running after load will not have an effect.
+Changes to code executed at a later stage, such as callback handlers can however be changed and tested on the fly.
 
 `--http-port` _PORT_
 :   The port number where the http server will listen on when serving input *files*,
@@ -66,7 +68,6 @@ by default this will be `localhost`.
 
 `-i`, `--interactive`
 :   Starts **amok** in a read-eval-print-loop.
-:   Enables verbose output mode.
 
 `-h`, `--help`
 :   Print **amok** usage information and exit.
@@ -74,7 +75,7 @@ by default this will be `localhost`.
 `-V`, `--version`
 :   Print **amok** version information and exit.
 
-## BROWSER EVENTS
+## EVENTS
 
 The `--watch` option enables several events on the window object which are
 dispatched when a file is added, changed or removed.
@@ -96,7 +97,7 @@ addEventListener('unlink', function(event) {
 The `--hot` option also enables an event on the window object which is
 dispatched after a hot code patch has been applied successfully.
 
-```
+```js
 addEventListener('patch', function(event) {
   console.log('%s patched', event.detail.filename);
   console.log('event.detail.source);
@@ -109,7 +110,7 @@ addEventListener('patch', function(event) {
 :   Path to a chrome executable used when opening chrome.
 
 * `CHROME_FLAGS`
-:   List of command line flags used when opening chrome.
+:   List of command line options used when opening chrome.
 
 * `CHROMIUM_BIN`
 :   Path to a chromium executable used when opening chromium.
@@ -119,7 +120,7 @@ addEventListener('patch', function(event) {
 
 ## EXAMPLES
 
-Connect to an existing browser tab
+Connect to an existing browser page with a matching url
 ```sh
 $ amok http://localhost:4000
 ```
@@ -127,27 +128,25 @@ $ amok http://localhost:4000
 Open chrome with a local file system URL
 
 ```sh
-$ amok --browser chrome file://index.html
+$ amok --browser chrome file://absolute/path/to/index.html
 ```
 
-Open chrome with an external server URL
+Open chrome with an external url
 
 ```sh
 $ amok --browser chrome http://localhost:4000
 ```
 
-Open chrome with an internal server and compiler
+Open chrome with a server using watchify as the compiler
 
 ```sh
-$ amok --browser chrome --compiler watchify lib/index.js
+$ amok --browser chrome --compiler watchify index.js
 ```
 
 ## BUGS
 
-Chrome and Chromium only allow a connection at a time, the embedded developer tools will forcefully take away this connection when opened and disconnect amok, for more information see <http://crbug.com/129539>
-
-## COPYRIGHT
-
-Copyright (C) 2015 Casper Beyer <http://caspervonb.com>
-
-## SEE ALSO
+Chrome based browsers only allow a single socket connection at a time,
+the embedded developer tools will forcefully grab the socket when
+the developer tools are opened and disconnect any external clients, including **amok**.
+Closing developer tools will let **amok** reconnect.
+For more information on the issue see <http://crbug.com/129539>
