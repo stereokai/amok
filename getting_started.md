@@ -1,146 +1,202 @@
 # GETTING STARTED
 
+* [GETTING STARTED](#getting-started)
+  * [INTRODUCTION](#introduction)
+  * [INSTALLING](#installing)
+    * [INSTALLING NODE.JS](#installing-nodejs)
+    * [INSTALLING AMOK](#installing-amok)
+  * [WORKING WITH A BROWSER](#working-with-a-browser)
+    * [CONNECTING TO AN EXISTING BROWSER](#connecting-to-an-existing-browser)
+    * [STARTING A NEW BROWSER PROCESS](#starting-a-new-browser-process)
+  * [WORKING WITH THE DEVELOPMENT SERVER](#working-with-the-development-server)
+    * [STARTING THE SERVER](#starting-the-server)
+    * [USING A PREPROCESSOR](#using-a-preprocessor)
+  * [EDITING CODE IN REALTIME](#editing-code-in-realtime)
+    * [HOT PATCHING](#hot-patching)
+    * [HOT PATCH EVENTS](#hot-patch-events)
+    * [INTERACTIVE MODE](#interactive-mode)
+  * [MONITORING THE FILE SYSTEM](#monitoring-the-file-system)
+    * [FILE SYSTEM NOTIFICATIONS](#file-system-notifications)
+    * [FILE SYSTEM EVENTS](#file-system-events)
+    * [LIVE RELOADING CSS](#live-reloading-css)
+
+## INTRODUCTION
+
 ## INSTALLING
 
-Amok requires [node.js](http://nodejs.org) and [npm](http://npmjs.com) to run,
-if you're using Mac or Windows the best way to install node.js is to use one of
+### INSTALLING NODE.JS
+
+Before installing amok, you need to install [node.js](http://nodejs.org)
+since amok depends on it and is primarily distributed via [npm](http://npmjs.com).
+
+If you're using Mac or Windows the best way to install node.js is to use one of
 the installers from [http://nodejs.org](http://nodejs.org), on Linux it should
-be available via the system package manager.
+be available via the system package manager like `apt-get` or `yum`.
+
+### INSTALLING AMOK
 
 Once node.js is installed, amok can be installed by running the following
-command from a command prompt.
+command from the command line
 
 ```sh
-$ npm install -g amok
+$ npm install --global amok
 ```
 
-Depending on the system configuration, the command may need to be run with
+Installing globally is recommended to the command is available from the command line by default.
+
+Depending on your system configuration, the command may need to be run with
 elevated user privileges.
 
+## WORKING WITH A BROWSER
+### CONNECTING TO AN EXISTING BROWSER
 
-## CONNECTING TO A BROWSER
+You can connect to a page in an existing browser session by running amok with the url of that page.
 
-To connect to a page in an existing browser process, run **amok** with the url
-in of the page, an existing browser process has to be accepting debug connections
-on port 9222.
-
-```
+```sh
 $ amok http://localhost:4000
 ```
 
-The debugging port can be specified with the `debug-port` option.
+The browser process has to be already listening for debug connections on the port defined by the `--debug-port` option for this to work however,
+which can be done by launching the browser with a command line option.
 
 ```sh
-$ amok http://localhost:4000 --debug-port 4000
+$ chrome --remote-debugging-port=9222 http://localhost:4000
 ```
 
-## STARTING A BROWSER
+### STARTING A NEW BROWSER PROCESS
 
-A browser be opened by specifying a type of browser for the browser option,
-the type of browser must be either `chrome` or `chromium`.
-
-**Amok** will search for the browser executable in `PATH` and default
-well-known vendor installation directories.
+You can open a new browser tab by specifying the `--browser` option to amok,
+valid values for the browser options are `chrome` and `chromium`.
 
 ```sh
 $ amok --browser chrome http://localhost:4000
 ```
 
-An absolute path for the browser may be specified via a `*_BIN` environment
-variables, use this to specify the full executable path for alternative release
-channels like Chrome Canary.
+If the browser is already running and listening for connections on the port defined by `--debug-port` it will open a new tab in that browser,
+if not it will start a new browser process listening for debug connections on the port defined by the `--debug-port` option.
+
+If you don't have the browser installed in a default vendor location,
+you can set the full path of the executable with the `<BROWSER>_BIN` environment variable.
+
+On Windows you would do this with `set` in the command line.
 
 ```sh
-$ export CHROME_BIN="/absolute/path/to/executable"
-$ amok --browser chrome http://localhost:4000
+set CHROME_BIN="C:\\absolute\\path\\to\\chrome.exe"
 ```
 
-Additional command line arguments may also be specified via a `*_FLAGS`
-environment variables, use this to provide extra browser configuration,
-like providing a unique profile directory.
+On Unix, you would use `export`
 
 ```sh
-$ export CHROME_FLAGS="--user-data-dir=/data_dir/"
-$ amok --browser chrome http://localhost:4000
+export CHROME_BIN=/full/path/to/chrome
 ```
 
-## STARTING A SERVER
+You can also specify additional command line options to use when opening the browser with the `<BROWSER>_FLAGS` environment variable.
 
-**Amok** can also start a server by providing a script file as the entry point,
-the server provides a generated index.html file if none is available with the
-script entries as script tags.
+Again for Windows, with `set`
 
 ```sh
-$ amok --browser chrome app.js
+set CHROME_FLAGS="--user-data-dir=%HOMEDIR%\\amok"
 ```
 
-The server port and hostname can be specified via the `http-port` and
-`http-server` options, the default is `http://localhost:9966`.
+And on Unix, with `export`
 
 ```sh
-$ amok --http-port 4000 --browser chrome app.js
+export CHROME_FLAGS="--user-data-dir=~/.amok"
 ```
 
-## USING A PREPROCESSOR
-When using a server, **amok** can also preprocess scripts via `babel`, `coffee`, `tsc`, `watchify`
-or `webpack` with the `compiler` option, the resulting bundle will have the same
-name as the entry file.
+## WORKING WITH THE DEVELOPMENT SERVER
+
+### STARTING THE SERVER
+
+If you give amok one or more files instead of a url, it will start a http server that serves all the files in the working directory, listening on the port and address defined by `--http-port` and `--http-host`.
 
 ```sh
-$ amok --browser chrome --compiler webpack app.js
+$ amok index.js
 ```
 
-Additional command line options may be passed to the compiler by ending argument
-parsing with double dashes, anything succeeding that will be passed directly as
-command line options to the compiler.
+This server will generate an index.html which contains script tags for all the input files, to disable the automatic index.html generation drop in an index.html file in the working directory.
+
+### USING A PREPROCESSOR
+
+While using the server you can also specify the `--compiler` option to enable incremental preprocessing of input files,
+the preprocessed output will be saved in a temporary file and served in-place of the original input files.
+
+Valid values for the `--compiler` option are `babel`, `coffee`, `tsc`, `watchify` and `webpack`.
 
 ```sh
-$ amok --browser chrome --compiler webpack app.js -- --module-bind js=babel
+$ amok --compiler babel index.js
 ```
 
-## HOT PATCHING SCRIPTS
-**Amok** supports monitoring source files and hot patching function definitions
-in active scripts when the source files change, scripts may become inactive and
-garbage collected when nothing is referencing them, for instance if there are no
-callbacks in a script.
-
-Patches will be applied without interrupting execution of the script, and no
-execution will take place therefore no side effects will occur.
-
-To enable hot patching, use the hot option and specify a glob of which source
-files to watch.
-
-```js
-$ amok --hot *.js http://localhost:4000
-```
-
-With a compiler, the glob is redundant, the compilation result will be monitored
-in-place of any input files.
+You can pass additional command line options to the compiler with the end of option parsing delimiter `--`,
+everything after that will be passed directly to the compiler.
 
 ```sh
-$ amok --browser chrome --compiler tsc --hot app.ts
+$ amok --compiler babel index.js -- --source-maps
 ```
 
-In the browser execution context, an event is dispatched on the window object
-after a successful patch has been applied, this can be used to perform certain
-actions like re-rendering with the knowledge there are new function definitions
-in action.
+## EDITING CODE IN REALTIME
+### HOT PATCHING
 
-```js
-window.on('patch', function(event) {
-  React.render(/*...*/);
+You can edit and tweak code live without reloading by passing the `--hot` option,
+this will monitor active scripts and patch their source definitions in the runtime while the code is running.
+
+```sh
+$ amok --hot index.js
+```
+
+Changes to scripts are only executed at evaluation time, meaning that modifications to code that has already executed in the **past**
+will have no effect.
+
+Changes to code that will executed in the **future**, such as callbacks and event handlers however can be modified and tweaked in real-time.
+
+### HOT PATCH EVENTS
+
+When a patch is applied, a `patch` event is emitted on the `window` object of the page,
+you can use this event to do additional domain specific processing.
+
+### LIVE RENDERING REACT
+
+For example, you could re-render your react application or component
+
+```
+window.addEventListener('patch', function(event) {
+  React.render(app);
 });
 ```
 
-## WATCHING THE FILE SYSTEM
-**Amok** can watch monitor the file system for changes with the `watch` option.
+### LIVE RENDERING MITHRIL
+
+Re-rendering mithril applications is essentially identical.
+
+```
+window.addEventListener('patch', function(event) {
+  Mithril.render();
+});
+```
+
+### INTERACTIVE MODE
+
+To edit the **present** state, you can use the `--interactive` option,
+which will start a `read-eval-print-loop` in the terminal.
+
+```js
+$ amok --interactive about:blank
+```
+
+## MONITORING THE FILE SYSTEM
+
+### FILE SYSTEM NOTIFICATIONS
+
+If you pass `--watch` to amok, it will monitor the working directory and dispatch events on the window object when files are added,
+changed or removed. If you give it a glob pattern only files matching that pattern will be watched.
 
 ```sh
-$ amok --watch *.css
+$ amok --watch about:blank
 ```
-Changes to files matching the pattern will be dispatched as events on the window
-object in the browser execution context, which could be used to perform domain
-specific actions like reloading assets.
+
+### FILE SYSTEM EVENTS
+
+When a change in the file system is detected, an `add`, `change` or `unlink` event is dispatched on the `window` object of the page.
 
 ```js
 window.on('add', function(event) {
@@ -153,5 +209,36 @@ window.on('change', function(event) {
 
 window.on('unlink', function(event) {
   console.log('%s removed', event.detail.filename);
+});
+```
+
+### LIVE RELOADING CSS
+
+You could for example listen to the `change` event and reload css files as they change.
+
+```js
+window.addEventListener('change', function(event) {
+  var filename = event.detail.filename;
+  if (filename.match(/.css$/) {
+    var link = document.querySelector('link[href*="'+ filename + '"]');
+    link.href = event.detail.filename + '?' + performance.now();
+  }
+});
+```
+
+### LIVE RELOADING IMAGES
+
+You could also do the same and listen for `change` events to reload image files as they change.
+
+```js
+window.addEventListener('change', function(event) {
+  var filename = event.detail.filename;
+  if (filename.match(/(.jpg|.png|.webm)$/) {
+    var imgs = document.querySelectorAll('img[src*="'+ filename + '"]');
+
+    [].forEach.apply(imgs, function(img) {
+      img.src = event.detail.filename + '?' + performance.now();
+    });
+  }
 });
 ```
