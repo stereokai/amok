@@ -23,7 +23,7 @@ $ amok --hot --browser chrome index.js
 
 ## DOCUMENTATION
 
-[See the manuals](man/readme.md).
+See the [getting started](getting_started.md) guide, [examples](example/readme.md) and [manuals](man/readme.md).
 
 ## SUPPORT
 
