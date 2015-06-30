@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "scripts": {
+    "start": "node ../../bin/amok.js --watch **/*.css --hot --interactive --browser chrome lib/index.js"
+  }
+}
