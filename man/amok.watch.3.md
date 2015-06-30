@@ -20,7 +20,7 @@ removed.
 
 ## RETURN VALUE
 
-`function(inspector, runner, done)`
+An `amok.Runner` middleware function
 
 ## EXAMPLE
 

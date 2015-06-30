@@ -14,14 +14,15 @@ function print(stream)
 
 ## DESCRIPTION
 
-Creates a middleware function that redirects the inspector console stream to
-the given writeable `stream` while the inspector is attached to a target.
+Creates a middleware function that mirrors the client's console stream to
+the specified `stream`.
 
 ## RETURN VALUE
 
-`function(inspector, runner, done)`
+`function(client, runner, done)`
 
-## EXAMPLE
+## EXAMPLES
+
 Redirect inspector console to stdout
 
 ```js
@@ -29,13 +30,9 @@ var amok = require('amok');
 
 var runner = amok.createRunner();
 runner.use(amok.print(process.stdout));
-runner.connect(9922, 'localhost', function(error) {
-  if (error) {
-    return console.error(error);
-  }
-
-  console.log('Redirecting remote console to stdout');
-});
+runner.connect(9922, 'localhost');
 ```
 
 ## SEE ALSO
+
+[amok.repl](amok.repl.3.md)

@@ -5,7 +5,7 @@ amok.compiler -- watch and incrementally compile scripts.
 ## SYNOPSIS
 
 ```js
-function compiler(compiler, args)
+compiler(compiler, args, [output])
 ```
 
 ## PARAMETERS
@@ -15,25 +15,23 @@ function compiler(compiler, args)
 `args` *Array*
 :   List of string arguments
 
+`output` *stream.Readable*
+:   The output stream to use
+
 ## DESCRIPTION
 
 Creates a middleware function that spawns a compiler process specified with the given
-`command` with command line arguments in `args`. If omitted, args defaults to an
+`command` with command line arguments in `args`. If omitted, `args` defaults to an
 empty *Array*.
 
-`command` must be an absolute or relative path to `babel`, `coffee`, `tsc`,
-`watchify` or `webpack`.
-
-Use `runner.get('scripts')` to get the input and output files resulting from
-the compilation.
-
-The compiler process will be killed when the runner emits a close event.
+Standard output and standard error streams will be piped to the specified `output` stream.
+If omitted `output` defaults to `undefined`.
 
 ## RETURN VALUE
 
-`function(inspector, runner, done)`
+`function(client, runner, done)`
 
-## EXAMPLE
+## EXAMPLES
 
 Get compilation result
 

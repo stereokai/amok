@@ -19,7 +19,7 @@ input from the given `input` stream and writing to the given `output` stream.
 
 ## RETURN VALUE
 
-`function(inspector, runner, done)`
+`function(client, runner, done)`
 
 ## EXAMPLE
 Start a read-eval-print-loop
