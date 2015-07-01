@@ -1,2 +1,0 @@
-# manuals
-amok(1)                   amok.1
