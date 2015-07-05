@@ -38,7 +38,7 @@
     "node-libs-browser": "0.5.2",
     "tape": "^4.0.0",
     "typescript": "1.5.0-beta",
-    "watchify": "3.2.1",
+    "watchify": "^2.6.2",
     "webpack": "1.9.10"
   },
   "scripts": {
