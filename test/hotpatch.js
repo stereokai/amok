@@ -54,11 +54,9 @@ browsers.forEach(function (browser, index) {
           source = source.replace(message.text, values[0]);
           test.notEqual(source, fs.readFileSync('test/fixture/hotpatch-basic/index.js'));
 
-          setTimeout(function () {
-            fs.writeFile('test/fixture/hotpatch-basic/index.js', source, 'utf-8', function (error) {
-              test.error(error);
-            });
-          }, 1000);
+          fs.writeFile('test/fixture/hotpatch-basic/index.js', source, 'utf-8', function (error) {
+            test.error(error);
+          });
         }
       });
 

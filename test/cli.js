@@ -119,11 +119,9 @@ browsers.forEach(function (browser) {
         } else if (line.match(/^step/)) {
           source = source.replace(line, values[0]);
 
-          setTimeout(function () {
-            fs.writeFile('test/fixture/hotpatch-basic/index.js', source, 'utf-8', function (error) {
-              test.error(error);
-            });
-          }, 1000);
+          fs.writeFile('test/fixture/hotpatch-basic/index.js', source, 'utf-8', function (error) {
+            test.error(error);
+          });
         }
       });
     });
@@ -181,9 +179,7 @@ browsers.forEach(function (browser) {
         } else if (line.match(/^step/)) {
           source = source.replace(line, values[0]);
 
-          setTimeout(function () {
-            fs.writeFileSync('test/fixture/hotpatch-basic/index.js', source, 'utf-8');
-          }, 1000);
+          fs.writeFileSync('test/fixture/hotpatch-basic/index.js', source, 'utf-8');
         }
       });
     });
