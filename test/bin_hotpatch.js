@@ -5,6 +5,8 @@ var fs = require('fs');
 var path = require('path');
 var url = require('url');
 
+var bin = require('../package.json').bin['amok'];
+
 var browsers = [
   'chrome',
   'chromium',
@@ -18,7 +20,7 @@ browsers.forEach(function (browser) {
 
   entries.forEach(function (entry) {
     var args = [
-      'bin/amok.js',
+      bin,
       '--hot',
       '--browser',
       browser,

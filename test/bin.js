@@ -5,13 +5,14 @@ var fs = require('fs');
 var path = require('path');
 var url = require('url');
 
+var bin = require('../package.json').bin['amok'];
 var version = [
   '-V',
   '--version',
 ];
 
 version.forEach(function (arg) {
-  var args = ['bin/amok.js', arg];
+  var args = [bin, arg];
   test(args.join(' '), function (test) {
     test.plan(2);
 
@@ -34,7 +35,7 @@ var help = [
 ];
 
 help.forEach(function (arg) {
-  var args = ['bin/amok.js', arg];
+  var args = [bin, arg];
 
   test('bin print help', function (test) {
     test.plan(2);
