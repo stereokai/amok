@@ -29,9 +29,9 @@ browsers.forEach(function (browser) {
 
     test.comment(args.join(' '));
 
-    var cli = child.spawn('node', args);
-    cli.stderr.pipe(process.stderr);
-    cli.on('close', function () {
+    var ps = child.spawn('node', args);
+    ps.stderr.pipe(process.stderr);
+    ps.on('close', function () {
       test.pass('close');
     });
 
@@ -42,8 +42,8 @@ browsers.forEach(function (browser) {
       'unlink file.txt'
     ];
 
-    cli.stdout.setEncoding('utf-8');
-    cli.stdout.on('data', function (chunk) {
+    ps.stdout.setEncoding('utf-8');
+    ps.stdout.on('data', function (chunk) {
       chunk.split('\n').forEach(function (line) {
         if (line.length === 0) {
           return;
@@ -60,7 +60,7 @@ browsers.forEach(function (browser) {
         }
 
         if (messages.length === 0) {
-          cli.kill();
+          ps.kill();
         }
       });
     });
@@ -82,9 +82,9 @@ browsers.forEach(function (browser) {
 
     test.comment(args.join(' '));
 
-    var cli = child.spawn('node', args);
-    cli.stderr.pipe(process.stderr);
-    cli.on('close', function () {
+    var ps = child.spawn('node', args);
+    ps.stderr.pipe(process.stderr);
+    ps.on('close', function () {
       test.pass('close');
     });
 
@@ -95,8 +95,8 @@ browsers.forEach(function (browser) {
       'unlink test/fixture/watch-events/file.txt'
     ];
 
-    cli.stdout.setEncoding('utf-8');
-    cli.stdout.on('data', function (chunk) {
+    ps.stdout.setEncoding('utf-8');
+    ps.stdout.on('data', function (chunk) {
       chunk.split('\n').forEach(function (line) {
         if (line === '') {
           return;
@@ -113,7 +113,7 @@ browsers.forEach(function (browser) {
         }
 
         if (messages.length === 0) {
-          cli.kill();
+          ps.kill();
         }
       });
     });

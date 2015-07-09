@@ -30,10 +30,10 @@ browsers.forEach(function (browser) {
     test(args.join(' '), function (test) {
       test.plan(23);
 
-      var cli = child.spawn('node', args);
-      cli.stderr.pipe(process.stderr);
+      var ps = child.spawn('node', args);
+      ps.stderr.pipe(process.stderr);
 
-      cli.on('close', function () {
+      ps.on('close', function () {
         test.pass('close');
       });
 
@@ -53,8 +53,8 @@ browsers.forEach(function (browser) {
       ];
 
       var source = fs.readFileSync('test/fixture/hotpatch-basic/index.js', 'utf-8');
-      cli.stdout.setEncoding('utf-8');
-      cli.stdout.on('data', function (chunk) {
+      ps.stdout.setEncoding('utf-8');
+      ps.stdout.on('data', function (chunk) {
         chunk.split('\n').forEach(function (line) {
           if (line.length === 0) {
             return;
@@ -64,7 +64,7 @@ browsers.forEach(function (browser) {
           test.equal(line, values.shift(), line);
 
           if (values[0] === undefined) {
-            cli.kill('SIGTERM')
+            ps.kill('SIGTERM')
           } else if (line.match(/^step/)) {
             source = source.replace(line, values[0]);
 
