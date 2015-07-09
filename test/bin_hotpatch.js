@@ -18,56 +18,8 @@ var compilers = [
   'webpack',
 ];
 
-test('print version', function (test) {
-  test.plan(4);
-  var options = [
-    '-V',
-    '--version'
-  ];
-
-  options.forEach(function (option) {
-    var args = ['bin/amok.js', option];
-    test.comment(args.join(' '));
-
-    var cli = child.spawn('node', args);
-
-    cli.stdout.on('data', function (data) {
-      var message = data.toString();
-      test.equal(message, require('../package.json').version + '\n');
-    });
-
-    cli.on('close', function (code) {
-      test.equal(code, 0);
-    });
-  });
-});
-
-test('cli print help', function (test) {
-  test.plan(4);
-  var options = [
-    '-h',
-    '--help'
-  ];
-
-  options.forEach(function (option) {
-    var args = ['./bin/amok.js', option];
-    test.comment(args.join(' '));
-
-    var cli = child.spawn('node', args);
-
-    cli.stdout.on('data', function (data) {
-      var message = data.toString();
-      test.ok(message.indexOf('Usage:') > -1);
-    });
-
-    cli.on('close', function (code) {
-      test.equal(code, 0);
-    });
-  });
-});
-
 browsers.forEach(function (browser) {
-  test('hot patch basic with file url in ' + browser, function (test) {
+  test('bin hot patch basic with file url in ' + browser, function (test) {
     test.plan(23);
 
     var args = [
@@ -128,7 +80,7 @@ browsers.forEach(function (browser) {
 });
 
 browsers.forEach(function (browser) {
-  test('hot patch basic with server in ' + browser, function (test) {
+  test('bin hot patch basic with server in ' + browser, function (test) {
     test.plan(13);
 
     var args = [
@@ -187,7 +139,7 @@ browsers.forEach(function (browser) {
 
 browsers.forEach(function (browser) {
   compilers.forEach(function (compiler, index) {
-    test('hot patch basic compiled with ' + compiler + ' in ' + browser, function (test) {
+    test('bin hot patch basic compiled with ' + compiler + ' in ' + browser, function (test) {
       test.plan(13);
 
       var dirname = 'test/fixture/hotpatch-' + compiler;
@@ -253,114 +205,6 @@ browsers.forEach(function (browser) {
             }, 1000);
           }
         });
-      });
-    });
-  });
-});
-
-browsers.forEach(function (browser) {
-  test('print watch events with file url in ' + browser, function (test) {
-    test.plan(5);
-
-    var args = [
-      'bin/amok.js',
-      '--cwd',
-      'test/fixture/watch-events',
-      '--watch',
-      '*.txt',
-      '--browser',
-      browser,
-      url.resolve('file://', path.join('/' + __dirname, '/fixture/watch-events/index.html'))
-    ];
-
-    test.comment(args.join(' '));
-
-    var cli = child.spawn('node', args);
-    cli.stderr.pipe(process.stderr);
-    cli.on('close', function () {
-      test.pass('close');
-    });
-
-    var messages = [
-      'ready',
-      'add file.txt',
-      'change file.txt',
-      'unlink file.txt'
-    ];
-
-    cli.stdout.setEncoding('utf-8');
-    cli.stdout.on('data', function (chunk) {
-      chunk.split('\n').forEach(function (line) {
-        if (line.length === 0) {
-          return;
-        }
-
-        test.equal(line, messages.shift(), line);
-
-        if (line === 'ready') {
-          fs.writeFileSync('test/fixture/watch-events/file.txt', 'hello', 'utf-8');
-        } else if (line === 'add file.txt') {
-          fs.writeFileSync('test/fixture/watch-events/file.txt', 'hello world', 'utf-8');
-        } else if (line === 'change file.txt') {
-          fs.unlinkSync('test/fixture/watch-events/file.txt');
-        }
-
-        if (messages.length === 0) {
-          cli.kill();
-        }
-      });
-    });
-  });
-});
-
-browsers.forEach(function (browser) {
-  test('print watch events with server in ' + browser, function (test) {
-    test.plan(5);
-
-    var args = [
-      'bin/amok.js',
-      '--watch',
-      '**/*.txt',
-      '--browser',
-      browser,
-      'test/fixture/watch-events/index.js',
-    ];
-
-    test.comment(args.join(' '));
-
-    var cli = child.spawn('node', args);
-    cli.stderr.pipe(process.stderr);
-    cli.on('close', function () {
-      test.pass('close');
-    });
-
-    var messages = [
-      'ready',
-      'add test/fixture/watch-events/file.txt',
-      'change test/fixture/watch-events/file.txt',
-      'unlink test/fixture/watch-events/file.txt'
-    ];
-
-    cli.stdout.setEncoding('utf-8');
-    cli.stdout.on('data', function (chunk) {
-      chunk.split('\n').forEach(function (line) {
-        if (line === '') {
-          return;
-        }
-
-        test.equal(line, messages.shift(), line);
-
-        if (line === 'ready') {
-          fs.writeFileSync('test/fixture/watch-events/file.txt', 'hello', 'utf-8');
-        } else if (line === 'add test/fixture/watch-events/file.txt') {
-          fs.writeFileSync('test/fixture/watch-events/file.txt', 'hello world', 'utf-8');
-        } else if (line === 'change test/fixture/watch-events/file.txt') {
-          fs.unlinkSync('test/fixture/watch-events/file.txt');
-        }
-
-        if (messages.length === 0) {
-          cli.kill();
-        }
       });
     });
   });
