@@ -5,16 +5,15 @@ var fs = require('fs');
 var path = require('path');
 var url = require('url');
 
-test('bin print version', function (test) {
-  test.plan(4);
-  var options = [
-    '-V',
-    '--version'
-  ];
+var version = [
+  '-V',
+  '--version',
+];
 
-  options.forEach(function (option) {
-    var args = ['bin/amok.js', option];
-    test.comment(args.join(' '));
+version.forEach(function (arg) {
+  var args = ['bin/amok.js', arg];
+  test(args.join(' '), function (test) {
+    test.plan(2);
 
     var cli = child.spawn('node', args);
 
@@ -29,17 +28,18 @@ test('bin print version', function (test) {
   });
 });
 
-test('bin print help', function (test) {
-  test.plan(4);
-  var options = [
-    '-h',
-    '--help'
-  ];
+var help = [
+  '-h',
+  '--help'
+];
 
-  options.forEach(function (option) {
-    var args = ['./bin/amok.js', option];
+help.forEach(function (arg) {
+  var args = ['bin/amok.js', arg];
+
+  test('bin print help', function (test) {
+    test.plan(2);
+
     test.comment(args.join(' '));
-
     var cli = child.spawn('node', args);
 
     cli.stdout.on('data', function (data) {
