@@ -32,7 +32,7 @@ program.option('--http-port <PORT>', 'specify http port', 9966);
 
 program.option('-c, --compiler <COMPILER>', 'specify compiler');
 program.option('-w, --watch <GLOB>', 'specify watch pattern');
-program.option('-t, --hot [GLOB]', 'enable script hot patching');
+program.option('-t, --hot', 'enable script hot patching');
 program.option('-i, --interactive', 'enable interactive mode');
 program.option('-d, --cwd <DIR>', 'change working directory', process.cwd());
 
@@ -72,7 +72,7 @@ if (program.watch) {
 }
 
 if (program.hot) {
-  amok.use(amok.hotpatch(program.hot));
+  amok.use(amok.hotpatch());
 }
 
 if (program.browser) {

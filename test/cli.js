@@ -73,7 +73,6 @@ browsers.forEach(function (browser) {
     var args = [
       'bin/amok.js',
       '--hot',
-      '**/*.js',
       '--browser',
       browser,
       url.resolve('file://', path.join('/' + __dirname, '/fixture/hotpatch-basic/index.html'))
