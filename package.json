@@ -42,8 +42,7 @@
     "webpack": "1.9.10"
   },
   "scripts": {
-    "man": "ronn -s toc -r5 man/*.markdown",
-    "test": "tape test/*.js"
+    "test": "make test"
   },
   "author": "Casper Beyer <caspervonb@qup.io>",
   "license": "MIT",
