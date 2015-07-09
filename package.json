@@ -20,7 +20,7 @@
     "server"
   ],
   "bin": {
-    "amok": "bin/amok.js"
+    "amok": "bin/amok"
   },
   "dependencies": {
     "browser_process": "^1.0.0",
