@@ -1,5 +1,7 @@
 baseurl: ""
 analytics: UA-48351156-5
+embedly: 4a6f19a3b7144d68bb3ef2c823d42ef5
+
 defaults:
   -
     scope:

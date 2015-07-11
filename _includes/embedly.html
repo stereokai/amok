@@ -1,0 +1,9 @@
+{% if site.embedly %}
+
+<script type="text/javascript">
+  $(function() {
+    $('a[href*=youtube]').embedly({ key: '{{ site.embedly }}'});
+  });
+</script>
+
+{% endif %}
