@@ -1,4 +1,5 @@
 baseurl: ""
+analytics: UA-48351156-5
 defaults:
   -
     scope:
