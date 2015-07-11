@@ -26,8 +26,8 @@
 
 ### INSTALLING NODE.JS
 
-Before installing amok, you need to install [node.js](http://nodejs.org)
-since amok depends on it and is primarily distributed via [npm](http://npmjs.com).
+Before installing amok, you need to install [node.js](http://nodejs.org) v0.12 or greater
+since amok is written in JavaScript targeting the node runtime.
 
 If you're using Mac or Windows the best way to install node.js is to use one of
 the installers from [http://nodejs.org](http://nodejs.org), on Linux it should
@@ -35,29 +35,31 @@ be available via the system package manager like `apt-get` or `yum`.
 
 ### INSTALLING AMOK
 
-Once node.js is installed, amok can be installed by running the following
+Once node.js and npm is installed, amok can be installed from npm by running the following
 command from the command line
 
 ```sh
 $ npm install --global amok
 ```
 
-Installing globally is recommended to the command is available from the command line by default.
+Installing globally is recommended to have the command always available from any command line session by default.
 
 Depending on your system configuration, the command may need to be run with
 elevated user privileges.
 
+If you see any errors regarding optional dependencies during the installation you can safely ignore them.
+
 ## WORKING WITH A BROWSER
 ### CONNECTING TO AN EXISTING BROWSER
 
-You can connect to a page in an existing browser session by running amok with the url of that page.
+You can connect to a page in an existing browser page by providing amok with the url of that page.
 
 ```sh
 $ amok http://localhost:4000
 ```
 
-The browser process has to be already listening for debug connections on the port defined by the `--debug-port` option for this to work however,
-which can be done by launching the browser with a command line option.
+In this case however, the browser process has to be already listening for debug connections on the port
+defined by the `--debug-port` option for this to work however, which can be done by launching the browser with a command line option.
 
 ```sh
 $ chrome --remote-debugging-port=9222 http://localhost:4000
@@ -65,7 +67,7 @@ $ chrome --remote-debugging-port=9222 http://localhost:4000
 
 ### STARTING A NEW BROWSER PROCESS
 
-You can open a new browser tab by specifying the `--browser` option to amok,
+You can open a new browser process with its own unique profile by specifying the `--browser` option when invoking amok,
 valid values for the browser options are `chrome` and `chromium`.
 
 ```sh
@@ -90,18 +92,19 @@ On Unix, you would use `export`
 export CHROME_BIN=/full/path/to/chrome
 ```
 
-You can also specify additional command line options to use when opening the browser with the `<BROWSER>_FLAGS` environment variable.
+You can also specify additional command line options to use when opening the browser with the `<BROWSER>_FLAGS` environment variable,
+If you'd like to override the browser profile specified by amok you can set this environment variable on a temporary, or permanent basis.
 
 Again for Windows, with `set`
 
 ```sh
-set CHROME_FLAGS="--user-data-dir=%HOMEDIR%\\amok"
+set CHROME_FLAGS="--user-data-dir=%HOMEDIR%\\myprofile"
 ```
 
 And on Unix, with `export`
 
 ```sh
-export CHROME_FLAGS="--user-data-dir=~/.amok"
+export CHROME_FLAGS="--user-data-dir=~/.myprofile"
 ```
 
 ## WORKING WITH THE DEVELOPMENT SERVER
