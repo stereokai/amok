@@ -65,6 +65,18 @@ defined by the `--debug-port` option for this to work however, which can be done
 $ chrome --remote-debugging-port=9222 http://localhost:4000
 ```
 
+You should also be aware of how browser processes work.
+A window in a browser does not equal a seperate instance of the browser. but rather just another window within that process.
+
+If the browser is already running it will ignore any launch flags,
+In order to realiably create a new seperate instance of a browser, you will have to specify a user profile directory for each of them,
+if the profile does not exist in the specified path it will be created.
+
+```sh
+google-chrome --user-data-dir=~/profile1
+google-chrome --user-data-dir=~/profile2
+```
+
 ### STARTING A NEW BROWSER PROCESS
 
 You can open a new browser process with its own unique profile by specifying the `--browser` option when invoking amok,
