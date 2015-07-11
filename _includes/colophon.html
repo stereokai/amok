@@ -1,4 +1,9 @@
 <footer class="colophon">
-  <i class="fa fa-code"></i> with <i class="fa fa-heart"></i> by <a class="project-owner" href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a></p>
-  <p>&copy; Copyright {{ site.time | date: '%Y' }}</p>
+  <nav class="colophon-nav">
+    <a href="{{ site.github.repository_url }}">Repository</a>
+    <a href="/man">Documentation</a>
+    <a href="{{site.github.owner_url}}">
+      <i class="fa fa-code"></i> with <i class="fa fa-heart"></i> by {{ site.github.owner_name }}
+    </a>
+  </nav>
 </footer>

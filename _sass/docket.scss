@@ -14,125 +14,54 @@ body {
 }
 
 a {
-  color: #1e6bb8;
+  color: #FE5210;
   text-decoration: none;
 
-  &:hover {
-    text-decoration: underline;
+  &:hover,
+  &:focus {
+    color: #FFA158;
+  }
+
+  &:visited {
+    color: #FE7110;
   }
 }
 
 .masthead {
-  color: #333;
+  color: #fff;
   text-align: center;
-  background-color: #ffda17;
-  text-transform: uppercase;
-
-  position: relative;
-
-  @include large {
-    padding: 1rem 1rem;
-  }
-
-  @include medium {
-    padding: 3rem 4rem;
-  }
-
-  @include small {
-    padding: 2rem 1rem;
-  }
+  background-color: #333333;
+  padding: 10px;
 }
 
-.star-button {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  z-index: 100;
-}
+.project-nav {
+  display:flex;
+  justify-content: center;
 
-.tweet-button {
-  position: absolute;
-  top: 10px;
-  left: 100px;
-  z-index: 100;
-}
-
-.project-title {
-  font-family: 'Roboto', sans-serif;
-  margin-top: 0;
-  margin-bottom: 0.1rem;
-  font-weight: bold;
-
-  @include large {
-    font-size: 10rem;
-  }
-
-  @include medium {
-    font-size: 3.25rem;
-  }
-
-  @include small {
-    font-size: 2.75rem;
-  }
-}
-
-.project-tagline {
-  font-family: 'Open Sans', sans-serif;
-  margin-bottom: 2rem;
-   font-weight: normal;
-   opacity: 0.7;
-
-   @include large {
-     font-size: 1.35rem;
-   }
-
-   @include medium {
-     font-size: 1.15rem;
-   }
-
-   @include small {
-     font-size: 1rem;
-   }
-}
-
-.content {
   @include large {
     max-width: 64rem;
-    padding: 2rem 6rem;
     margin: 0 auto;
+    padding: 0 6rem;
     font-size: 1.1rem;
   }
 
-  @include medium {
-    padding: 2rem 4rem;
-    font-size: 1.1rem;
-  }
+  a {
+    text-transform: uppercase;
+   flex: 1;
+   color: #ffffff;
+   padding: 1rem;
 
-  @include small {
-    padding: 2rem 1rem;
-    font-size: 1rem;
+   &:first-child {
+     flex: 1 50%;
+     text-align: left;
+   }
   }
+  
+  a:hover, a:active {
+  color: #f7df31;
+  text-decoration: none;
 }
-
-.colophon {
-  padding-top: 2rem;
-  margin-top: 2rem;
-  border-top: solid 1px #eff0f1;
-  text-align: center;
-
-  @include large {
-    font-size: 1rem;
-  }
-
-  @include medium {
-    font-size: 1rem;
-  }
-
-  @include small {
-    font-size: 0.9rem;
-  }
 }
-
 
 .content {
   :first-child {
@@ -169,7 +98,7 @@ a {
     margin-top: 2rem;
     margin-bottom: 1rem;
     font-weight: normal;
-    color: #a3a3a3;
+    color: #333333;
   }
 
   p {
@@ -181,7 +110,7 @@ a {
     font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
     font-size: 0.9rem;
     color: #383e41;
-    background-color: #f3f6fa;
+    background-color: #f2f5f0;
     border-radius: 0.3rem;
   }
 
@@ -192,7 +121,7 @@ a {
     font: 1rem Consolas, "Liberation Mono", Menlo, Courier, monospace;
     color: #567482;
     word-wrap: normal;
-    background-color: #f3f6fa;
+    background-color: #f2f5f0;
     border: solid 1px #dce6f0;
     border-radius: 0.3rem;
 
@@ -309,7 +238,44 @@ a {
   }
 }
 
+.colophon {
+  padding-top: 2rem;
+  margin-top: 2rem;
+  border-top: solid 1px #eff0f1;
 
-.man-header {
-  text-align: left;
+  @include large {
+    font-size: 1rem;
+  }
+
+  @include medium {
+    font-size: 1rem;
+  }
+
+  @include small {
+    font-size: 0.9rem;
+  }
+}
+
+.colophon-nav {
+  display:flex;
+  justify-content: center;
+
+  @include large {
+    max-width: 64rem;
+    margin: 0 auto;
+    padding: 0 6rem;
+    font-size: 1.1rem;
+  }
+
+  a {
+    text-transform: uppercase;
+   flex: 1;
+   color: #333333;
+   padding: 1rem;
+
+   &:last-child {
+     flex: 1 50%;
+     text-align: right;
+   }
+  }
 }
