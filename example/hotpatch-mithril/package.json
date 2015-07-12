@@ -1,6 +1,9 @@
 {
   "private": true,
   "scripts": {
-    "start": "node ../../bin/amok --browser chrome --hot file://$PWD/index.html",
+    "start": "amok --browser chrome --hot file://$PWD/index.html"
+  },
+  "dependencies": {
+    "amok": "file:../.."
   }
 }
