@@ -1,6 +1,6 @@
 # EXAMPLE - HOTPATCH CANVAS
 
-[Watch video](https://www.youtube.com/watch?v=VHii0yEUswU)
+[Watch video](https://www.youtube.com/watch?v=pheydeDmd9A)
 
 ## INSTALL
 ```
