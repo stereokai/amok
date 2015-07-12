@@ -50,6 +50,7 @@ elevated user privileges.
 If you see any errors regarding optional dependencies during the installation you can safely ignore them.
 
 ## WORKING WITH A BROWSER
+
 ### CONNECTING TO AN EXISTING BROWSER
 
 You can connect to a page in an existing browser page by providing amok with the url of that page.
@@ -150,6 +151,7 @@ $ amok --compiler babel index.js -- --source-maps
 ```
 
 ## EDITING CODE IN REALTIME
+
 ### HOT PATCHING
 
 You can edit and tweak code live without reloading by passing the `--hot` option,
