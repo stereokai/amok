@@ -1,38 +1,33 @@
 ---
 ---
+
 ## NAME
 
-amok.hotpatch -- watch source files and hot patch remote function definitions.
+amok.hotpatch -- monitor file system and hot patch active scripts.
 
 ## SYNOPSIS
 
 ```js
-function hotpatch([glob]);
+function hotpatch([output]);
 ```
 
 ## PARAMETERS
-`command` *String*
-:   The command to use
-
-`args` *Array*
-:   The arguments to use
 
 ## DESCRIPTION
 
-Creates a middleware function that watches the values of
-`runner.get('scripts')` and the given `glob` for changes, hot patching function
-definitions and dispatching `patch` events on the window object when the source
-file of an active script changes while the inspector is attached to a target.
+Creates a middleware function that monitors file system and hot patches active scripts,
+diagnostic information is written to the `output` stream.
 
-If `glob` is not given, it will be ignored.
+Changes to scripts are only executed at evaluation time, modifications to code that is not running after load will not have an effect.
+Changes to code executed at a later stage, such as callbacks or event handlers can however be changed and tested on the fly.
 
 ## RETURN VALUE
 
-`function(inspector, runner, done)`
+`function(client, runner, done)`
 
-## EXAMPLE
+## EXAMPLES
 
-Hot patch scripts set via `runner.set`
+Hot patch scripts
 
 ```js
 var amok = require('amok');
@@ -47,25 +42,11 @@ runner.connect(9922, 'localhost', function(error) {
   if (error) {
     return console.error(error);
   }
-
+  
   console.log('Hot patching runner scripts');
 });
 ```
 
-Hot patch scripts matching a glob pattern
-
-```js
-var amok = require('amok');
-
-var runner = amok.createRunner();
-runner.use(amok.hotpatch('**/*.js'));
-runner.connect(9922, 'localhost', function(error) {
-  if (error) {
-    return console.error(error);
-  }
-
-  console.log('Hot patching glob');
-});
-```
-
 ## SEE ALSO
+
+[amok.watch](amok.watch.3.md)

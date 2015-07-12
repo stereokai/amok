@@ -1,5 +1,6 @@
 ---
 ---
+
 ## NAME
 
 amok.browser -- spawn a local browser process
@@ -7,7 +8,7 @@ amok.browser -- spawn a local browser process
 ## SYNOPSIS
 
 ```js
-function browser(command, [args])
+browser(command, [args], [output])
 ```
 
 ## PARAMETERS
@@ -18,26 +19,23 @@ function browser(command, [args])
 `args` *Array*
 :   List of string arguments
 
+`output` *stream.Readable*
+:   The output stream to use
+
 ## DESCRIPTION
 
-Creates a middleware function that spawns a browser process specified with the
-given `command` with command line arguments in `args`. If omitted, args defaults
-to an empty *Array*.
+Creates a middleware function that spawns a browser process specified with the given
+`command` with command line arguments in `args`. If omitted, `args` defaults to an
+empty *Array*.
 
-`command` may be an absolute path to a chrome or chromium executable or the type
-of a browser (`chrome` or `chromium`) in which case `PATH` and the default known
-vendor directories will be used in order to search for the appropriate
-executable.
-
-Use `runner.set('url', value)` to specify the url which the browser should open.
-
-The browser process will be killed when the runner emits a close event.
+Standard output and standard error streams will be piped to the specified `output` stream.
+If omitted `output` defaults to `undefined`.
 
 ## RETURN VALUE
 
-`function(inspector, runner, done)`
+`function(client, runner, done)`
 
-## EXAMPLE
+## EXAMPLES
 
 Open and connect to chrome
 
@@ -72,3 +70,5 @@ runner.connect(9222, 'localhost', function(error) {
 ```
 
 ## SEE ALSO
+
+[amok.Runner.prototype.use](amok.Runner.prototype.use.3.md)

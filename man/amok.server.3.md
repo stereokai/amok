@@ -1,5 +1,6 @@
 ---
 ---
+
 ## NAME
 
 amok.server -- serve static files.
@@ -30,7 +31,7 @@ generation.
 
 ## RETURN VALUE
 
-`function(inspector, runner, done)`
+An `amok.Runner` middleware function
 
 ## EXAMPLE
 

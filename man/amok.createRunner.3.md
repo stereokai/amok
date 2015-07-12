@@ -1,30 +1,40 @@
 ---
 ---
+
 ## NAME
 
-amok.createRunner -- creates a new instance of amok.Runner
+`amok.createRunner` -- creates a new instance of amok.Runner
 
 ## SYNOPSIS
 
 ```js
-function createRunner();
+createRunner()
 ```
 
 ## DESCRIPTION
 
-Creates a new instance of `amok.Runner`, equivalent with calling `new amok.Runner`.
+Creates a new `amok.Runner` object, this is equivalent of calling
+the constructor [`amok.Runner`](amok.Runner.3.md) constructor.
 
 ## RETURN VALUE
 
-A new instance of `amok.Runner`
+An `amok.Runner` object.
 
-## EXAMPLE
+## EXAMPLES
 
-Create a runner
+Create a `amok.Runner` object
 
 ```js
 var amok = require('amok');
-var runner = amok.createRunner();
+
+amok.createRunner()
+  .set('directory', process.cwd())
+  .use(function(client, runner, done) {
+    console.log(runner.get('directory'));
+  })
+  .connect('localhost', 9222, function() {
+    console.log('connected')
+  });
 ```
 
 ## SEE ALSO

@@ -1,6 +1,8 @@
 ---
 ---
 
+# amok
+
 **Amok** is a free open source, editor agnostic, cross-platform command line
 tool for fast incremental development, testing and debugging in web browsers.
 
@@ -8,7 +10,7 @@ It features a zero configuration http server with default *index.html*
 generation, script preprocessing, console re-direction, hot patching functions
 in running code and a read-eval-print-loop.
 
-[See the demonstration video](http://www.youtube.com/watch?v=gOC2yQFsnnE).
+[Watch the video](http://www.youtube.com/watch?v=gOC2yQFsnnE).
 
 ## INSTALLATION
 
@@ -19,12 +21,12 @@ $ npm install amok
 ## USAGE
 
 ```sh
-$ amok --browser --hot chrome index.js
+$ amok --hot --browser chrome index.js
 ```
 
 ## DOCUMENTATION
 
-[See the manuals](man/readme.md).
+See the [getting started](getting_started.md) guide, [examples](example/readme.md) and [manuals](man/readme.md).
 
 ## SUPPORT
 
@@ -49,7 +51,7 @@ The project is free and open source, and has been backed by a number of
 [Webflow](http://webflow.com), [Apperson Labs](http://appersonlabs.com) and
 [Daft Developers](http://daftdevelopers.com).
 
-If you would like to support development of the project consider contributing via [Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=E6AAA7DLLQU36&lc=NO&item_name=amok%2ejs&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted),
+If you would like to support the on-going development of the project please consider contributing via [Patreon](https://www.patreon.com/caspervonb) or  [Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=E6AAA7DLLQU36&lc=NO&item_name=amok%2ejs&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted),
 **every penny helps**.
 
 <table>
