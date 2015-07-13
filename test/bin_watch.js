@@ -4,6 +4,7 @@ var test = require('tape');
 var fs = require('fs');
 var path = require('path');
 var url = require('url');
+var sculpt = require('sculpt');
 
 var bin = require('../package.json').bin['amok'];
 
@@ -43,26 +44,24 @@ browsers.forEach(function (browser) {
     ];
 
     ps.stdout.setEncoding('utf-8');
-    ps.stdout.on('data', function (chunk) {
-      chunk.split('\n').forEach(function (line) {
-        if (line.length === 0) {
-          return;
-        }
+    ps.stdout.pipe(sculpt.split(/\r?\n/)).on('data', function (line) {
+      if (line.length === 0) {
+        return;
+      }
 
-        test.equal(line, messages.shift(), line);
+      test.equal(line, messages.shift(), line);
 
-        if (line === 'ready') {
-          fs.writeFileSync('test/fixture/watch-events/file.txt', 'hello', 'utf-8');
-        } else if (line === 'add file.txt') {
-          fs.writeFileSync('test/fixture/watch-events/file.txt', 'hello world', 'utf-8');
-        } else if (line === 'change file.txt') {
-          fs.unlinkSync('test/fixture/watch-events/file.txt');
-        }
+      if (line === 'ready') {
+        fs.writeFileSync('test/fixture/watch-events/file.txt', 'hello', 'utf-8');
+      } else if (line === 'add file.txt') {
+        fs.writeFileSync('test/fixture/watch-events/file.txt', 'hello world', 'utf-8');
+      } else if (line === 'change file.txt') {
+        fs.unlinkSync('test/fixture/watch-events/file.txt');
+      }
 
-        if (messages.length === 0) {
-          ps.kill();
-        }
-      });
+      if (messages.length === 0) {
+        ps.kill();
+      }
     });
   });
 });
@@ -96,26 +95,24 @@ browsers.forEach(function (browser) {
     ];
 
     ps.stdout.setEncoding('utf-8');
-    ps.stdout.on('data', function (chunk) {
-      chunk.split('\n').forEach(function (line) {
-        if (line === '') {
-          return;
-        }
+    ps.stdout.pipe(sculpt.split(/\r?\n/)).on('data', function (line) {
+      if (line.length === 0) {
+        return;
+      }
 
-        test.equal(line, messages.shift(), line);
+      test.equal(line, messages.shift(), line);
 
-        if (line === 'ready') {
-          fs.writeFileSync('test/fixture/watch-events/file.txt', 'hello', 'utf-8');
-        } else if (line === 'add test/fixture/watch-events/file.txt') {
-          fs.writeFileSync('test/fixture/watch-events/file.txt', 'hello world', 'utf-8');
-        } else if (line === 'change test/fixture/watch-events/file.txt') {
-          fs.unlinkSync('test/fixture/watch-events/file.txt');
-        }
+      if (line === 'ready') {
+        fs.writeFileSync('test/fixture/watch-events/file.txt', 'hello', 'utf-8');
+      } else if (line === 'add test/fixture/watch-events/file.txt') {
+        fs.writeFileSync('test/fixture/watch-events/file.txt', 'hello world', 'utf-8');
+      } else if (line === 'change test/fixture/watch-events/file.txt') {
+        fs.unlinkSync('test/fixture/watch-events/file.txt');
+      }
 
-        if (messages.length === 0) {
-          ps.kill();
-        }
-      });
+      if (messages.length === 0) {
+        ps.kill();
+      }
     });
   });
 });
