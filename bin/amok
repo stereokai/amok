@@ -76,7 +76,7 @@ if (program.hot) {
 }
 
 if (program.browser) {
-  amok.use(amok.browser(program.browser.command, program.browser.args, process.stderr));
+  amok.use(amok.browser(program.debugPort, program.browser.command, program.browser.args, process.stderr));
 }
 
 if (program.interactive) {

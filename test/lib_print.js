@@ -10,6 +10,8 @@ var browsers = [
 ];
 
 browsers.forEach(function (browser, index) {
+  var port = 4000 + index;
+
   test('open url in ' + browser, function (test) {
     test.plan(3);
 
@@ -19,7 +21,6 @@ browsers.forEach(function (browser, index) {
     });
 
     runner.set('url', url.resolve('file://', path.join('/' + __dirname, '/fixture/basic/index.html')));
-    runner.set('port', 4000 + index);
 
     var output = new stream.Writable();
     output._write = function (chunk, encoding, callback) {
@@ -27,10 +28,10 @@ browsers.forEach(function (browser, index) {
       runner.close();
     };
 
-    runner.use(amok.browser(browser));
+    runner.use(amok.browser(port, browser));
     runner.use(amok.print(output));
 
-    runner.connect(runner.get('port'), 'localhost', function () {
+    runner.connect(port, 'localhost', function () {
       test.pass('connect');
     });
   });

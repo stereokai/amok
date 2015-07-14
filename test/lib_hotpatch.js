@@ -11,6 +11,8 @@ var browsers = [
 ];
 
 browsers.forEach(function (browser, index) {
+  var port = 4000 + index;
+
   test('hot patch basic script in ' + browser, function (test) {
     test.plan(35);
 
@@ -20,12 +22,11 @@ browsers.forEach(function (browser, index) {
     });
 
     runner.set('url', url.resolve('file://', path.join('/' + __dirname, '/fixture/hotpatch-basic/index.html')));
-    runner.set('port', 4000 + index);
 
-    runner.use(amok.browser(browser));
+    runner.use(amok.browser(port, browser));
     runner.use(amok.hotpatch('test/fixture/hotpatch-basic/*.js'));
 
-    runner.connect(runner.get('port'), 'localhost', function () {
+    runner.connect(port, 'localhost', function () {
       test.pass('connect');
 
       var values = [
@@ -68,6 +69,8 @@ browsers.forEach(function (browser, index) {
 });
 
 browsers.forEach(function (browser, index) {
+  var port = 4000 + index;
+
   test('hot patch events in ' + browser, function (test) {
     test.plan(6);
 
@@ -78,12 +81,11 @@ browsers.forEach(function (browser, index) {
 
     runner.set('cwd', 'test/fixture/hotpatch-events');
     runner.set('url', url.resolve('file://', path.join('/' + __dirname, '/fixture/hotpatch-events/index.html')));
-    runner.set('port', 4000 + index);
 
-    runner.use(amok.browser(browser));
+    runner.use(amok.browser(port, browser));
     runner.use(amok.hotpatch('test/fixture/hotpatch-events/*.js'));
 
-    runner.connect(runner.get('port'), 'localhost', function () {
+    runner.connect(port, 'localhost', function () {
       test.pass('connect');
 
       var values = [

@@ -10,6 +10,8 @@ var browsers = [
 ];
 
 browsers.forEach(function (browser, index) {
+  var port = 4000 + index;
+
   test('watch events in ' + browser, function (test) {
     test.plan(7);
 
@@ -19,13 +21,12 @@ browsers.forEach(function (browser, index) {
     });
 
     runner.set('url', url.resolve('file://', path.join('/' + __dirname, '/fixture/watch-events/index.html')));
-    runner.set('port', 4000 + index);
 
     runner.set('cwd', 'test/fixture/watch-events');
-    runner.use(amok.browser(browser));
+    runner.use(amok.browser(port, browser));
     runner.use(amok.watch('*.txt'));
 
-    runner.connect(runner.get('port'), 'localhost', function () {
+    runner.connect(port, 'localhost', function () {
       test.pass('connect');
 
       var values = [

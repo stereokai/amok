@@ -9,6 +9,7 @@ var browsers = [
 ];
 
 browsers.forEach(function (browser, index) {
+  var port = 4000 + index;
   var compilers = [
     'babel',
     'coffee',
@@ -33,15 +34,13 @@ browsers.forEach(function (browser, index) {
         test.pass('close');
       });
 
-      runner.set('port', 4000 + index);
-
       runner.use(amok.server(9966, 'localhost'));
       runner.use(amok.compiler(compiler, entries, process.stderr));
 
-      runner.use(amok.browser(browser));
+      runner.use(amok.browser(port, browser));
       runner.use(amok.hotpatch());
 
-      runner.connect(runner.get('port'), 'localhost', function () {
+      runner.connect(port, 'localhost', function () {
         test.pass('connect');
 
         var values = [

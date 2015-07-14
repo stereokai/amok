@@ -9,6 +9,8 @@ var commands = [
 ];
 
 commands.forEach(function (command, index) {
+  var port = 4000 + index;
+
   test('open url in ' + command, function (test) {
     test.plan(3);
 
@@ -18,10 +20,9 @@ commands.forEach(function (command, index) {
     });
 
     runner.set('url', url.resolve('file://', path.join('/' + __dirname, '/fixture/basic/index.html')));
-    runner.set('port', 4000 + index);
 
-    runner.use(amok.browser(command));
-    runner.connect(runner.get('port'), 'localhost', function () {
+    runner.use(amok.browser(port, command));
+    runner.connect(port, 'localhost', function () {
       runner.client.console.on('data', function (message) {
         test.equal(message.text, 'ready');
 
