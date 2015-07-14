@@ -64,7 +64,9 @@ if (program.url) {
 }
 
 if (program.compiler) {
-  amok.use(amok.compiler(program.compiler, program.args, process.stderr));
+  amok.use(amok.compiler(program.compiler, program.args, {
+    stdio: 'inherit'
+  }));
 }
 
 if (program.watch) {

@@ -35,7 +35,9 @@ browsers.forEach(function (browser, index) {
       });
 
       runner.use(amok.server(9966, 'localhost'));
-      runner.use(amok.compiler(compiler, entries, process.stderr));
+      runner.use(amok.compiler(compiler, entries, {
+        stdio: 'inherit'
+      }));
 
       runner.use(amok.browser(port, browser));
       runner.use(amok.hotpatch());
