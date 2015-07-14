@@ -5,11 +5,11 @@ test: test-lib test-bin
 
 test-bin:
 	git reset HEAD -- test/fixture
-	tape test/bin_*.js
+	tape test/bin*.js
 
 test-lib:
 	git reset HEAD -- test/fixture
-	tape test/lib_*.js
+	tape test/lib*.js
 
 $(PAGEDIR)/index.md: readme.md
 	echo '---\n---\n' >> $@
