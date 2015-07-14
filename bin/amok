@@ -39,8 +39,6 @@ program.option('-d, --cwd <DIR>', 'change working directory', process.cwd());
 program.parse(process.argv);
 
 amok.set('cwd', program.cwd);
-amok.set('port', program.debugPort);
-amok.set('host', program.debugHost);
 
 program.url = program.args.filter(function (arg) {
   return arg.match(/^(http|https|file|about:blank)/);
@@ -95,7 +93,7 @@ amok.on('connect', function () {
   });
 });
 
-amok.connect(amok.get('port'), amok.get('host'));
+amok.connect(program.debugPort, program.debugHost);
 
 process.on('SIGTERM', function () {
   process.exit(0);
