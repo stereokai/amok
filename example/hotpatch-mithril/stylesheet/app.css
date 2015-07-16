@@ -24,7 +24,7 @@ button {
 body {
 	font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	line-height: 1.4em;
-	background: #efefef;
+	background: #1abc9c;
 	color: #4d4d4d;
 	min-width: 230px;
 	max-width: 550px;
@@ -75,9 +75,9 @@ input[type="checkbox"] {
 	top: -155px;
 	width: 100%;
 	font-size: 100px;
-	font-weight: 100;
+	font-weight: 500;
 	text-align: center;
-	color: rgba(175, 47, 47, 0.15);
+	color: #fff;
 	-webkit-text-rendering: optimizeLegibility;
 	-moz-text-rendering: optimizeLegibility;
 	text-rendering: optimizeLegibility;
@@ -252,21 +252,6 @@ label[for='toggle-all'] {
 	height: 20px;
 	text-align: center;
 	border-top: 1px solid #e6e6e6;
-}
-
-.footer:before {
-	content: '';
-	position: absolute;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	height: 50px;
-	overflow: hidden;
-	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2),
-	            0 8px 0 -3px #f6f6f6,
-	            0 9px 1px -3px rgba(0, 0, 0, 0.2),
-	            0 16px 0 -6px #f6f6f6,
-	            0 17px 2px -6px rgba(0, 0, 0, 0.2);
 }
 
 .todo-count {
