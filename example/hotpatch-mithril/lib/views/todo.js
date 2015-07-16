@@ -15,7 +15,7 @@ var app = app || {};
     return [
       m('header.header', [
         m('h1', 'todos'),
-        m('input.new-todo[placeholder="Get something done? needs to be done?"]', {
+        m('input.new-todo[placeholder="Need something done?"]', {
           onkeypress: app.watchInput(
             m.withAttr('value', ctrl.title),
             ctrl.add.bind(ctrl, ctrl.title),
