@@ -1,25 +1,5 @@
 # GETTING STARTED
 
-* [GETTING STARTED](#getting-started)
-  * [INTRODUCTION](#introduction)
-  * [INSTALLING](#installing)
-    * [INSTALLING NODE.JS](#installing-nodejs)
-    * [INSTALLING AMOK](#installing-amok)
-  * [WORKING WITH A BROWSER](#working-with-a-browser)
-    * [CONNECTING TO AN EXISTING BROWSER](#connecting-to-an-existing-browser)
-    * [STARTING A NEW BROWSER PROCESS](#starting-a-new-browser-process)
-  * [WORKING WITH THE DEVELOPMENT SERVER](#working-with-the-development-server)
-    * [STARTING THE SERVER](#starting-the-server)
-    * [USING A PREPROCESSOR](#using-a-preprocessor)
-  * [EDITING CODE IN REALTIME](#editing-code-in-realtime)
-    * [HOT PATCHING](#hot-patching)
-    * [HOT PATCH EVENTS](#hot-patch-events)
-    * [INTERACTIVE MODE](#interactive-mode)
-  * [MONITORING THE FILE SYSTEM](#monitoring-the-file-system)
-    * [FILE SYSTEM NOTIFICATIONS](#file-system-notifications)
-    * [FILE SYSTEM EVENTS](#file-system-events)
-    * [LIVE RELOADING CSS](#live-reloading-css)
-
 ## INTRODUCTION
 
 ## INSTALLING
