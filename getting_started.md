@@ -7,6 +7,8 @@
 
 ## INSTALLING
 
+[Watch video](https://www.youtube.com/watch?v=UPrN9_EbvMM)
+
 ### INSTALLING NODE.JS
 
 Before installing amok, you need to install [node.js](http://nodejs.org) **v0.12 or greater**
@@ -15,6 +17,12 @@ since amok is written in JavaScript targeting the node runtime.
 If you're using Mac or Windows the best way to install node.js is to use one of
 the installers from [http://nodejs.org](http://nodejs.org), on Linux it should
 be available via the system package manager like `apt-get` or `yum`.
+
+To test which version of node you have run
+
+```
+$ node -v
+```
 
 ### INSTALLING AMOK
 
