@@ -1,13 +1,13 @@
 ![amok](https://cloud.githubusercontent.com/assets/157787/8890583/aef95820-3338-11e5-92fe-311bdf0106c1.png)
 
-**Amok** is a free open source, editor agnostic, cross-platform command line
-tool for fast incremental development, testing and debugging in web browsers.
+Amok is a free open source, editor agnostic, cross-platform command line
+tool for a hassle-free live development, testing and debugging workflow for web browsers.
 
-It features a zero configuration http server with default *index.html*
-generation, script preprocessing, console re-direction, hot patching functions
-in running code and a read-eval-print-loop.
+It aims to make the development workflow feel like a native script runtime with a zero configuration development server that supports pre-processing, a read-eval-print-loop and console mirroring to standard output.
 
-[Watch the video](http://www.youtube.com/watch?v=gOC2yQFsnnE).
+It has additional features to enable live editing, primarily hot patching which allows you to edit the source code of scripts that are currently active on the page, which will then be re-sourced while the application is running. There is also generic file watch events for handling hot swapping of resources in a domain specific manner, like reloading css, images, et cetera.
+
+[Watch video](http://www.youtube.com/watch?v=gOC2yQFsnnE).
 
 ## INSTALLATION
 
