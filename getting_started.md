@@ -4,6 +4,8 @@
 
 ## INSTALLING
 
+[Watch video](https://www.youtube.com/watch?v=UPrN9_EbvMM)
+
 ### INSTALLING NODE.JS
 
 Before installing amok, you need to install [node.js](http://nodejs.org) **v0.12 or greater**
