@@ -1,5 +1,7 @@
 # HOTPATCHING MITHRIL
 
+[Watch video](https://www.youtube.com/watch?v=J_03XPotBoQ)
+
 ## INSTALL
 
 ```sh
