@@ -21,8 +21,22 @@ Note that amok requires node.js **v0.12 or greater**
 
 ## USAGE
 
+Open about:blank in Google Chrome and enter a read-eval-print-loop
+
 ```sh
-$ amok --hot --browser chrome index.js
+$ amok --interactive --browser chrome about:blank
+```
+
+Start a server that generates an index.html page with the given index.js file as a script element.
+
+```sh
+$ amok --browser chrome index.js
+```
+
+Open chrome with hot patching enabled for the specified entry point
+
+```sh
+$ amok --browser chrome --hot file://$PWD/index.html
 ```
 
 ## DOCUMENTATION
