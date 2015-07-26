@@ -4,7 +4,9 @@
 # DOCUMENTATION
 
 ## AUXILIRARY
+
 - [GETTING STARTED](../getting_started.md)
+- [EXAMPLES](../examples/readme.md)
 
 ## MANUALS
 See the manual pages for further information

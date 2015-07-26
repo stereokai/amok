@@ -1,27 +1,45 @@
 ---
 ---
 
-# amok
+![amok](https://cloud.githubusercontent.com/assets/157787/8890583/aef95820-3338-11e5-92fe-311bdf0106c1.png)
 
-**Amok** is a free open source, editor agnostic, cross-platform command line
-tool for fast incremental development, testing and debugging in web browsers.
+Amok is a free open source, editor agnostic, cross-platform command line
+tool for a hassle-free live development, testing and debugging workflow for web browsers.
 
-It features a zero configuration http server with default *index.html*
-generation, script preprocessing, console re-direction, hot patching functions
-in running code and a read-eval-print-loop.
+It aims to make the development workflow feel like a native script runtime with a zero configuration development server that supports pre-processing, a read-eval-print-loop and console mirroring to standard output.
 
-[Watch the video](http://www.youtube.com/watch?v=gOC2yQFsnnE).
+It has additional features to enable live editing, primarily hot patching which allows you to edit the source code of scripts that are currently active on the page, which will then be re-sourced while the application is running. There is also generic file watch events for handling hot swapping of resources in a domain specific manner, like reloading css, images, et cetera.
+
+[Watch video](http://www.youtube.com/watch?v=gOC2yQFsnnE).
 
 ## INSTALLATION
 
+Install through npm
+
 ```sh
-$ npm install amok
+$ npm install --global amok
 ```
+
+Note that amok requires node.js **v0.12 or greater**
 
 ## USAGE
 
+Open about:blank in Google Chrome and enter a read-eval-print-loop
+
 ```sh
-$ amok --hot --browser chrome index.js
+$ amok --interactive --browser chrome about:blank
+```
+
+Start a server that generates an index.html page with the given index.js file as a script element.
+
+```sh
+$ amok --browser chrome index.js
+```
+
+Open chrome with hot patching enabled for the specified entry point
+
+```sh
+$ amok --browser chrome --hot file://$PWD/index.html
 ```
 
 ## DOCUMENTATION
@@ -51,9 +69,6 @@ The project is free and open source, and has been backed by a number of
 [Webflow](http://webflow.com), [Apperson Labs](http://appersonlabs.com) and
 [Daft Developers](http://daftdevelopers.com).
 
-If you would like to support the on-going development of the project please consider contributing via [Patreon](https://www.patreon.com/caspervonb) or  [Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=E6AAA7DLLQU36&lc=NO&item_name=amok%2ejs&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted),
-**every penny helps**.
-
 <table>
   <tr>
     <th><img src="https://cloud.githubusercontent.com/assets/157787/8017972/6413d068-0c39-11e5-9b14-bbc9057976d1.png"/></th>
@@ -61,3 +76,7 @@ If you would like to support the on-going development of the project please cons
     <th><img src="https://cloud.githubusercontent.com/assets/157787/8017975/7e9595ac-0c39-11e5-9d71-a6fd34e821f0.png"/></th>
   </tr>
 </table>
+
+The last funding round was in early 2015, and the project is currently looking for more sponsorship, individual or organizational backers, every penny helps [patreon](http://patreon.com/caspervonb).
+
+[![Patreon](https://cloud.githubusercontent.com/assets/157787/8892582/79e9f8d8-3392-11e5-8714-663b153a686b.png)](http://patreon.com/caspervonb)

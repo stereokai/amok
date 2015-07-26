@@ -3,33 +3,13 @@
 
 # GETTING STARTED
 
-* [GETTING STARTED](#getting-started)
-  * [INTRODUCTION](#introduction)
-  * [INSTALLING](#installing)
-    * [INSTALLING NODE.JS](#installing-nodejs)
-    * [INSTALLING AMOK](#installing-amok)
-  * [WORKING WITH A BROWSER](#working-with-a-browser)
-    * [CONNECTING TO AN EXISTING BROWSER](#connecting-to-an-existing-browser)
-    * [STARTING A NEW BROWSER PROCESS](#starting-a-new-browser-process)
-  * [WORKING WITH THE DEVELOPMENT SERVER](#working-with-the-development-server)
-    * [STARTING THE SERVER](#starting-the-server)
-    * [USING A PREPROCESSOR](#using-a-preprocessor)
-  * [EDITING CODE IN REALTIME](#editing-code-in-realtime)
-    * [HOT PATCHING](#hot-patching)
-    * [HOT PATCH EVENTS](#hot-patch-events)
-    * [INTERACTIVE MODE](#interactive-mode)
-  * [MONITORING THE FILE SYSTEM](#monitoring-the-file-system)
-    * [FILE SYSTEM NOTIFICATIONS](#file-system-notifications)
-    * [FILE SYSTEM EVENTS](#file-system-events)
-    * [LIVE RELOADING CSS](#live-reloading-css)
-
 ## INTRODUCTION
 
 ## INSTALLING
 
 ### INSTALLING NODE.JS
 
-Before installing amok, you need to install [node.js](http://nodejs.org) v0.12 or greater
+Before installing amok, you need to install [node.js](http://nodejs.org) **v0.12 or greater**
 since amok is written in JavaScript targeting the node runtime.
 
 If you're using Mac or Windows the best way to install node.js is to use one of
@@ -53,6 +33,7 @@ elevated user privileges.
 If you see any errors regarding optional dependencies during the installation you can safely ignore them.
 
 ## WORKING WITH A BROWSER
+
 ### CONNECTING TO AN EXISTING BROWSER
 
 You can connect to a page in an existing browser page by providing amok with the url of that page.
@@ -153,6 +134,7 @@ $ amok --compiler babel index.js -- --source-maps
 ```
 
 ## EDITING CODE IN REALTIME
+
 ### HOT PATCHING
 
 You can edit and tweak code live without reloading by passing the `--hot` option,
