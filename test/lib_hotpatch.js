@@ -68,7 +68,7 @@ browsers.forEach(function (browser, index) {
 });
 
 browsers.forEach(function (browser, index) {
-  var port = 4000 + index;
+  var port = 4100 + index;
 
   test('hot patch events in ' + browser, function (test) {
     test.plan(6);
