@@ -61,10 +61,6 @@ The project is licensed under the [MIT License](license.md).
 
 ## SPONSORS
 
-The project is currently in dire need of funding, if you would like to support it on patreon, you would be awesome.
-
-[![Patreon](https://cloud.githubusercontent.com/assets/157787/8892582/79e9f8d8-3392-11e5-8714-663b153a686b.png)](http://patreon.com/caspervonb)
-
 The project is free and open source, and has been backed by a number of
 [individuals and organizations](backers.md), a special thanks goes out to
 [Webflow](http://webflow.com), [Apperson Labs](http://appersonlabs.com) and
@@ -77,3 +73,7 @@ The project is free and open source, and has been backed by a number of
     <th><img src="https://cloud.githubusercontent.com/assets/157787/8017975/7e9595ac-0c39-11e5-9d71-a6fd34e821f0.png"/></th>
   </tr>
 </table>
+
+The last funding round was in early 2015, and the project is currently looking for more sponsorship, individual or organizational backers, every penny helps [patreon](http://patreon.com/caspervonb).
+
+[![Patreon](https://cloud.githubusercontent.com/assets/157787/8892582/79e9f8d8-3392-11e5-8714-663b153a686b.png)](http://patreon.com/caspervonb)
