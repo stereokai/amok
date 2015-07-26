@@ -11,9 +11,13 @@ It has additional features to enable live editing, primarily hot patching which 
 
 ## INSTALLATION
 
+Install through npm
+
 ```sh
-$ npm install amok
+$ npm install --global amok
 ```
+
+Note that amok requires node.js **v0.12 or greater**
 
 ## USAGE
 
