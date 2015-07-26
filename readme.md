@@ -61,13 +61,14 @@ The project is licensed under the [MIT License](license.md).
 
 ## SPONSORS
 
+The project is currently in dire need of funding, if you would like to support it on patreon, you would be awesome.
+
+[![Patreon](https://cloud.githubusercontent.com/assets/157787/8892582/79e9f8d8-3392-11e5-8714-663b153a686b.png)](http://patreon.com/caspervonb)
+
 The project is free and open source, and has been backed by a number of
 [individuals and organizations](backers.md), a special thanks goes out to
 [Webflow](http://webflow.com), [Apperson Labs](http://appersonlabs.com) and
 [Daft Developers](http://daftdevelopers.com).
-
-If you would like to support the on-going development of the project please consider contributing via [Patreon](https://www.patreon.com/caspervonb) or  [Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=E6AAA7DLLQU36&lc=NO&item_name=amok%2ejs&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted),
-**every penny helps**.
 
 <table>
   <tr>
