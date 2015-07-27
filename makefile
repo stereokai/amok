@@ -1,7 +1,7 @@
 MDDIR    := .
 MD       := $(wildcard **/*.md)
 
-PAGEDIR  := gh-pages
+PAGEDIR  := .page
 PAGE     := $(patsubst %.md, $(PAGEDIR)/%.md, $(patsubst %readme.md, %index.md, $(MD)))
 
 test: test-lib test-bin
