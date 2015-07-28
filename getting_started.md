@@ -58,8 +58,8 @@ In order to realiably create a new seperate instance of a browser, you will have
 if the profile does not exist in the specified path it will be created.
 
 ```sh
-google-chrome --user-data-dir=~/profile1
-google-chrome --user-data-dir=~/profile2
+chrome --user-data-dir=~/profile1
+chrome --user-data-dir=~/profile2
 ```
 
 ### STARTING A NEW BROWSER PROCESS
@@ -70,9 +70,6 @@ valid values for the browser options are `chrome` and `chromium`.
 ```sh
 $ amok --browser chrome http://localhost:4000
 ```
-
-If the browser is already running and listening for connections on the port defined by `--debug-port` it will open a new tab in that browser,
-if not it will start a new browser process listening for debug connections on the port defined by the `--debug-port` option.
 
 If you don't have the browser installed in a default vendor location,
 you can set the full path of the executable with the `<BROWSER>_BIN` environment variable.
@@ -108,7 +105,7 @@ export CHROME_FLAGS="--user-data-dir=~/.myprofile"
 
 ### STARTING THE SERVER
 
-If you give amok one or more files instead of a url, it will start a http server that serves all the files in the working directory, listening on the port and address defined by `--http-port` and `--http-host`.
+If you give amok one or more script files instead of a url, it will start a http server that serves all the files in the working directory, listening on the port and address defined by `--http-port` and `--http-host`.
 
 ```sh
 $ amok index.js
@@ -118,8 +115,8 @@ This server will generate an index.html which contains script tags for all the i
 
 ### USING A PREPROCESSOR
 
-While using the server you can also specify the `--compiler` option to enable incremental preprocessing of input files,
-the preprocessed output will be saved in a temporary file and served in-place of the original input files.
+You can also specify the `--compiler` option to enable incremental preprocessing of input files,
+the preprocessed output will be written to temporary file(s) and served in-place of the original input files.
 
 Valid values for the `--compiler` option are `babel`, `coffee`, `tsc`, `watchify` and `webpack`.
 
@@ -134,30 +131,31 @@ everything after that will be passed directly to the compiler.
 $ amok --compiler babel index.js -- --source-maps
 ```
 
-## EDITING CODE IN REALTIME
+## LIVE EDITING CODE
 
 ### HOT PATCHING
 
 You can edit and tweak code live without reloading by passing the `--hot` option,
-this will monitor active scripts and patch their source definitions in the runtime while the code is running.
+this will monitor active scripts as they are loaded and patch their source definitions in the runtime allowing you to live edit code.
 
 ```sh
 $ amok --hot index.js
 ```
 
-Changes to scripts are only executed at evaluation time, meaning that modifications to code that has already executed in the **past**
-will have no effect.
+Changes to scripts are only executed at evaluation time,
+meaning that modifications to code that has already executed in the **past** will have no effect.
 
-Changes to code that will executed in the **future**, such as callbacks and event handlers however can be modified and tweaked in real-time.
+Changes to code that will executed in the **future**,
+such as callbacks and event handlers however can be modified and tweaked in real-time.
 
 ### HOT PATCH EVENTS
 
-When a patch is applied, a `patch` event is emitted on the `window` object of the page,
-you can use this event to do additional domain specific processing.
+When a patch is applied, a `patch` event is emitted on the `window` object in the target runtime,
+you can use this event to do additional domain specific processing like forcing a framework to re-render the DOM.
 
 ### LIVE RENDERING REACT
 
-For example, you could re-render your react application or component
+For example, you could re-render your react application or component.
 
 ```
 window.addEventListener('patch', function(event) {
@@ -188,16 +186,17 @@ $ amok --interactive about:blank
 
 ### FILE SYSTEM NOTIFICATIONS
 
-If you pass `--watch` to amok, it will monitor the working directory and dispatch events on the window object when files are added,
-changed or removed. If you give it a glob pattern only files matching that pattern will be watched.
+If you pass `--watch <PATTERN>` to amok,
+it will monitor files matching the specified glob pattern and dispatch events
+on the window object when files are added, changed or removed.
 
 ```sh
-$ amok --watch about:blank
+$ amok --watch **/* about:blank
 ```
 
 ### FILE SYSTEM EVENTS
 
-When a change in the file system is detected, an `add`, `change` or `unlink` event is dispatched on the `window` object of the page.
+When a change in the file system is detected, an `add`, `change` or `unlink` event is dispatched on the `window` in the target runtime.
 
 ```js
 window.on('add', function(event) {
