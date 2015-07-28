@@ -4,7 +4,7 @@
 
 ## INSTALLING
 
-[Watch video](https://www.youtube.com/watch?v=UPrN9_EbvMM)
+[Watch video](https://www.youtube.com/watch?v=jj5S5hlY2t8)
 
 ### INSTALLING NODE.JS
 
