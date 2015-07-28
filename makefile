@@ -1,5 +1,5 @@
 MDDIR    := .
-MD       := $(wildcard *.md) $(wildcard **/*.md)
+MD       := $(wildcard *.md **/*.md)
 
 PAGEDIR  := .page
 PAGE     := $(patsubst %.md, $(PAGEDIR)/%.md, $(patsubst %readme.md, %index.md, $(MD)))
