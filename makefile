@@ -15,17 +15,17 @@ test-lib:
 	tape test/lib*.js
 
 $(PAGEDIR)/index.md: readme.md
-	echo '---\n---\n' >> $@
+	echo '---\n---\n' > $@
 	cat $< >> $@
 
 $(PAGEDIR)/%index.md: %readme.md
 	mkdir -p $(@D)
-	echo '---\n---\n' >> $@
+	echo '---\n---\n' > $@
 	cat $< >> $@
 
 $(PAGEDIR)/%.md: %.md
 	mkdir -p $(@D)
-	echo '---\n---\n' >> $@
+	echo '---\n---\n' > $@
 	cat $< >> $@
 
 $(PAGE): | $(PAGEDIR)
