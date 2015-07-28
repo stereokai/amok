@@ -33,6 +33,8 @@ If you see any errors regarding optional dependencies during the installation yo
 
 ## WORKING WITH A BROWSER
 
+[Watch video](https://www.youtube.com/watch?v=A4lf8aRaVeQ)
+
 ### CONNECTING TO AN EXISTING BROWSER
 
 You can connect to a page in an existing browser page by providing amok with the url of that page.
