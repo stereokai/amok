@@ -14,11 +14,11 @@ browsers.forEach(function (browser, index) {
   var port = 4000 + index;
 
   test('hot patch basic script in ' + browser, function (test) {
-    test.plan(35);
+    test.plan(34);
 
     var runner = amok.createRunner();
-    runner.on('close', function () {
-      test.pass('close');
+    test.on('end', function () {
+      runner.close();
     });
 
     runner.set('url', url.resolve('file://', path.join('/' + __dirname, '/fixture/hotpatch-basic/index.html')));
@@ -48,10 +48,11 @@ browsers.forEach(function (browser, index) {
 
       runner.client.console.on('data', function (message) {
         test.equal(message.text, values.shift(), message.text);
-
-        if (values[0] === undefined) {
-          runner.close();
-        } else if (message.text.match(/step/)) {
+        if (values.length === 0) {
+          return;
+        }
+       
+        if (message.text.match(/step/)) {
           source = source.replace(message.text, values[0]);
           test.notEqual(source, fs.readFileSync('test/fixture/hotpatch-basic/index.js'));
 

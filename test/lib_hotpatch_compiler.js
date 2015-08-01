@@ -20,7 +20,7 @@ browsers.forEach(function (browser, index) {
 
   compilers.forEach(function (compiler) {
     test('hot patch basic script compiled with ' + compiler + ' in ' + browser, function (test) {
-      test.plan(35);
+      test.plan(34);
 
       var dirname = 'test/fixture/hotpatch-' + compiler;
       var entries = fs.readdirSync(dirname).map(function (filename) {
@@ -30,8 +30,8 @@ browsers.forEach(function (browser, index) {
       });
 
       var runner = amok.createRunner();
-      runner.on('close', function () {
-        test.pass('close');
+      test.on('end', function () {
+        runner.close();
       });
 
       runner.use(amok.server(9966, 'localhost'));
@@ -64,10 +64,11 @@ browsers.forEach(function (browser, index) {
 
         runner.client.console.on('data', function (message) {
           test.equal(message.text, values.shift(), message.text);
+          if (values.length === 0) {
+            return;
+          }
 
-          if (values[0] === undefined) {
-            runner.close();
-          } else if (message.text.match(/step/)) {
+          if (message.text.match(/step/)) {
             source = source.replace(message.text, values[0]);
             test.notEqual(source, fs.readFileSync(entries[0]));
 

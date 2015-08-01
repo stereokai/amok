@@ -13,11 +13,11 @@ browsers.forEach(function (browser, index) {
   var port = 4000 + index;
 
   test('watch events in ' + browser, function (test) {
-    test.plan(7);
+    test.plan(6);
 
     var runner = amok.createRunner();
-    runner.on('close', function () {
-      test.pass('close');
+    test.on('end', function () {
+      runner.close();
     });
 
     runner.set('url', url.resolve('file://', path.join('/' + __dirname, '/fixture/watch-events/index.html')));

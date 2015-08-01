@@ -13,11 +13,11 @@ browsers.forEach(function (browser, index) {
   var port = 4000 + index;
 
   test('open url in ' + browser, function (test) {
-    test.plan(3);
+    test.plan(2);
 
     var runner = amok.createRunner();
-    runner.on('close', function () {
-      test.pass('close');
+    test.on('end', function () {
+      runner.close();
     });
 
     runner.set('url', url.resolve('file://', path.join('/' + __dirname, '/fixture/basic/index.html')));
@@ -25,7 +25,6 @@ browsers.forEach(function (browser, index) {
     var output = new stream.Writable();
     output._write = function (chunk, encoding, callback) {
       test.assert(chunk, 'ready\n');
-      runner.close();
     };
 
     runner.use(amok.browser(port, browser));

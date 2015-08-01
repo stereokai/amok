@@ -16,6 +16,9 @@ commands.forEach(function (command, index) {
     test.plan(5);
 
     var runner = amok.createRunner();
+    test.on('end', function () {
+      runner.close();
+    });
 
     var dirname = 'test/fixture/compile-' + command;
     var entries = fs.readdirSync(dirname).map(function (filename) {
@@ -36,7 +39,6 @@ commands.forEach(function (command, index) {
 
       test.equal(pathnames.length, 1);
       test.equal(fs.readFileSync(filename, 'utf-8'), fs.readFileSync(path.join(dirname, 'out.js'), 'utf-8'));
-      runner.close();
     });
   });
 });
