@@ -36,7 +36,6 @@ test('serve index.html', function (test) {
         hostname: 'localhost',
         path: pathname
       }, function (response) {
-        test.comment(pathname);
         test.equal(response.statusCode, 200);
 
         response.setEncoding('utf-8');
@@ -91,7 +90,6 @@ test('generate index.html', function (test) {
         hostname: 'localhost',
         path: pathname
       }, function (response) {
-        test.comment(pathname);
         test.equal(response.statusCode, 200);
 
         response.setEncoding('utf-8');
@@ -196,7 +194,6 @@ test('generate index.html', function (test) {
         hostname: 'localhost',
         path: pathname
       }, function (response) {
-        test.comment(pathname);
         test.equal(response.statusCode, 200);
 
         response.setEncoding('utf-8');
@@ -258,7 +255,6 @@ test('serve scripts', function (test) {
         hostname: 'localhost',
         path: url.resolve('/', pathname)
       }, function (response) {
-        test.comment(pathname);
         test.equal(response.statusCode, 200);
 
         response.setEncoding('utf-8');
