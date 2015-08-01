@@ -14,7 +14,7 @@ var browsers = [
 ];
 
 var compilers = [
-  'babel',
+  // 'babel',
   'coffee',
   'tsc',
   'watchify',

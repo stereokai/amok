@@ -11,7 +11,7 @@ var browsers = [
 browsers.forEach(function (browser, index) {
   var port = 4000 + index;
   var compilers = [
-    'babel',
+    // 'babel',
     'coffee',
     'tsc',
     'watchify',
